@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d34cd46e57ce2a44b5ae1a4ad62024e, type: 3}
+  m_Name: Gold_Ore
+  m_EditorClassIdentifier: 
+  _id: ORE001
+  _name: Golden ore
+  _description: 
+  _icon: {fileID: 0}
+  _prefab: {fileID: 1873083684769616702, guid: 3ea82fd7cb67bed469fb5a1c57c5a912, type: 3}
+  _slotType: 1
