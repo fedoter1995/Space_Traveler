@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Increased_Physical_Damage_Flat
   m_EditorClassIdentifier: 
   _modifierName: Increased_Physical_Damage_Flat
+  _description: "\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0443\u0440\u043E\u043D"
   _type: 0
   _zoneOfInfluence:
   - {fileID: 11400000, guid: 4b80589b9b9123c4791247993da4618b, type: 2}

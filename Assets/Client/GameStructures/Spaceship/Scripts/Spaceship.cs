@@ -6,26 +6,36 @@ using Stats;
 using CustomTools;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using GameStructures.Hit;
+using GameStructures.Effects;
 
-[RequireComponent(typeof(SpaceShipController),typeof(ShipStatsHandler),typeof(EquipmentHandler))]
-public class Spaceship : MonoBehaviour, ITakeDamage, IJsonSerializable
-{     
+[RequireComponent(typeof(SpaceShipController))]
+public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable
+{
+    [SerializeField]
+    private Inventory _inventory = new Inventory();
+    [SerializeField]
+    private EquipmentHandler _equipment = new EquipmentHandler();
+    [SerializeField]
+    private ShipStatsHandler _stats = new ShipStatsHandler();
+
     private SpaceShipController shipController;
     private ShootController shootController;
-    private EquipmentHandler equipment;
-    private ShipStatsHandler stats;
-    private Inventory inventory;
+
     private List<IJsonSerializable> serializableObjects;
     
     #region Events
     public event Action ShootEvent;
-    public event Action<float> OnTakeDamageEvent;
+    public event Action<HitStats> OnTakeHitEvent;
+    public event Action<object,DamageType,DamageValue> OnTakeDamageEvent;
     #endregion
 
     public Observable<int> HealthPoints { get; private set; }
     public SpaceShipController Controller => shipController;
-    public ShipStatsHandler Stats => stats;
-    public EquipmentHandler Equipment => equipment;
+    public ShipStatsHandler Stats => _stats;
+    public EquipmentHandler Equipment => _equipment;
+    public Inventory Inventory => _inventory;
+
 
     private float offset = -90;
     private float move = 0;
@@ -34,28 +44,21 @@ public class Spaceship : MonoBehaviour, ITakeDamage, IJsonSerializable
 
 
 
-    #region Ship Movement
-
-    private void SpaceShipRotation_MouseTracking()
-    {
-        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        var angle = Vector2.Angle(Vector2.right, mousePosition - transform.position);
-        var _tempEulerAngles = new Vector3(0f, 0f, transform.position.y < mousePosition.y ? angle + offset : -angle + offset);
-        var target = Quaternion.Euler(_tempEulerAngles);
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, target, Time.deltaTime * stats.SwingSpeed);
-
-    }
-
-    #endregion
 
     public void Initialize()
     {
+        var inventory = Architecture.Game.GetInteractor<InventoryInteractor>().collection;
+        var equipment = Architecture.Game.GetInteractor<EquipmentInteractor>().equipment;
+        var statsHandler = Architecture.Game.GetInteractor<SpaceshipStatsHandlerInteractor>().statsHandler;
         var manager = new KeyboardInputManager();
-        equipment.EquipmentInitialize();
+        _inventory = inventory;
+        _equipment = equipment;
+        _stats = statsHandler;
+
+        _equipment.EquipmentInitialize();
+        _stats.Initialize();
         shootController.Initialize(manager, this);
         shipController.Initialize(manager, this);
-        stats.Initialize();
         HealthPoints = new Observable<int>((int)Stats.HealthPoints);
     }
 
@@ -63,14 +66,24 @@ public class Spaceship : MonoBehaviour, ITakeDamage, IJsonSerializable
     #region OnTrigger
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        var obj = collision.GetComponent<ItemObject>();
+        if (obj != null)
+            _inventory.TryToAddToCollection(obj, obj.ItemSlot.CurrentItem, obj.ItemSlot.Amount);
     }
     #endregion
 
-    public void TakeDamage(ShotDamage damage)
+    public void TakeDamage(HitDamage damage)
     {
-        var damageDone = TakeDamageHandler.CalculateDamage(damage, new System.Collections.Generic.List<Resistance>());
-        HealthPoints.Value -= damageDone;
+        foreach (KeyValuePair<DamageType, DamageValue> entry in damage.DamageTypeValueDict)
+        {
+            Debug.Log(entry.Key);
+            Debug.Log(entry.Value);
+            HealthPoints.Value -= entry.Value.intNumber;
+            OnTakeDamageEvent?.Invoke(this, entry.Key, entry.Value);
+        }
+
+        if (HealthPoints.Value <= 0)
+            Debug.Log("Game Over");
     }
 
     public void ShootSound(AudioClip clip)
@@ -84,16 +97,10 @@ public class Spaceship : MonoBehaviour, ITakeDamage, IJsonSerializable
     {
         serializableObjects = new List<IJsonSerializable>();
 
-        stats = MyTools.GetComponent<ShipStatsHandler>(gameObject);
         shipController = MyTools.GetComponent<SpaceShipController>(gameObject);
         shootController = MyTools.GetComponent<ShootController>(gameObject);
-        equipment = MyTools.GetComponent<EquipmentHandler>(gameObject);
-        inventory = MyTools.GetComponent<Inventory>(gameObject);
-        
-        serializableObjects.Add(equipment);
-        serializableObjects.Add(inventory);
-    }
 
+    }
     public void SetObjectData(Dictionary<string, object> data)
     {
         GetComponents();
@@ -108,14 +115,8 @@ public class Spaceship : MonoBehaviour, ITakeDamage, IJsonSerializable
                     var newData = jobj.ToObject<Dictionary<string, object>>();
                     obj.SetObjectData(newData);
                 }
-                else
-                {
-                    obj.SetObjectData(null);
-                }
-
             }
         }
-        Initialize();
     }
 
     public Dictionary<string, object> GetObjectData()
@@ -129,5 +130,10 @@ public class Spaceship : MonoBehaviour, ITakeDamage, IJsonSerializable
         return dict;
     }
 
+    public void TakeHit(Hit hit)
+    {
+        var dmg = hit.GetHitDamage(Stats.Resistances);
+        TakeDamage(dmg);
+    }
 }
 

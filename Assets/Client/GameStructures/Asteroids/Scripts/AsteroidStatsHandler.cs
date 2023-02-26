@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Stats;
 using UnityEngine;
-
+[Serializable]
 public class AsteroidStatsHandler : StatsHandler
 {
 
@@ -39,14 +39,15 @@ public class AsteroidStatsHandler : StatsHandler
         CalculateValuesInList(_resistances);
         CalculateValuesInList(_damages);
     }
-    public ShotDamage GetShotDamage()
+    public HitDamage GetShotDamage()
     {
-        var DamageTypeValueDict = new Dictionary<DamageType, float>();
+        var DamageTypeValueDict = new Dictionary<DamageType, DamageValue>();
         foreach (Damage damage in _damages)
         {
             try
             {
-                DamageTypeValueDict.Add(damage.Type, damage.Value);
+                var dmgValue = new DamageValue((int)damage.Value);
+                DamageTypeValueDict.Add(damage.Type, dmgValue);
             }
             catch
             {
@@ -54,7 +55,7 @@ public class AsteroidStatsHandler : StatsHandler
             }
         }
 
-        ShotDamage shotDamage = new ShotDamage(DamageTypeValueDict);
+        HitDamage shotDamage = new HitDamage(DamageTypeValueDict);
 
         return shotDamage;
     }

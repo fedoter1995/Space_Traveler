@@ -87,7 +87,23 @@ namespace Architecture
 
             return allComponents;
         }
+        public bool HaveComponent<P>() where P : IArchitectureComponent
+        {
+            var type = typeof(P);
+            var founded = componentsMap.TryGetValue(type, out var resultComponent);
 
+            if (founded)
+                return true;
+
+            var allComponents = this.componentsMap.Values;
+            foreach (var component in allComponents)
+            {
+                if (component is P resultComponent2)
+                    return true;
+            }
+
+            return false;
+        }
         public TP GetComponent<TP>() where TP : T
         {
             var type = typeof(TP);

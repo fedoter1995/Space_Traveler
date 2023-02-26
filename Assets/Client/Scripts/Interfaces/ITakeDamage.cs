@@ -3,12 +3,12 @@ using System;
 using Stats;
 
 
-public interface ITakeDamage
+public interface ITakeDamage : ITakeHit
 {
     Observable<int> HealthPoints { get; }
 
     //arg == received damage
-    event Action<float> OnTakeDamageEvent;
-    void TakeDamage(ShotDamage damage);
+    event Action<int> OnTakeDamageEvent;
+    void TakeDamage(int damage);
 }
 

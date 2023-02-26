@@ -28,7 +28,18 @@ namespace Architecture.Saves
 
         public void SetObjectData(Dictionary<string, Dictionary<string, object>> obj)
         {
-            Data = new Dictionary<string, Dictionary<string, object>>(obj);
+
+            foreach (KeyValuePair<string, Dictionary<string, object>> entry in obj)
+            {
+                if(Data.ContainsKey(entry.Key))
+                {
+                    Data[entry.Key] = entry.Value;
+                }
+                else
+                {
+                    Data.Add(entry.Key, entry.Value);
+                }
+            }
         }
         public Dictionary<string, object> GetObjectData(string key)
         {

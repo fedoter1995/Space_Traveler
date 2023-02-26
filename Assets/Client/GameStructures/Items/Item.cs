@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Item/New_Item")]
-public class Item : ScriptableObject
+public class Item : ScriptableObject, IHaveDescription
 {
     [SerializeField] private string _id;
     [SerializeField] private string _name;
@@ -18,6 +18,10 @@ public class Item : ScriptableObject
     public ItemObject Prefab => _prefab;
     public SlotType SlotType => _slotType;
 
+    public virtual DescriptionData GetDescriptionData()
+    {
+        return new DescriptionData(_description, _name, null, _icon);
+    }
 
     public void Initialize(Item item)
     {

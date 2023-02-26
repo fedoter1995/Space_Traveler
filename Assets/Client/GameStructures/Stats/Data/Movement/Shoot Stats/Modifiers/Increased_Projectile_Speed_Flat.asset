@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Increased_Projectile_Speed_Flat
   m_EditorClassIdentifier: 
   _modifierName: Increased projectile speed flat
+  _description: "\u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u0441\u043D\u0430\u0440\u044F\u0434\u0430"
   _type: 0
   _zoneOfInfluence:
   - {fileID: 11400000, guid: 0077d77b70c673a49aade32a2f025412, type: 2}

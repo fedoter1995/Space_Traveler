@@ -24,9 +24,12 @@ namespace Architecture
 
         IScene sceneActual { get; }
         Dictionary<string, SceneConfig> scenesConfigMap { get; }
-
+        SaveDataController saveController { get; }
+        EnvironmentSettings CurrentEnvironment { get; }
         List<IJsonSerializable> GetSerializableObjects();
         Coroutine LoadScene(string sceneName, UnityAction<SceneConfig> sceneLoadedCallback = null);
         Coroutine InitializeCurrentScene(UnityAction<SceneConfig> sceneLoadedCallback = null);
+
+
     }
 }

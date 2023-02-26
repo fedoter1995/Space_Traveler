@@ -10,17 +10,16 @@ class GameStatisticsInteractor : Interactor
 
     private SpaceshipInteractor playerInteractor;
     private AsteroidsInteractor asteroidsInteractor;
-    private SaveDataInteractor saveDataInteractor;
+
     public override void OnCreate()
     {
         statistics = new GameStatistics();
         GetInteractors();
-
     }
 
     public override void OnInitialize()
     {
-        var objectData = saveDataInteractor.Load(statistics.ToString());
+        var objectData = Game.saveController.Load(statistics.ToString());
         statistics.SetObjectData(objectData);
         asteroidsInteractor.asteroids.OnDestroyAsteroidEvent += statistics.OnDestroyAsteroid;
     }
@@ -29,7 +28,6 @@ class GameStatisticsInteractor : Interactor
     {
         playerInteractor = Game.GetInteractor<SpaceshipInteractor>();
         asteroidsInteractor = Game.GetInteractor<AsteroidsInteractor>();
-        saveDataInteractor = Game.GetInteractor<SaveDataInteractor>();
     }
 
     public override Dictionary<string, object> GetObjectData()

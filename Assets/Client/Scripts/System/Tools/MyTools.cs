@@ -19,6 +19,17 @@ namespace CustomTools
             return component;
             
         }
+        public static T GetComponentInChildren<T>(GameObject sender)
+        {
+
+            var component = sender.GetComponentInChildren<T>();
+
+            if (component == null)
+                throw new System.Exception($"Cant find {typeof(T)} in {sender}");
+
+            return component;
+
+        }
         public static T LoadObjectResource<T>(string fileName) where T : Object
         {
             var prefab = Resources.Load<T>(fileName);

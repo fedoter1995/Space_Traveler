@@ -13,7 +13,7 @@ public class ItemsRepository : Repository
     }
     private void ResourcesLoad()
     {
-        var objectdata = Game.GetInteractor<SaveDataInteractor>().Load(ToString());
+        var objectdata = Game.saveController.Load(ToString());
         SetObjectData(objectdata);
     }
     

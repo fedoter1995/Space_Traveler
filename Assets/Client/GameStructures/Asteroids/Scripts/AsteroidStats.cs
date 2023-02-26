@@ -22,8 +22,6 @@ public class AsteroidStats : StatsHandler
     public List<Damage> Damage => _damages;
     public int PointPrice => _price;
 
-
-
     protected override void OnValuesCalculated()
     {
         throw new System.NotImplementedException();

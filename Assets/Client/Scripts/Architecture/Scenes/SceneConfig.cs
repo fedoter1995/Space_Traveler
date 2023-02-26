@@ -22,11 +22,16 @@ namespace Architecture
         [SerializeField, ClassReference(typeof(UIController))]
         private string[] _uiControllersReferences;
 
-
+        [SerializeField]
+        private EnvironmentSettings _environment;
+        
         public string sceneName => _sceneName;
+        public EnvironmentSettings Environment => _environment;
+
         public string[] repositoriesReferences => _repositoryReferences;
         public string[] interactorsReferences => _interactorsReferences;
         public string[] uiControllersReferences => _uiControllersReferences;
+
     }
 }
 

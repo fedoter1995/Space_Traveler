@@ -13,7 +13,25 @@ public class ItemDataBase : ScriptableObject
     public string Name => _name;
     public Item GetItem(string id)
     {
-        return _items.Find(item => item.Id == id);
+        var items = _items.FindAll(stat => stat.Id == id);
+        Item item = null;
+        switch (items.Count)
+        {
+            case 1:
+                {
+                    item = items[0];
+                    break;
+                }
+            case > 1:
+                {
+                    throw new System.Exception($"Found more than one item with id = {id}");
+                }
+            case 0:
+                {
+                    throw new System.Exception($"No item with id = {id} found");
+                }
+        }
+        return item;
     }
 
 }

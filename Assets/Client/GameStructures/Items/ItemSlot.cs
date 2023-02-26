@@ -8,6 +8,12 @@ public class ItemSlot : IJsonSerializable
 { 
     [SerializeField]
     protected Item _item;
+
+    internal void Initialize()
+    {
+        throw new NotImplementedException();
+    }
+
     [SerializeField]
     protected int _amount = 0;
     public Item CurrentItem => _item;
@@ -40,7 +46,6 @@ public class ItemSlot : IJsonSerializable
         if (obj != null)
         {
             var repository = Architecture.Game.GetRepository<ItemsRepository>();
-            Debug.Log(repository.ToString());
             var id = obj["ID"].ToString();
             var amount = System.Convert.ToInt32(obj["Amount"]);
             SetItem(repository.GetItem(id));

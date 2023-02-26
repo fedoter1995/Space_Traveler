@@ -8,12 +8,13 @@ namespace Stats
     public class StatModifier
     {
         [SerializeField]
-        private StatModifierPreset _preset;
+        protected StatModifierPreset _preset;
         [SerializeField]
-        private float _value;
+        protected float _value;
 
         public StatModifierPreset Preset => _preset;
-        public string Name => _preset.Name; 
+        public string Name => _preset.Name;
+        public string Description => _preset.Description;
         public StatModType Type => _preset.Type;
         public List<StatPreset> ZoneOfInfluence => _preset.ZoneOfInfluence;
         public float Value => _value;
@@ -31,6 +32,15 @@ namespace Stats
         {
             _preset = preset;
             _value = value;
+        }
+        public List<string> GetDescriptionData()
+        {
+            var desList = new List<string>();
+            var str = $"{Description} {Value}";
+
+            desList.Add(str);
+
+            return desList;
         }
     }
 }

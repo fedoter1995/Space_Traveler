@@ -4,11 +4,12 @@ using UnityEngine;
 using Architecture;
 public class BreakableAsteroid : Asteroid
 {
-
+    
     [SerializeField, Header("Break Settings")]
     private int _numberOfFragments = 2;
     [SerializeField]
     private AsteroidType _fragmentsType;
+    
     public override void DestroyAsteroid()
     {
         var interactor = Game.GetInteractor<AsteroidsInteractor>();

@@ -5,9 +5,10 @@ using UnityEngine;
 using Stats;
 using CustomTools;
 using System.Runtime.Serialization;
+using GameStructures.Asteroids;
+using GameStructures.Hit;
 
-[RequireComponent(typeof(AsteroidStatsHandler))]
-public class Asteroid : MonoBehaviour, ITakeDamage, IGivePoints,IPoolsObject<Asteroid>
+public class Asteroid : MonoBehaviour, IAsteroid, IGivePoints,IPoolsObject<Asteroid>
 {   
     [SerializeField]
     protected Vector3 _direction;
@@ -16,20 +17,23 @@ public class Asteroid : MonoBehaviour, ITakeDamage, IGivePoints,IPoolsObject<Ast
     [SerializeField]
     protected AsteroidType _type;
 
-
-    private AsteroidStatsHandler stats;
+    [SerializeField]
+    private AsteroidStatsHandler stats = new AsteroidStatsHandler();
     public AsteroidStatsHandler Stats => stats;
 
-    public event Action<float> OnTakeDamageEvent;
-    public event Action<float> OnHealthChangeEvent;
+    public event Action<object,DamageType,DamageValue> OnTakeDamageEvent;
+    public event Action<int> OnHealthChangeEvent;
     public event Action<Asteroid> OnDisableEvent;
     public event Action<Asteroid> OnDestroyEvent;
+    public event Action<HitStats> OnTakeHitEvent;
+
     public float CurrentSpeed { get; private set; }
 
     public Observable<int> HealthPoints { get; private set; }
 
     public AsteroidType Type => _type;
     public int PointPrice => stats.PointPrice;
+
 
     public virtual void Start()
     {
@@ -42,7 +46,6 @@ public class Asteroid : MonoBehaviour, ITakeDamage, IGivePoints,IPoolsObject<Ast
     }
     public virtual void Initialize()
     {
-        stats = GetComponent<AsteroidStatsHandler>();
         stats.Initialize();
         stats.CalculateValues();
         HealthPoints = new Observable<int>(Stats.HealthPoints);
@@ -64,10 +67,10 @@ public class Asteroid : MonoBehaviour, ITakeDamage, IGivePoints,IPoolsObject<Ast
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var target = collision.GetComponent<ITakeDamage>();
+        var target = collision.GetComponent<ITakeHit>();
         
         if (target != null && target is not Asteroid)
-            DealDamage(target);         
+            Hit(target);
     }
     public Vector3 GetDirection()
     {
@@ -84,19 +87,31 @@ public class Asteroid : MonoBehaviour, ITakeDamage, IGivePoints,IPoolsObject<Ast
     {
         
     }
-    public void TakeDamage(ShotDamage damage)
+    public void TakeDamage(HitDamage damage)
     {
-        var takenDamage = TakeDamageHandler.CalculateDamage(damage, stats.Resistances);
-        HealthPoints.Value -= takenDamage;
-        OnTakeDamageEvent?.Invoke(takenDamage);
+        foreach (KeyValuePair<DamageType, DamageValue> entry in damage.DamageTypeValueDict)
+        {
+            Message damageMessage = new Message(this, entry.Key, entry.Value);
+
+            HealthPoints.Value -= entry.Value.intNumber;
+            OnTakeDamageEvent?.Invoke(this, entry.Key, entry.Value);
+        }
 
         if (HealthPoints.Value <= 0)
             DestroyAsteroid();
     }
-    private void DealDamage(ITakeDamage target)
+
+    public void TakeHit(Hit hit)
     {
-        target.TakeDamage(stats.GetShotDamage());
-        DestroyAsteroid();
+        var takenDamage = hit.GetHitDamage(Stats.Resistances);
+        TakeDamage(takenDamage);
+    }
+
+    public void Hit(ITakeHit target)
+    {
+        var hitStats = new HitStats(stats.GetShotDamage());
+        var hit = new Hit(hitStats);
+        target.TakeHit(hit);
     }
 }
 [DataContract]

@@ -15,6 +15,6 @@ MonoBehaviour:
   _id: ORE002
   _name: Silver ore
   _description: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: daf2ab606d4db0d4f9ecf4c02137d2a8, type: 3}
   _prefab: {fileID: 1873083684769616702, guid: 1083870ab7d5e904188d68a16a9aa848, type: 3}
   _slotType: 1

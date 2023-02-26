@@ -1,25 +1,46 @@
 ﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using CustomTools;
+using TMPro;
+using UnityEngine.UI;
 
 public class GarageBookmark : Bookmark
 {
+
+
+    [SerializeField]
+    private GarageTab _tab;
+
+    public event Action<GarageBookmark> OnClickEvent;
+
+    
+    public override void Initialize()
+    {
+        base.Initialize();
+        _tab.Initialize();
+    }
+
     public override void MouseEnter()
     {
-        throw new NotImplementedException();
+        
     }
 
     public override void MouseExit()
     {
-        throw new NotImplementedException();
+        
+    }
+
+    public override void SetActive(bool activity)
+    {
+        _tab.SetActive(activity);
+        base.SetActive(activity);
     }
 
     public override void OnClick()
     {
-        throw new NotImplementedException();
+        OnClickEvent?.Invoke(this);
     }
 }
 

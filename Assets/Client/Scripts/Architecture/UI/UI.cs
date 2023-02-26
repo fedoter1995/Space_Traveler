@@ -12,5 +12,10 @@ namespace Architecture
         {
             controllers = new ComponentsBase<IUIController>(references);
         }
+
+        public bool HaveComponent(T controller)
+        {
+            return controllers.HaveComponent<T>();
+        }
     }
 }

@@ -1,3 +1,4 @@
+using Architecture;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,15 +6,13 @@ using UnityEngine;
 namespace Stats
 {
     [System.Serializable]
-    public abstract class BaseStat
+    public abstract class BaseStat : IJsonSerializable
     {
-        [SerializeField]
-        private string _statName;
         [SerializeField]
         protected float _baseValue;
 
         protected StatPreset statPreset;
-        public string Name { get => statPreset.Name; }
+        public string Name  => statPreset.Name; 
         [System.NonSerialized]
         protected float value;
         public float Value { get => value; }
@@ -49,6 +48,27 @@ namespace Stats
                     }           
             }
             value = newValue;
+        }
+
+        public virtual void SetObjectData(Dictionary<string, object> data)
+        {
+            var id = data["Stat_ID"].ToString();
+            var basevalue = System.Convert.ToInt32(data["Base_Value"]);
+
+            var repository = Game.GetRepository<StatsPresetRepository>();
+            statPreset = repository.GetStatPreset(id);
+            _baseValue = basevalue;
+
+        }
+
+        public virtual Dictionary<string, object> GetObjectData()
+        {
+            var data = new Dictionary<string, object>();
+
+            data.Add("Stat_ID", statPreset.Id);
+            data.Add("Base_Value", _baseValue);
+
+            return data;
         }
     }
 }

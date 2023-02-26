@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Stats
 {
-    public abstract class StatsHandler : MonoBehaviour
+    [Serializable]
+    public abstract class StatsHandler
     {
 
         /// A set of basic stats
         [SerializeField]
-        private EnvironmentSettings _environment;
+        protected EnvironmentSettings _environment;
 
         [SerializeField,Header("Standart Stats")]
         protected List<Stat> _stats;

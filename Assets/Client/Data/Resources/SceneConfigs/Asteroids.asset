@@ -15,9 +15,14 @@ MonoBehaviour:
   _sceneName: Asteroids
   _repositoryReferences:
   - ItemsRepository
+  - StatsPresetRepository
   _interactorsReferences:
-  - SaveDataInteractor
-  - GameStatisticsInteractor
+  - AsteroidsInteractor
+  - InventoryInteractor
+  - EquipmentInteractor
+  - SpaceshipStatsHandlerInteractor
   - SpaceshipInteractor
+  - GameStatisticsInteractor
   - AsteroidsInteractor
   _uiControllersReferences: []
+  _environment: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}

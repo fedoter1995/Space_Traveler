@@ -21,7 +21,8 @@ namespace Architecture
         public static bool isInitialized => state == ArchitectureComponentState.Initialized;
         public static ISceneManager sceneManager { get; private set; }
         public static IGameSettings gameSettings { get; private set; }
-
+        public static SaveDataController saveController => sceneManager.saveController;
+        public static EnvironmentSettings CurrentEnvironment => sceneManager.CurrentEnvironment;
 
         #region GAME RUNNING
 
@@ -32,7 +33,9 @@ namespace Architecture
 
         private static IEnumerator RunGameRoutine()
         {
+
             state = ArchitectureComponentState.Initializing;
+            yield return null;
 
             InitSceneManager();
             yield return null;
@@ -45,7 +48,8 @@ namespace Architecture
 
         private static void InitSceneManager()
         {
-            sceneManager = new SceneManager(); ;
+            sceneManager = new SceneManager();
+            
         }
 
         #endregion
@@ -65,6 +69,10 @@ namespace Architecture
         public static T GetUIController<T>() where T : class, IUIController
         {
             return sceneManager.sceneActual.GetUIController<T>();
+        }
+        public static bool HaveComponent<T>() where T : IArchitectureComponent
+        {
+            return sceneManager.sceneActual.HaveComponent<T>();
         }
     }
 }

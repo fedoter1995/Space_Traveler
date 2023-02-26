@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Increased_Rate_Of_Fire
   m_EditorClassIdentifier: 
   _modifierName: Increased rate of fire
+  _description: "\u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u0441\u0442\u0440\u0435\u043B\u044C\u0431\u044B"
   _type: 0
   _zoneOfInfluence:
   - {fileID: 11400000, guid: 84b7c5039b3e34d48b469bf117949752, type: 2}

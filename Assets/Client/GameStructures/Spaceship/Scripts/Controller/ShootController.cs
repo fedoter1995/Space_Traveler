@@ -1,3 +1,4 @@
+using GameStructures.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,9 @@ public class ShootController : MonoBehaviour
 
     private IEnumerator ShootRoutine()
     {
-        ship.Equipment.MainWeapon.Shot(ship.Stats.GetShotStats());
+        HitStats hitStats = ship.Stats.GetHitStats();
+        ShotStats shotStats = ship.Stats.GetShotStats();
+        ship.Equipment.MainWeapon.Shot(shotStats,hitStats);
         yield return new WaitForSeconds(1/ship.Stats.RateOfFire);
         shootEnumerator = null;
     }

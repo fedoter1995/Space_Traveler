@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4094030301590621654}
   - component: {fileID: -9192642542561145882}
   - component: {fileID: 7186936367622918819}
-  - component: {fileID: -2671952453146215852}
   m_Layer: 0
   m_Name: LargeAsteroid
   m_TagString: Asteroid
@@ -151,42 +150,23 @@ MonoBehaviour:
   _direction: {x: 0, y: 0, z: 0}
   _loot: []
   _type: 0
+  stats:
+    _environment: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}
+    _stats:
+    - _baseValue: 100
+      _statPreset: {fileID: 11400000, guid: ccb74381b994ea94094e00f9e3a25e55, type: 2}
+    - _baseValue: 1
+      _statPreset: {fileID: 11400000, guid: 163bdfe5edd49104987986bc2905340b, type: 2}
+    - _baseValue: 1
+      _statPreset: {fileID: 11400000, guid: c8ebd83aeb288844f8e5d790f4586ea3, type: 2}
+    - _baseValue: 1
+      _statPreset: {fileID: 11400000, guid: 9d3afddd9695c034f8611b7566d06117, type: 2}
+    _damages: []
+    _resistances:
+    - _baseValue: 15
+      _resistancePreset: {fileID: 11400000, guid: 32634766e354a0441a992ced57b20515, type: 2}
   _numberOfFragments: 2
   _fragmentsType: 1
---- !u!114 &-2671952453146215852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4094030301590621652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d63372c0477ab9746a28d8882ccfd4b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _environment: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}
-  _stats:
-  - _statName: Max Speed
-    _baseValue: 1
-    _statPreset: {fileID: 11400000, guid: c8ebd83aeb288844f8e5d790f4586ea3, type: 2}
-  - _statName: ' Min Speed'
-    _baseValue: 1
-    _statPreset: {fileID: 11400000, guid: 163bdfe5edd49104987986bc2905340b, type: 2}
-  - _statName: Health
-    _baseValue: 20
-    _statPreset: {fileID: 11400000, guid: ccb74381b994ea94094e00f9e3a25e55, type: 2}
-  - _statName: Price
-    _baseValue: 10
-    _statPreset: {fileID: 11400000, guid: 9d3afddd9695c034f8611b7566d06117, type: 2}
-  _damages:
-  - _statName: Physical Damage
-    _baseValue: 20
-    _damagePreset: {fileID: 11400000, guid: 4b80589b9b9123c4791247993da4618b, type: 2}
-  _resistances:
-  - _statName: Physical reduction
-    _baseValue: 45
-    _resistancePreset: {fileID: 11400000, guid: 32634766e354a0441a992ced57b20515, type: 2}
 --- !u!1001 &6983300688805459276
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,19 +7,25 @@ namespace Architecture
 {
     public sealed class Scene : IScene
     {
+
+        public event Action OnCreateEvent;
+        public event Action OnInitializeEvent;
+        public event Action OnStartEvent;
         public string Name => sceneConfig.name;
         public SceneConfig sceneConfig { get; }
-        public UI<IUIController> UI { get; }
+        public ComponentsBase<IUIController> uiControllers { get; }
         public ComponentsBase<IRepository> repositoriesBase { get; }
         public ComponentsBase<IInteractor> interactorsBase { get; }
+
+        public EnvironmentSettings Environment => sceneConfig.Environment;
 
         public Scene(SceneConfig config)
         {
             sceneConfig = config;
             repositoriesBase = new ComponentsBase<IRepository>(sceneConfig.repositoriesReferences);
             interactorsBase = new ComponentsBase<IInteractor>(sceneConfig.interactorsReferences);
-            UI = new UI<IUIController>(sceneConfig.uiControllersReferences);
-            
+            uiControllers = new ComponentsBase<IUIController>(sceneConfig.uiControllersReferences);
+
         }
 
 
@@ -32,7 +38,8 @@ namespace Architecture
         {
             repositoriesBase.SendMessageOnCreate();
             interactorsBase.SendMessageOnCreate();
-            UI.controllers.SendMessageOnCreate();
+            uiControllers.SendMessageOnCreate();
+            OnStartEvent?.Invoke();
         }
 
         #endregion
@@ -51,6 +58,7 @@ namespace Architecture
             yield return interactorsBase.InitializeAllComponents();
             repositoriesBase.SendMessageOnInitialize();
             interactorsBase.SendMessageOnInitialize();
+            OnInitializeEvent?.Invoke();
         }
 
         #endregion
@@ -61,7 +69,8 @@ namespace Architecture
         {
             repositoriesBase.SendMessageOnStart();
             interactorsBase.SendMessageOnStart();
-            UI.controllers.SendMessageOnStart();
+            uiControllers.SendMessageOnStart();
+            OnStartEvent?.Invoke();
         }
 
 
@@ -72,20 +81,30 @@ namespace Architecture
         {
             return repositoriesBase.GetComponent<T>();
         }
+        public bool HaveComponent<T>() where T : IArchitectureComponent
+        {
+            var ui = uiControllers.HaveComponent<T>();
+            var interactors = interactorsBase.HaveComponent<T>();
+            var repositories = repositoriesBase.HaveComponent<T>();
 
+            if (ui || interactors || repositories)
+                return true;
+
+            return false;
+        }
         public T GetInteractor<T>() where T : IInteractor
         {
             return interactorsBase.GetComponent<T>();
         }
         public T GetUIController<T>() where T : class, IUIController
         {
-            return UI.controllers.GetComponent<T>();
+            return uiControllers.GetComponent<T>();
         }
 
         public IEnumerator BuildUI()
         {
-            yield return UI.controllers.InitializeAllComponents();
-            UI.controllers.SendMessageOnInitialize();
+            yield return uiControllers.InitializeAllComponents();
+            uiControllers.SendMessageOnInitialize();
         }
 
         public List<IJsonSerializable> GetSerializableObjects()

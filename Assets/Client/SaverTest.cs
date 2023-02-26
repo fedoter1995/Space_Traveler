@@ -8,7 +8,7 @@ public class SaverTest : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.V))
         {
-            var interactor = Game.GetInteractor<SaveDataInteractor>();
+            var interactor = Game.saveController;
             interactor.Save();
         }
         if (Input.GetKeyDown(KeyCode.X))

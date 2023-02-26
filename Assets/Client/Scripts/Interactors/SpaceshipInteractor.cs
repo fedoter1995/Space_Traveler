@@ -9,18 +9,32 @@ public class SpaceshipInteractor : Interactor
 
     public override void OnCreate()
     {
-        Vector3 playerPosition = PlayerPosition.instance.Position;
-        Object playerLoad = Resources.Load("SpaceShip");
-        CreatePlayer(playerLoad);
+        var spaceship = GameObject.FindObjectOfType<Spaceship>();
+        if (spaceship == null)
+        {
+            Vector3 playerPosition = PlayerPosition.instance.Position;
+            Object playerLoad = Resources.Load("SpaceShip");
+            CreatePlayer(playerLoad);
    
-        ChangePlayerPosition(playerPosition);
+            ChangePlayerPosition(playerPosition);
+        }
+        else
+        {
+            this.spaceship = spaceship;
+        }
+
     }
 
     public override void OnInitialize()
     {
-        var saveDataInteractor = Game.GetInteractor<SaveDataInteractor>();
+        var saveDataInteractor = Game.saveController;
         var objectData = saveDataInteractor.Load(ToString());
         spaceship.SetObjectData(objectData);
+    }
+
+    public override void OnStart()
+    {
+        spaceship.Initialize();
     }
 
     private void CreatePlayer(Object playerPref)

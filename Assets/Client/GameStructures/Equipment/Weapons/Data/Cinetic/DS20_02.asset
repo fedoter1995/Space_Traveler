@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1af4fe483d09d14791bd487e640ec0e, type: 3}
+  m_Name: DS20_02
+  m_EditorClassIdentifier: 
+  _id: kinetic_02
+  _name: RG20_02
+  _description: 
+  _icon: {fileID: 21300000, guid: f512609e6dff4bb4a8fc69e29c64873b, type: 3}
+  _prefab: {fileID: 0}
+  _slotType: 0
+  _modifiers:
+  - _preset: {fileID: 11400000, guid: 3d57737ff8611eb4db519b5af4acbb4c, type: 2}
+    _value: 2
+  - _preset: {fileID: 11400000, guid: be01c314698fb304eba6a0041cdae016, type: 2}
+    _value: 5
+  - _preset: {fileID: 11400000, guid: fca675f015a4d9b418bf33f892d2889b, type: 2}
+    _value: 20
+  _equipType: 0
+  projectile: {fileID: 6970377986304620971, guid: 1089ab87e75f50f4a948b2d80b86e72b, type: 3}

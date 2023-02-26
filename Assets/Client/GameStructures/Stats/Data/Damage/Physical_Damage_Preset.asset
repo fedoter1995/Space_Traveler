@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d62dde22eb21c41bfa74222855b4e8, type: 3}
   m_Name: Physical_Damage_Preset
   m_EditorClassIdentifier: 
-  _statID: 0D1
+  _statID: dmg01
   _statName: Physical_Damage_Preset
-  _type: 1
+  _type: 2

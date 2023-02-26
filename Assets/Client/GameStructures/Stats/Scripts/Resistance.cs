@@ -16,7 +16,10 @@ namespace Stats
         public override void Initialize(StatsHandler handler)
         {
             base.Initialize(handler);
-            statPreset = _resistancePreset;
+            if(statPreset is null)
+                statPreset = _resistancePreset;
+            else
+                _resistancePreset = statPreset as ResistancePreset;
         }
 
     }

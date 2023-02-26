@@ -8,11 +8,16 @@ namespace Architecture
 {
     public interface IScene
     {
+
+        public event Action OnCreateEvent;
+        public event Action OnInitializeEvent;
+        public event Action OnStartEvent;
         string Name { get; }
         SceneConfig sceneConfig { get; }
         ComponentsBase<IRepository> repositoriesBase { get; }
         ComponentsBase<IInteractor> interactorsBase { get; }
-        UI<IUIController> UI { get; }
+        ComponentsBase<IUIController> uiControllers { get; }
+        EnvironmentSettings Environment { get; }
 
         void SendMessageOnCreate();
         Coroutine InitializeAsync();
@@ -23,6 +28,7 @@ namespace Architecture
         List<IJsonSerializable> GetSerializableObjects();
         T GetInteractor<T>() where T : IInteractor;
         T GetUIController<T>() where T : class, IUIController;
+        bool HaveComponent<T>() where T : IArchitectureComponent;
 
     }
 }

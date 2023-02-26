@@ -16,15 +16,22 @@ namespace Architecture
 
         public event SceneManagerHandler OnSceneLoadStartedEvent;
         public event SceneManagerHandler OnSceneLoadCompletedEvent;
+
         public event Action OnUIInitialized;
 
         public Dictionary<string, SceneConfig> scenesConfigMap { get; }
+        public SaveDataController saveController { get; private set; }
+
         public IScene sceneActual { get; private set; }
         public bool isLoading { get; private set; }
-
+        public EnvironmentSettings CurrentEnvironment => sceneActual.Environment;
         public SceneManager()
         {
             scenesConfigMap = new Dictionary<string, SceneConfig>();
+
+            saveController = new SaveDataController();
+            saveController.Initialize();
+
             InitializeSceneConfigs();
         }
 
@@ -100,6 +107,10 @@ namespace Architecture
         {
 
             sceneActual = new Scene(config);
+
+            sceneActual.OnCreateEvent += OnSceneCreate;
+            sceneActual.OnInitializeEvent += OnSceneInitialize;
+            sceneActual.OnStartEvent += OnSceneStart;
             yield return null;
 
             sceneActual.SendMessageOnCreate();
@@ -129,6 +140,22 @@ namespace Architecture
         public List<IJsonSerializable> GetSerializableObjects()
         {
             return sceneActual.GetSerializableObjects();
+        }
+        public bool HaveComponent<T>() where T : IArchitectureComponent
+        {
+            return sceneActual.HaveComponent<T>();
+        }
+        private void OnSceneCreate()
+        {
+         
+        }
+        private void OnSceneInitialize()
+        {
+            saveController.OnSceneInitialize();
+        }
+        private void OnSceneStart()
+        {
+
         }
     }
 }

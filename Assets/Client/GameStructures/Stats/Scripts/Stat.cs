@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Stats
@@ -8,10 +9,17 @@ namespace Stats
     {
         [SerializeField]
         protected StatPreset _statPreset;
+
+
+
         public override void Initialize(StatsHandler handler)
         {
             base.Initialize(handler);
-            statPreset = _statPreset;
+            if (statPreset == null)
+                statPreset = _statPreset;
+            else
+                _statPreset = statPreset;
         }
+
     }
 }

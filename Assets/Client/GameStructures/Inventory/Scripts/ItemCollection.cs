@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
 using Newtonsoft.Json.Linq;
-
-public class ItemCollection : MonoBehaviour, IJsonSerializable
+[Serializable]
+public class ItemCollection : IJsonSerializable
 {
     [SerializeField]
     private bool _saveable = true;
