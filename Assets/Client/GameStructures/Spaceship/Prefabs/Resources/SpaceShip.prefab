@@ -199,7 +199,7 @@ MonoBehaviour:
     - _item: {fileID: 11400000, guid: 1d954c93a48b80546bfd38de3da979ee, type: 2}
       _amount: 0
   _equipment:
-    _mainWeapon: {fileID: 11400000, guid: f1dfd88d6757206459a1ea5f9bea2837, type: 2}
+    _mainWeapon: {fileID: 11400000, guid: 424a496305289e248a58297579280b49, type: 2}
     _engine: {fileID: 11400000, guid: eb77e8d5c55f08a4ab9233d59e5d7b60, type: 2}
     _shipSkin: {fileID: 11400000, guid: e4ab1e3fa2829664897515c496340545, type: 2}
   _stats:

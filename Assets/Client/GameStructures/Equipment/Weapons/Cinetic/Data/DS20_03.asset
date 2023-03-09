@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230d4377ae3f04747947b217b4b7b3ca, type: 3}
   m_Name: DS20_03
   m_EditorClassIdentifier: 
-  _id: kinetic_03
+  _id: kineticW_03
   _name: RG2000
   _description: 
   _icon: {fileID: 21300000, guid: 832aa731485476a408f68137c60a7725, type: 3}

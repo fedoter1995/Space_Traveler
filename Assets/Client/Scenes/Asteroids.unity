@@ -3745,6 +3745,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3212362735443678282, guid: a9ff4d70461c24547978f3a739801066, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3212362735443678285, guid: a9ff4d70461c24547978f3a739801066, type: 3}
       propertyPath: m_Name
       value: DamageTestObject
@@ -3819,6 +3823,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Smoke
       objectReference: {fileID: 0}
+    - target: {fileID: 8183993854335315201, guid: dec920014b8d92048becb0390f944d98, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8183993854335315212, guid: dec920014b8d92048becb0390f944d98, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -3837,7 +3845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8183993854335315213, guid: dec920014b8d92048becb0390f944d98, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.082
+      value: 3.87
       objectReference: {fileID: 0}
     - target: {fileID: 8183993854335315213, guid: dec920014b8d92048becb0390f944d98, type: 3}
       propertyPath: m_LocalPosition.y

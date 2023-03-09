@@ -12,13 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230d4377ae3f04747947b217b4b7b3ca, type: 3}
   m_Name: Default_Ship_Blaster
   m_EditorClassIdentifier: 
-  _id: 
-  _name: 
+  _id: energyW_01
+  _name: Default ship blaster
   _description: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 4f3f8656b3736cf4bb5d1a50d213f582, type: 3}
   _prefab: {fileID: 0}
   _slotType: 0
-  _modifiers: []
+  _modifiers:
+  - _preset: {fileID: 11400000, guid: 3d57737ff8611eb4db519b5af4acbb4c, type: 2}
+    _value: 1
+  - _preset: {fileID: 11400000, guid: 451f21948761ffb44930bfa3aff77e73, type: 2}
+    _value: 20
   _equipType: 0
-  projectile: {fileID: 0}
-  _shootPreset: {fileID: 0}
+  projectile: {fileID: 3280706136518574546, guid: e2c0259f67bf64d48b545d8b98228cd0, type: 3}
+  _shootPreset: {fileID: 11400000, guid: 316288b95d0c7da418ebbf095937bea2, type: 2}
