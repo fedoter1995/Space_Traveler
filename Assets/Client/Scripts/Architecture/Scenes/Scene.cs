@@ -17,7 +17,7 @@ namespace Architecture
         public ComponentsBase<IRepository> repositoriesBase { get; }
         public ComponentsBase<IInteractor> interactorsBase { get; }
 
-        public EnvironmentSettings Environment => sceneConfig.Environment;
+        public EnvironmentSettings DefaultEnvironment => sceneConfig.environmentSettings;
 
         public Scene(SceneConfig config)
         {

@@ -1,4 +1,5 @@
 using Architecture;
+using GameStructures.Equipment;
 using System;
 using System.Collections;
 using System.Collections.Generic;

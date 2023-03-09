@@ -1,4 +1,4 @@
-﻿using Stats;
+﻿using GameStructures.Stats;
 using System.Collections.Generic;
 using UnityEngine;
 

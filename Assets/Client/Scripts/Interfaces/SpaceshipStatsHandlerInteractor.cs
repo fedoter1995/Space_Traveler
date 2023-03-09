@@ -1,9 +1,5 @@
 ﻿using Architecture;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 public class SpaceshipStatsHandlerInteractor : Interactor
@@ -25,7 +21,7 @@ public class SpaceshipStatsHandlerInteractor : Interactor
             if (Game.HaveComponent<SpaceshipInteractor>())
             {
                 var spaceship = Game.GetInteractor<SpaceshipInteractor>().spaceship;
-                statsHandler = spaceship.Stats;
+                statsHandler = (ShipStatsHandler)spaceship.Handler;
             }
             else
             {

@@ -10,6 +10,7 @@ public class ShootController : MonoBehaviour
     private Coroutine shootEnumerator = null;
     private bool isInitialize = false;
 
+    private ShipStatsHandler Stats => (ShipStatsHandler)ship.Handler;
     private void Update()
     { 
         if(isInitialize)
@@ -25,10 +26,10 @@ public class ShootController : MonoBehaviour
 
     private IEnumerator ShootRoutine()
     {
-        HitStats hitStats = ship.Stats.GetHitStats();
-        ShotStats shotStats = ship.Stats.GetShotStats();
+        HitStats hitStats = Stats.GetHitStats();
+        ShotStats shotStats = Stats.GetShotStats();
         ship.Equipment.MainWeapon.Shot(shotStats,hitStats);
-        yield return new WaitForSeconds(1/ship.Stats.RateOfFire);
+        yield return new WaitForSeconds(1/ Stats.RateOfFire);
         shootEnumerator = null;
     }
 }

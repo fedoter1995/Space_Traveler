@@ -1,4 +1,5 @@
 using GameStructures.Hit;
+using GameStructures.Stats;
 using Stats;
 using System;
 using System.Collections;

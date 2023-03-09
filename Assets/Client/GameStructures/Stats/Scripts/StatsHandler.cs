@@ -1,8 +1,10 @@
+using Architecture;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Stats
+
+namespace GameStructures.Stats
 {
     [Serializable]
     public abstract class StatsHandler
@@ -15,6 +17,7 @@ namespace Stats
         [SerializeField,Header("Standart Stats")]
         protected List<Stat> _stats;
 
+        public bool IsInitialize { get; private set; } = false;
         public EnvironmentSettings CurrentEnvironment => _environment;
 
         protected abstract void OnValuesCalculated();
@@ -22,6 +25,7 @@ namespace Stats
         {
             InitializeStats(_stats);
             CalculateValues();
+            IsInitialize = true;
             OnValuesCalculated();
         }
         public virtual List<StatModifier> GetAllModifiers()
@@ -47,6 +51,10 @@ namespace Stats
         }
         public virtual void CalculateValues()
         {
+            if(_environment == null)
+            {
+                _environment = Game.DefaultEnvironment;
+            }
             CalculateValuesInList(_stats);
             OnValuesCalculated();
         }
@@ -63,7 +71,8 @@ namespace Stats
         }
         public void SetEnvironment(EnvironmentSettings environment)
         {
-            
+            _environment = environment;
+            CalculateValues();
         }  
         protected List<StatModifier> ArrangeModifiers(List<StatModifier> sourceList)
         {

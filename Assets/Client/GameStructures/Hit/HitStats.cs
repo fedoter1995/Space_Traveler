@@ -11,13 +11,14 @@ public class HitStats
     private List<Chance> chances;
     private List<Multiplier> multipliers;
     private HitDamage damage;
-
+    private int numbOfPenetrations = 0;
 
     public List<Chance> Chances => chances;
     public List<Multiplier> Multipliers => multipliers;
     public HitDamage ShotDamage => damage;
+    public int PenetrationsNumb => numbOfPenetrations;
 
-    public HitStats(HitDamage damage, List<Chance> chances, List<Multiplier> multipliers)
+    public HitStats(HitDamage damage, List<Chance> chances, List<Multiplier> multipliers, int numbOfPenetrations)
     {
         if(chances != null)
             this.chances = new List<Chance>(chances);
@@ -28,7 +29,10 @@ public class HitStats
         else
             this.multipliers = new List<Multiplier>();
         this.damage = damage;
+
+        this.numbOfPenetrations = numbOfPenetrations;
     }
+
     public HitStats(HitDamage damage)
     {
         chances = new List<Chance>();
@@ -46,6 +50,14 @@ public class HitStats
         else
             this.multipliers = new List<Multiplier>();
         damage = stats.ShotDamage;
+        numbOfPenetrations = stats.PenetrationsNumb;
     }
+
+    public void OnHit()
+    {
+        numbOfPenetrations--;
+    }
+
+
 }
 

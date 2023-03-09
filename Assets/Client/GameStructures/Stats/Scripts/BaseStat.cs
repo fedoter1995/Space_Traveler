@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Stats
+namespace GameStructures.Stats
 {
     [System.Serializable]
     public abstract class BaseStat : IJsonSerializable
@@ -28,9 +28,11 @@ namespace Stats
         {
             var newValue = _baseValue;
             var modifiers = statsHandler.GetAllModifiers(Name);
-            foreach(StatModifier modifier in modifiers)
+
+            foreach (StatModifier modifier in modifiers)
             {
-                    switch(modifier.Type)
+
+                    switch (modifier.Type)
                     {
                         case StatModType.Flat :
                             newValue += modifier.Value;
@@ -48,6 +50,7 @@ namespace Stats
                     }           
             }
             value = newValue;
+
         }
 
         public virtual void SetObjectData(Dictionary<string, object> data)

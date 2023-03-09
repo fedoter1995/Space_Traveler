@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Stats
+namespace GameStructures.Stats
 {
     [CreateAssetMenu(menuName = "Stats/DataBase")]
     public class StatPresetDataBase : ScriptableObject

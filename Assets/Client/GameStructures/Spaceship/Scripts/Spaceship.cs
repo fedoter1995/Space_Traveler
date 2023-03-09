@@ -1,16 +1,15 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 using CustomTools.Observable;
-using Stats;
 using CustomTools;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using GameStructures.Hit;
-using GameStructures.Effects;
+using GameStructures.Equipment;
+using GameStructures.Stats;
 
 [RequireComponent(typeof(SpaceShipController))]
-public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable
+public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable, IHaveStatsHandler
 {
     [SerializeField]
     private Inventory _inventory = new Inventory();
@@ -32,10 +31,10 @@ public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable
 
     public Observable<int> HealthPoints { get; private set; }
     public SpaceShipController Controller => shipController;
-    public ShipStatsHandler Stats => _stats;
+    //public ShipStatsHandler Stats => _stats;
     public EquipmentHandler Equipment => _equipment;
     public Inventory Inventory => _inventory;
-
+    public StatsHandler Handler => _stats;
 
     private float offset = -90;
     private float move = 0;
@@ -59,7 +58,7 @@ public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable
         _stats.Initialize();
         shootController.Initialize(manager, this);
         shipController.Initialize(manager, this);
-        HealthPoints = new Observable<int>((int)Stats.HealthPoints);
+        HealthPoints = new Observable<int>((int)_stats.HealthPoints);
     }
 
 
@@ -132,7 +131,7 @@ public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable
 
     public void TakeHit(Hit hit)
     {
-        var dmg = hit.GetHitDamage(Stats.Resistances);
+        var dmg = hit.GetHitDamage(_stats.Resistances);
         TakeDamage(dmg);
     }
 }

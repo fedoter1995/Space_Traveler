@@ -20,4 +20,4 @@ MonoBehaviour:
   - _preset: {fileID: 11400000, guid: 128b5bfbd5d728c4ca27c2c0954480cd, type: 2}
     _value: 0.01
   - _preset: {fileID: 11400000, guid: 28db7d8f429bed44f87ea0a3f35e9496, type: 2}
-    _value: 0.01
+    _value: 0.1

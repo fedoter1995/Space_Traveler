@@ -24,7 +24,7 @@ namespace Architecture
 
         public IScene sceneActual { get; private set; }
         public bool isLoading { get; private set; }
-        public EnvironmentSettings CurrentEnvironment => sceneActual.Environment;
+        public EnvironmentSettings DefaultEnvironment => sceneActual.DefaultEnvironment;
         public SceneManager()
         {
             scenesConfigMap = new Dictionary<string, SceneConfig>();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Architecture;
 using Stats;
+using GameStructures.Stats;
 
 public class StatsPresetRepository : Repository
 {

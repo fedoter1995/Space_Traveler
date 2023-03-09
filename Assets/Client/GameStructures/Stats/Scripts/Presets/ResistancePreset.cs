@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Stats
+namespace GameStructures.Stats
 {
     [CreateAssetMenu(menuName = "Stats/Presets/New_Resistance_Preset")]
     public class ResistancePreset : StatPreset

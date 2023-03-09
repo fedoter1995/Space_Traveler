@@ -1,120 +1,135 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Stats;
-using Newtonsoft.Json.Linq;
+using GameStructures.Equipment.Weapons;
+using GameStructures.Equipment.Armors;
+using GameStructures.Equipment.Engine;
+using GameStructures.Stats;
 
-[Serializable]
-public class EquipmentHandler : IJsonSerializable
+namespace GameStructures.Equipment
 {
-    [SerializeField]
-    private List<EquipmentSlot> _equipmentSlots = new List<EquipmentSlot>();
-    [SerializeField]
-    private Weapon _mainWeapon;
-    [SerializeField]
-    private Armor _mainArmor;
-
-
-    public event Action OnItemStateChangedEvent;
-
-    public Weapon MainWeapon => _mainWeapon;
-    public Armor MainArmor => _mainArmor;
-
-
-
-    public List<StatModifier> GetAllModifiers()
+    [Serializable]
+    public class EquipmentHandler : IJsonSerializable
     {
-        List<StatModifier> modifiers = new List<StatModifier>();
+        [SerializeField]
+        private Weapon _mainWeapon;
+        [SerializeField]
+        private MainEngine _engine;
+        [SerializeField]
+        private ShipSkin _shipSkin;
 
-        foreach (EquipmentSlot slot in _equipmentSlots)
+
+        public Weapon MainWeapon => _mainWeapon;
+        public MainEngine Engine => _engine;
+        public ShipSkin Armor => _shipSkin;
+
+
+
+        public List<StatModifier> GetAllModifiers()
         {
-            var equip = slot.CurrentItem;
+            List<StatModifier> modifiers = new List<StatModifier>();
 
-                if (equip != null)
-                    modifiers.AddRange(equip.GetAllModifiers());
+
+            modifiers.AddRange(_mainWeapon.GetAllModifiers());
+            modifiers.AddRange(_engine.GetAllModifiers());
+            modifiers.AddRange(_shipSkin.GetAllModifiers());
+            return modifiers;
         }
-        modifiers.AddRange(_mainWeapon.GetAllModifiers());
-        return modifiers;
-    }
 
-    public void EquipmentInitialize()
-    {
-        foreach(EquipmentSlot slot in _equipmentSlots)
+        public void EquipmentInitialize()
         {
-            if(!slot.IsEmpty)
-                slot.CurrentItem.InitEquipment();
+            _shipSkin.InitEquipment();
+            _engine.InitEquipment();
+            _mainWeapon.InitEquipment();
         }
-        _mainWeapon.InitEquipment();
-    }
-    public List<Equipment> GetEquipment()
-    {
-        var equipment = new List<Equipment>();
-
-        equipment.Add(MainWeapon);
-
-        return equipment;
-    }
-    public void SetEquipment(Equipment equipment)
-    {
-        var type = equipment.GetType();
-
-        
-        if ((Weapon)equipment != null)
-            _mainWeapon = (Weapon)equipment;
-
-        EquipmentInitialize();
-    }
-    public void SetObjectData(Dictionary<string, object> obj)
-    {
-        if(obj != null)
+        public List<Equipment> GetEquipment()
         {
-            JObject slotsJobj = (JObject)obj["Equipment"];
-            var equipData = slotsJobj.ToObject<Dictionary<string, Dictionary<string, object>>>();
-            var newEquipment = new List<EquipmentSlot>();
+            var equipment = new List<Equipment>();
 
-            foreach (KeyValuePair<string, Dictionary<string, object>> entry in equipData)
+            equipment.Add(MainWeapon);
+            equipment.Add(Engine);
+            equipment.Add(Armor);
+
+            return equipment;
+        }
+
+        public void SetObjectData(Dictionary<string, object> obj)
+        {
+            if(obj != null)
             {
-                var slot = new EquipmentSlot();
-
-                slot.SetObjectData(entry.Value);
-
-                newEquipment.Add(slot);
+                SetEquipment(obj["Main_Weapon"].ToString());
+                SetEquipment(obj["Main_Engine"].ToString());
+                SetEquipment(obj["Ship_Skin"].ToString());
             }
-            SetWeapon(obj["Main_Weapon"].ToString());
-            _equipmentSlots = new List<EquipmentSlot>(newEquipment);
+            EquipmentInitialize();
         }
-        
-    }
-
-    public Dictionary<string, object> GetObjectData()
-    {
-        var dict = new Dictionary<string, object>();
-        var equip = new Dictionary<string,object>();
-
-        for(int i = 0; i < _equipmentSlots.Count; i++)
+        public Dictionary<string, object> GetObjectData()
         {
-            equip.Add($"Slot {i}", _equipmentSlots[i].GetObjectData());
+            var data = new Dictionary<string, object>();
+
+
+            data.Add("Main_Weapon", _mainWeapon.Id);
+            data.Add("Main_Engine", _engine.Id);
+            data.Add("Ship_Skin", _shipSkin.Id);
+
+            return data;
         }
+        public void SetEquipment(Equipment equipment)
+        {
+            var type = equipment.GetType();
 
-        dict.Add("Main_Weapon", _mainWeapon.Id);
+            if (type.IsSubclassOf(typeof(Weapon)))
+            {
+                _mainWeapon = (Weapon)equipment;
+                _mainWeapon.InitEquipment();
+                return;
+            }
 
-        dict.Add("Equipment", equip);
 
-        return dict;
-    }
+            if (type.IsSubclassOf(typeof(ShipSkin)))
+            {
+                _shipSkin = (ShipSkin)equipment;
+                _shipSkin.InitEquipment();
+                return;
+            }
 
-    private void SetWeapon(string id)
-    {
 
-        var repository = Architecture.Game.GetRepository<ItemsRepository>();
-        Item weapon = repository.GetItem(id);
+            if (type.IsSubclassOf(typeof(MainEngine)))
+            {
+                _engine = (MainEngine)equipment;
+                _engine.InitEquipment();
+                return;
+            }
 
-        _mainWeapon = weapon as Weapon;
-        
-    }
-    public override string ToString()
-    {
-        return "Spaceship Equipment";
+        }
+        public void SetEquipment(string id)
+        {
+
+            var repository = Architecture.Game.GetRepository<ItemsRepository>();
+
+
+            var equipment = (Equipment)repository.GetItem(id);
+
+            var type = equipment.GetType();
+
+            if (type.IsSubclassOf(typeof(Weapon)))
+                _mainWeapon = (Weapon)equipment;
+
+                
+            if (type == typeof(ShipSkin))
+                _shipSkin = (ShipSkin)equipment;
+
+
+            if (type == typeof(MainEngine))
+                _engine = (MainEngine)equipment;
+             
+
+        }
+        public override string ToString()
+        {
+            return "Spaceship Equipment";
+        }
     }
 }
+
 

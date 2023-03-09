@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 863650822760853151}
   - component: {fileID: 863650822760853150}
-  - component: {fileID: 863650822760853149}
   - component: {fileID: -2071069282602552972}
+  - component: {fileID: 4808800005769027044}
   - component: {fileID: 863650822760853147}
   - component: {fileID: 4027105414567217549}
   - component: {fileID: -8995471901184246734}
@@ -90,32 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &863650822760853149
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863650822760853121}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.9599998, y: 5.910577}
-    newSize: {x: 2.9599998, y: 5.910577}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.9599998, y: 5.910577}
-  m_EdgeRadius: 0
 --- !u!50 &-2071069282602552972
 Rigidbody2D:
   serializedVersion: 4
@@ -137,6 +111,74 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!60 &4808800005769027044
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863650822760853121}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.9599998, y: 5.910577}
+    newSize: {x: 2.9599998, y: 5.910577}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.2739747, y: -1.200739}
+      - {x: 0.2739747, y: -1.7647039}
+      - {x: 0.49956062, y: -1.9902898}
+      - {x: 0.49956062, y: -2.0005438}
+      - {x: 0.62260747, y: -2.1235907}
+      - {x: 0.6328614, y: -2.1235907}
+      - {x: 0.8379395, y: -2.3286688}
+      - {x: 0.8379395, y: -2.3389227}
+      - {x: 1.44292, y: -2.9439032}
+      - {x: 1.4634278, y: -2.9439032}
+      - {x: 1.4839356, y: -2.9233954}
+      - {x: 1.4736817, y: -2.861872}
+      - {x: 1.4019043, y: -2.5747626}
+      - {x: 1.2070801, y: -1.8057195}
+      - {x: 1.1660645, y: -1.6314031}
+      - {x: 0.91997075, y: -0.6470281}
+      - {x: 0.8071778, y: -0.20611015}
+      - {x: 0.7969239, y: -0.15484062}
+      - {x: 0.33549812, y: 1.6908625}
+      - {x: 0.3149903, y: 1.7831477}
+      - {x: 0.23295906, y: 2.1112726}
+      - {x: 0.027880937, y: 2.9213312}
+      - {x: 0.0073731244, y: 2.941839}
+      - {x: -0.013134688, y: 2.941839}
+      - {x: -0.0336425, y: 2.9213312}
+      - {x: -0.33100578, y: 1.7318782}
+      - {x: -0.44379875, y: 1.2704524}
+      - {x: -0.46430656, y: 1.1884211}
+      - {x: -0.48481438, y: 1.0756282}
+      - {x: -0.5053222, y: 1.0346125}
+      - {x: -0.71040034, y: 0.2143}
+      - {x: -0.9257324, y: -0.657282}
+      - {x: -0.9462402, y: -0.73931324}
+      - {x: -0.966748, y: -0.8521062}
+      - {x: -0.9872558, y: -0.89312184}
+      - {x: -1.0897949, y: -1.3032781}
+      - {x: -1.4794433, y: -2.8721259}
+      - {x: -1.4794433, y: -2.9336493}
+      - {x: -1.4691894, y: -2.9439032}
+      - {x: -1.4486816, y: -2.9439032}
+      - {x: -0.3515136, y: -1.8467351}
+      - {x: -0.27973625, y: -1.7852117}
+      - {x: -0.27973625, y: -1.200739}
 --- !u!114 &863650822760853147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,9 +199,9 @@ MonoBehaviour:
     - _item: {fileID: 11400000, guid: 1d954c93a48b80546bfd38de3da979ee, type: 2}
       _amount: 0
   _equipment:
-    _equipmentSlots: []
-    _mainWeapon: {fileID: 11400000, guid: 424a496305289e248a58297579280b49, type: 2}
-    _mainArmor: {fileID: 0}
+    _mainWeapon: {fileID: 11400000, guid: f1dfd88d6757206459a1ea5f9bea2837, type: 2}
+    _engine: {fileID: 11400000, guid: eb77e8d5c55f08a4ab9233d59e5d7b60, type: 2}
+    _shipSkin: {fileID: 11400000, guid: e4ab1e3fa2829664897515c496340545, type: 2}
   _stats:
     _environment: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}
     _stats:
@@ -169,9 +211,9 @@ MonoBehaviour:
       _statPreset: {fileID: 11400000, guid: d7bb7af76b974994cbeb11e2410dd963, type: 2}
     - _baseValue: 100
       _statPreset: {fileID: 11400000, guid: ccb74381b994ea94094e00f9e3a25e55, type: 2}
-    - _baseValue: 3
-      _statPreset: {fileID: 11400000, guid: c8ebd83aeb288844f8e5d790f4586ea3, type: 2}
     - _baseValue: 1
+      _statPreset: {fileID: 11400000, guid: c8ebd83aeb288844f8e5d790f4586ea3, type: 2}
+    - _baseValue: 4
       _statPreset: {fileID: 11400000, guid: 0d4a75c97450b264e802b0e894793e21, type: 2}
     - _baseValue: 0
       _statPreset: {fileID: 11400000, guid: 0de2a51c966e1a346ab38237cc2e5ad4, type: 2}

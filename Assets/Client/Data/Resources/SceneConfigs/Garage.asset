@@ -24,4 +24,4 @@ MonoBehaviour:
   _uiControllersReferences:
   - GarageUIController
   - TooltipUIController
-  _environment: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}
+  environmentSettings: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Stats
+namespace GameStructures.Stats
 {
     [Serializable]
     public class Resistance : BaseStat

@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Item/New_Item")]
-public class Item : ScriptableObject, IHaveDescription
+public class Item : ScriptableObject, IHaveDescription, IJsonSerializable
 {
     [SerializeField] private string _id;
     [SerializeField] private string _name;
@@ -23,6 +23,7 @@ public class Item : ScriptableObject, IHaveDescription
         return new DescriptionData(_description, _name, null, _icon);
     }
 
+
     public void Initialize(Item item)
     {
         _id = item.Id;
@@ -30,5 +31,23 @@ public class Item : ScriptableObject, IHaveDescription
         _description = item.Description;
         _icon = item.Icon;
         _prefab = item.Prefab;
+    }
+    public Dictionary<string, object> GetObjectData()
+    {
+        var data = new Dictionary<string, object>();
+
+        data.Add("Name", Name);
+        data.Add("Id", Id);
+
+        return data;
+    }
+    public void SetObjectData(Dictionary<string, object> data)
+    {
+        
+        var repository = Architecture.Game.GetRepository<ItemsRepository>();
+
+        Item item = repository.GetItem(data["Id"].ToString());
+
+        Initialize(item);
     }
 }

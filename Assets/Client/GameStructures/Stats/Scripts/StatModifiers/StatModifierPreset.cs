@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Stats
+namespace GameStructures.Stats
 {
     [CreateAssetMenu(menuName = "Stats/Presets/New_StatModifier_Preset")]
     public class StatModifierPreset : ScriptableObject

@@ -17,7 +17,7 @@ namespace Architecture
         ComponentsBase<IRepository> repositoriesBase { get; }
         ComponentsBase<IInteractor> interactorsBase { get; }
         ComponentsBase<IUIController> uiControllers { get; }
-        EnvironmentSettings Environment { get; }
+        EnvironmentSettings DefaultEnvironment { get; }
 
         void SendMessageOnCreate();
         Coroutine InitializeAsync();

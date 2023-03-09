@@ -2,11 +2,11 @@ using CustomTools.Observable;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Stats;
 using CustomTools;
 using System.Runtime.Serialization;
 using GameStructures.Asteroids;
 using GameStructures.Hit;
+using GameStructures.Stats;
 
 public class Asteroid : MonoBehaviour, IAsteroid, IGivePoints,IPoolsObject<Asteroid>
 {   

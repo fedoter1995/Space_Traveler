@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Stats;
+using GameStructures.Stats;
 using UnityEngine;
+
 [Serializable]
 public class AsteroidStatsHandler : StatsHandler
 {

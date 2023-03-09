@@ -22,7 +22,7 @@ namespace Architecture
         public static ISceneManager sceneManager { get; private set; }
         public static IGameSettings gameSettings { get; private set; }
         public static SaveDataController saveController => sceneManager.saveController;
-        public static EnvironmentSettings CurrentEnvironment => sceneManager.CurrentEnvironment;
+        public static EnvironmentSettings DefaultEnvironment => sceneManager.DefaultEnvironment;
 
         #region GAME RUNNING
 

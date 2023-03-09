@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Stats
+namespace GameStructures.Stats
 {
     [System.Serializable]
     public class StatModifier

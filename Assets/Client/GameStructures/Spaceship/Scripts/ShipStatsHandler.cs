@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using GameStructures.Stats;
 using GameStructures.Effects;
 using GameStructures.Equipment.Weapons;
+using GameStructures.Equipment;
 
 [Serializable]
 public class ShipStatsHandler : StatsHandler, IJsonSerializable
@@ -45,16 +46,22 @@ public class ShipStatsHandler : StatsHandler, IJsonSerializable
     public float SwingSlowdown { get; private set; }
     public float ProjectileSpeed { get; private set; }
     public float RateOfFire { get; private set; }
+    public float PenetrationsNumb { get; private set; } = 1f;
     public EquipmentHandler Equipment { get; private set; }
     public Spaceship Spaceship { get; private set; }
     public List<Resistance> Resistances => _resistances;
 
     public override void CalculateValues()
     {
+        if (_environment == null)
+        {
+            _environment = Game.DefaultEnvironment;
+        }
         //CalculateValuesInList(_attributes);
         CalculateValuesInList(_stats);
         CalculateValuesInList(_resistances);
         CalculateValuesInList(_damages);
+        OnValuesCalculated();
     }
     public HitStats GetHitStats()
     {
@@ -72,14 +79,13 @@ public class ShipStatsHandler : StatsHandler, IJsonSerializable
             }
         }
 
-        HitDamage shotDamage = new HitDamage(DamageTypeValueDict);
+        HitDamage shotDamage = new HitDamage(DamageTypeValueDict);               
 
-        return new HitStats(shotDamage, _chances, _multipliers);
+        return new HitStats(shotDamage, _chances, _multipliers, (int)PenetrationsNumb);
     }
     public ShotStats GetShotStats()
     {
-
-        ShotStats shotStats = new ShotStats(shotPoints, ProjectileSpeed, 0);
+        ShotStats shotStats = new ShotStats(shotPoints, ProjectileSpeed);
 
         return shotStats;
     }
@@ -90,7 +96,7 @@ public class ShipStatsHandler : StatsHandler, IJsonSerializable
 
         //modifierList.AddRange(AttributesMultModifiers());
         modifierList.AddRange(Equipment.GetAllModifiers());
-        modifierList.AddRange(Game.CurrentEnvironment.Modifiers);
+        modifierList.AddRange(CurrentEnvironment.Modifiers);
 
         relevantModifiers = modifierList.FindAll(modifier => modifier.HasInfluenceToStat(targetStatName));
 
@@ -103,7 +109,6 @@ public class ShipStatsHandler : StatsHandler, IJsonSerializable
         //modifierList.AddRange(AttributesMultModifiers());
         modifierList.AddRange(Equipment.GetAllModifiers());
         modifierList.AddRange(CurrentEnvironment.Modifiers);
-        Debug.Log(CurrentEnvironment.Modifiers.Count);
         var arrangeList = new List<StatModifier>(ArrangeModifiers(modifierList));
 
         return arrangeList;
@@ -120,6 +125,7 @@ public class ShipStatsHandler : StatsHandler, IJsonSerializable
         SwingSlowdown = GetStat(SWING_SLOWDOWN).Value;
         RateOfFire = GetStat(RATE_OF_FIRE).Value;
         ProjectileSpeed = GetStat(SHOT_SPEED).Value;
+
     }
    /* protected List<StatModifier> AttributesMultModifiers()
     {
@@ -147,7 +153,6 @@ public class ShipStatsHandler : StatsHandler, IJsonSerializable
         Spaceship = Game.GetInteractor<SpaceshipInteractor>().spaceship;
         Equipment = Game.GetInteractor<EquipmentInteractor>().equipment;
         CalculateValues();
-        OnValuesCalculated();
         shotPoints = new List<ShootPosition>(Spaceship.gameObject.GetComponentsInChildren<ShootPosition>());
     }
 
@@ -246,6 +251,5 @@ public class ShipStatsHandler : StatsHandler, IJsonSerializable
         return data;
     }
 
-    
 }
 

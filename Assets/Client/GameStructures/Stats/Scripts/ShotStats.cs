@@ -12,23 +12,20 @@ namespace GameStructures.Stats
     {
 
         private float speed;
-        private int numbOfPenetrations;
+        
 
         private List<Vector2> shotPositions;
         private List<Vector2> shotDirrections;
         private List<Quaternion> rotation;
-
         public float ShotSpeed => speed;
-        public int Penetrations => numbOfPenetrations;
         public List<Vector2> ShotPos => shotPositions;
         public List<Vector2> ShotDir => shotDirrections;
         public List<Quaternion> Rotation => rotation;
-        public ShotStats(List<ShootPosition> parrents, float speed, int penetrations = 0)
+        public ShotStats(List<ShootPosition> parrents, float speed)
         {
             shotPositions = new List<Vector2>();
             shotDirrections = new List<Vector2>();
             rotation = new List<Quaternion>();
-
             foreach (ShootPosition point in parrents)
             {
                 shotPositions.Add(point.transform.position);
@@ -37,7 +34,6 @@ namespace GameStructures.Stats
             }
 
             this.speed = speed;
-            numbOfPenetrations = penetrations;
         }
     }
 }

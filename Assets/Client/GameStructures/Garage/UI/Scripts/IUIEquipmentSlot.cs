@@ -1,4 +1,5 @@
-﻿using UnityEngine.EventSystems;
+﻿using GameStructures.Equipment;
+using UnityEngine.EventSystems;
 
 public interface IUIEquipmentSlot : IPointerClickHandler
 {

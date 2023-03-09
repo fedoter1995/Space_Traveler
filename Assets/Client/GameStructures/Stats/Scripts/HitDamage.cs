@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stats
+namespace GameStructures.Stats
 {
     public class HitDamage
     {

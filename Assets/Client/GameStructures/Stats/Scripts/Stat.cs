@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Stats
+namespace GameStructures.Stats
 {
     [Serializable]
     public class Stat : BaseStat

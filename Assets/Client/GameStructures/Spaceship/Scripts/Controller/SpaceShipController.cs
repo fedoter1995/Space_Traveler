@@ -10,7 +10,7 @@ public class SpaceShipController : MonoBehaviour, IShipController
     private float currentMovementSpeed = 0;
     private float swing = 0;
     private Spaceship ship;
-    private ShipStatsHandler stats => ship.Stats;
+    private ShipStatsHandler stats => (ShipStatsHandler)ship.Handler;
 
     
 
@@ -46,10 +46,15 @@ public class SpaceShipController : MonoBehaviour, IShipController
     }
     private void MoveSpeedChange()
     {
-        if (inputManager.Move && currentMovementSpeed <= ship.Stats.MoveSpeed)
-            currentMovementSpeed += ship.Stats.Acceleration;
+        if (inputManager.Move && currentMovementSpeed < stats.MoveSpeed)
+        {
+            currentMovementSpeed += stats.Acceleration;
+        }    
         else if(!inputManager.Move && currentMovementSpeed > 0)
-            currentMovementSpeed -= ship.Stats.Deceleration;
+            currentMovementSpeed -= stats.Deceleration;
+
+        if (currentMovementSpeed > stats.MoveSpeed)
+            currentMovementSpeed = stats.MoveSpeed;
     }
     private void SwingSpeedChange()
     {

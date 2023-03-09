@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Stats
+namespace GameStructures.Stats
 {
     [CreateAssetMenu(menuName = "Stats/Presets/New_Damage_Preset")]
     public class DamagePreset : StatPreset

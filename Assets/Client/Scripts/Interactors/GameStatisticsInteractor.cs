@@ -21,13 +21,16 @@ class GameStatisticsInteractor : Interactor
     {
         var objectData = Game.saveController.Load(statistics.ToString());
         statistics.SetObjectData(objectData);
+        if(asteroidsInteractor != null)
         asteroidsInteractor.asteroids.OnDestroyAsteroidEvent += statistics.OnDestroyAsteroid;
     }
 
     public void GetInteractors()
     {
-        playerInteractor = Game.GetInteractor<SpaceshipInteractor>();
-        asteroidsInteractor = Game.GetInteractor<AsteroidsInteractor>();
+        if (Game.HaveComponent<SpaceshipInteractor>())
+            playerInteractor = Game.GetInteractor<SpaceshipInteractor>();
+        if(Game.HaveComponent<AsteroidsInteractor>())
+            asteroidsInteractor = Game.GetInteractor<AsteroidsInteractor>();
     }
 
     public override Dictionary<string, object> GetObjectData()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameStructures.Equipment;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +18,8 @@ namespace Garage.UI
         public void SetEquipment(Equipment equipment)
         {
             equipActual = equipment;
-          
+
+            Debug.Log(equipment);
             image.sprite = equipment.Icon;
         }
         public override void Initialize()

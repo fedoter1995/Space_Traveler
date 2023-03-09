@@ -43,8 +43,13 @@ public abstract class Projectile : MonoBehaviour, IDoingHit, IPoolsObject<Projec
     public void Hit(ITakeHit target)
     {
         var hit = new Hit(hitStats);
+
         target.TakeHit(hit);
-        SetActive(false);
+
+        if(hitStats.PenetrationsNumb > 0)
+            hitStats.OnHit();
+        else
+            SetActive(false);
     }
 }
 public struct ProjSettings
