@@ -78,29 +78,24 @@ namespace GameStructures.Equipment
         {
             var type = equipment.GetType();
 
-            if (type.IsSubclassOf(typeof(Weapon)))
+            if (type.IsSubclassOf(typeof(Weapon)) || type == typeof(Weapon))
             {
                 _mainWeapon = (Weapon)equipment;
                 _mainWeapon.InitEquipment();
-                return;
             }
-
-
-            if (type.IsSubclassOf(typeof(ShipSkin)))
+            else if (type.IsSubclassOf(typeof(ShipSkin)) || type == typeof(ShipSkin))
             {
                 _shipSkin = (ShipSkin)equipment;
                 _shipSkin.InitEquipment();
-                return;
             }
-
-
-            if (type.IsSubclassOf(typeof(MainEngine)))
+            else if (type.IsSubclassOf(typeof(MainEngine)) || type == typeof(MainEngine))
             {
                 _engine = (MainEngine)equipment;
                 _engine.InitEquipment();
-                return;
             }
 
+
+            EquipmentInitialize();
         }
         public void SetEquipment(string id)
         {
@@ -112,18 +107,23 @@ namespace GameStructures.Equipment
 
             var type = equipment.GetType();
 
-            if (type.IsSubclassOf(typeof(Weapon)))
+            Debug.Log(type);
+
+            if (type.IsSubclassOf(typeof(Weapon)) || type == typeof(Weapon))
+            {
                 _mainWeapon = (Weapon)equipment;
-
-                
-            if (type == typeof(ShipSkin))
+                _mainWeapon.InitEquipment();
+            }
+            else if (type.IsSubclassOf(typeof(ShipSkin)) || type == typeof(ShipSkin))
+            {
                 _shipSkin = (ShipSkin)equipment;
-
-
-            if (type == typeof(MainEngine))
+                _shipSkin.InitEquipment();
+            }
+            else if (type.IsSubclassOf(typeof(MainEngine)) || type == typeof(MainEngine))
+            {
                 _engine = (MainEngine)equipment;
-             
-
+                _engine.InitEquipment();
+            }
         }
         public override string ToString()
         {
