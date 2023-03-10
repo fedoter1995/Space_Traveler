@@ -18,9 +18,9 @@ public class ItemsRepository : Repository
     }
     
 
-    public Item GetItem(string id)
+    public T GetItem<T>(string id) where T : Item
     {
-        return database.GetItem(id);
+        return database.GetItem<T>(id);
     }
 
     public override Dictionary<string, object> GetObjectData()

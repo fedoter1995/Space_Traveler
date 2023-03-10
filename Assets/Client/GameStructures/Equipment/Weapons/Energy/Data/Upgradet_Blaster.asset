@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230d4377ae3f04747947b217b4b7b3ca, type: 3}
+  m_Name: Upgradet_Blaster
+  m_EditorClassIdentifier: 
+  _id: energyW_02
+  _name: Upgradet ship blaster
+  _description: 
+  _icon: {fileID: 21300000, guid: 730b7daa160a4b345a5ef8746decad5e, type: 3}
+  _prefab: {fileID: 0}
+  _slotType: 0
+  _modifiers:
+  - _preset: {fileID: 11400000, guid: 451f21948761ffb44930bfa3aff77e73, type: 2}
+    _value: 250
+  - _preset: {fileID: 11400000, guid: 3d57737ff8611eb4db519b5af4acbb4c, type: 2}
+    _value: 20
+  _equipType: 0
+  projectile: {fileID: 3280706136518574546, guid: e2c0259f67bf64d48b545d8b98228cd0, type: 3}
+  _shootPreset: {fileID: 11400000, guid: 316288b95d0c7da418ebbf095937bea2, type: 2}

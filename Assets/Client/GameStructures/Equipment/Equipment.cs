@@ -19,6 +19,16 @@ namespace GameStructures.Equipment
         {
             return new List<StatModifier>(_modifiers);
         }
+        public override DescriptionData GetDescriptionData()
+        {
+            var footer = new List<string>();
+
+            foreach (StatModifier modifier in _modifiers)
+                footer.AddRange(modifier.GetDescriptionData());
+
+            var data = new DescriptionData(Description, Name, footer, Icon);
+            return data;
+        }
     }
     public enum EquipmentType
     {

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils.Attributes;
 
 namespace Garage.UI
 {
@@ -10,7 +11,11 @@ namespace Garage.UI
         [SerializeField]
         private EquipmentThree _three;
 
+        [SerializeField, ClassReference(typeof(Equipment))]
+        private string _type;
 
+
+        public string TypeReference => _type;
         public Equipment equipActual { get; private set; }
 
         public event Action<EquipmentBookmark> OnClickEvent;
@@ -27,7 +32,7 @@ namespace Garage.UI
             base.Initialize();
             _three.Initialize(equipActual);
             _three.OnChangeEquipEvent += OnChangeEquipment;
-
+            SetActive(false);
         }
         private void OnChangeEquipment(Equipment equipment)
         {

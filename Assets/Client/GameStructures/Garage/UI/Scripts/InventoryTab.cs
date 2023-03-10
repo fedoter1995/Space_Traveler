@@ -13,8 +13,12 @@ public class InventoryTab : GarageTab
     {
         var iemCollection = Game.GetInteractor<InventoryInteractor>().collection;
         _itemCollection.Initilize(iemCollection);
-        SetActive(false);
+        Close();
     }
 
+    protected override void OnOpen()
+    {
+        Debug.Log($"{this} Open");
+    }
 }
 

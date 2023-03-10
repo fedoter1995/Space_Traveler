@@ -13,11 +13,20 @@ MonoBehaviour:
   m_Name: DefaultDataBase
   m_EditorClassIdentifier: 
   _name: DefaultDataBase
-  _items:
-  - {fileID: 11400000, guid: 1fe6ead72e456d34d98cba8794916d4f, type: 2}
-  - {fileID: 11400000, guid: 1d954c93a48b80546bfd38de3da979ee, type: 2}
+  _weapons:
   - {fileID: 11400000, guid: 424a496305289e248a58297579280b49, type: 2}
   - {fileID: 11400000, guid: 4135c76088a0d3e4183397b9c3fa6e01, type: 2}
   - {fileID: 11400000, guid: f74c9c5728c45d749b06605ecb43bced, type: 2}
-  - {fileID: 11400000, guid: eb77e8d5c55f08a4ab9233d59e5d7b60, type: 2}
+  - {fileID: 11400000, guid: f1dfd88d6757206459a1ea5f9bea2837, type: 2}
+  - {fileID: 11400000, guid: 9ef93e188dcc93e4ebad48953b332ec1, type: 2}
+  _armors:
   - {fileID: 11400000, guid: e4ab1e3fa2829664897515c496340545, type: 2}
+  - {fileID: 11400000, guid: 3a90c80ccfd99804f99f5e6c7c18ac03, type: 2}
+  - {fileID: 11400000, guid: 4649df2e04af35b40aeea73dd6263013, type: 2}
+  _engines:
+  - {fileID: 11400000, guid: eb77e8d5c55f08a4ab9233d59e5d7b60, type: 2}
+  - {fileID: 11400000, guid: 9cca2be0e5a50364db907d5f55518ac6, type: 2}
+  - {fileID: 11400000, guid: e82993025f87c664bb0778107f273f26, type: 2}
+  _items:
+  - {fileID: 11400000, guid: 1fe6ead72e456d34d98cba8794916d4f, type: 2}
+  - {fileID: 11400000, guid: 1d954c93a48b80546bfd38de3da979ee, type: 2}

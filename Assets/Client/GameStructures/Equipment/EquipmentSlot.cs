@@ -15,9 +15,8 @@ namespace GameStructures.Equipment
         public SlotType SlotType => SlotType.Equipment;
         public EquipmentType EquipType => _equip.Type;
         public string Name => _equip.Name;
-        public void SetItem(Item item)
+        public void SetItem(Equipment equip)
         {
-            var equip = item as Equipment;
 
             if (equip == null)
             {
@@ -44,7 +43,7 @@ namespace GameStructures.Equipment
                 var name = obj["Name"].ToString();
                 var id = obj["ID"].ToString();
 
-                SetItem(repository.GetItem(id));
+                SetItem(repository.GetItem<Equipment>(id));
             }
         }
 

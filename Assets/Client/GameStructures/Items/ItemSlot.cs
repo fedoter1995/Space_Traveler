@@ -48,7 +48,7 @@ public class ItemSlot : IJsonSerializable
             var repository = Architecture.Game.GetRepository<ItemsRepository>();
             var id = obj["ID"].ToString();
             var amount = System.Convert.ToInt32(obj["Amount"]);
-            SetItem(repository.GetItem(id));
+            SetItem(repository.GetItem<Item>(id));
             _amount = amount;
         }
     }

@@ -41,16 +41,7 @@ namespace GameStructures.Equipment.Weapons
         {
             projectileStorage = new GameObject($"{Name}_Projectile_Storage");
         }
-        public override DescriptionData GetDescriptionData()
-        {
-            var footer = new List<string>();
 
-            foreach (StatModifier modifier in _modifiers)
-                footer.AddRange(modifier.GetDescriptionData());
-
-            var data = new DescriptionData(Description, Name, footer, Icon);
-            return data;
-        }
     }
 }
 

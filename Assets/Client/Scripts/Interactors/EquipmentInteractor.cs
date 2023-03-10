@@ -67,9 +67,9 @@ public class EquipmentInteractor : Interactor
 
             foreach(Dictionary<string, object> eachData in availableEquipData)
             {
-                Item item = repository.GetItem(eachData["Id"].ToString());
+                Equipment equip = repository.GetItem<Equipment>(eachData["Id"].ToString());
 
-                availableEquipment.Add(item as Equipment);
+                availableEquipment.Add(equip);
             }
 
         }

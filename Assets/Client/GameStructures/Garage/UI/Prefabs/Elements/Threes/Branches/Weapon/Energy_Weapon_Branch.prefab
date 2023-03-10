@@ -88,7 +88,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5809997334314243747
 RectTransform:
   m_ObjectHideFlags: 0
@@ -317,11 +317,11 @@ PrefabInstance:
     - target: {fileID: 2498732891802287706, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: _equip
       value: 
-      objectReference: {fileID: 11400000, guid: 424a496305289e248a58297579280b49, type: 2}
+      objectReference: {fileID: 11400000, guid: f1dfd88d6757206459a1ea5f9bea2837, type: 2}
     - target: {fileID: 4303489019977312377, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e26db4b253e2d494f80585fa464585a2, type: 3}
+      objectReference: {fileID: 21300000, guid: 4f3f8656b3736cf4bb5d1a50d213f582, type: 3}
     - target: {fileID: 4860230732329496205, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_Name
       value: Equipment_Slot
@@ -447,6 +447,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Equipment_Slot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4860230732329496205, guid: 22baba937be439a489b399251a2397f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22baba937be439a489b399251a2397f5, type: 3}
 --- !u!224 &5038232085253373346 stripped
@@ -559,11 +563,11 @@ PrefabInstance:
     - target: {fileID: 2498732891802287706, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: _equip
       value: 
-      objectReference: {fileID: 11400000, guid: 4135c76088a0d3e4183397b9c3fa6e01, type: 2}
+      objectReference: {fileID: 11400000, guid: 9ef93e188dcc93e4ebad48953b332ec1, type: 2}
     - target: {fileID: 4303489019977312377, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: f512609e6dff4bb4a8fc69e29c64873b, type: 3}
+      objectReference: {fileID: 21300000, guid: 730b7daa160a4b345a5ef8746decad5e, type: 3}
     - target: {fileID: 4860230732329496205, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_Name
       value: Equipment_Slot (1)

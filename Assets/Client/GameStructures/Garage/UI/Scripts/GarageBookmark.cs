@@ -34,7 +34,11 @@ public class GarageBookmark : Bookmark
 
     public override void SetActive(bool activity)
     {
-        _tab.SetActive(activity);
+        if(activity)
+            _tab.Open();
+        else
+            _tab.Close();
+
         base.SetActive(activity);
     }
 

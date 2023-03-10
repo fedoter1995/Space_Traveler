@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using GameStructures.Stats;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace GameStructures.Equipment.Engine
 {
@@ -9,5 +11,7 @@ namespace GameStructures.Equipment.Engine
         {
             Debug.Log("MainEngine initialize");
         }
+
     }
+
 }

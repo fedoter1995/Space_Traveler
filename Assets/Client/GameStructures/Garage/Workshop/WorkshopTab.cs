@@ -1,6 +1,7 @@
 using Architecture;
 using GameStructures.Equipment;
 using Garage.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,28 +19,35 @@ public class WorkshopTab : GarageTab
 
     public override void Initialize()
     {   
-        SetActive(false);
+        Close();
         equipHandler = Game.GetInteractor<EquipmentInteractor>().equipment;
 
 
         var equipment = equipHandler.GetEquipment();
 
-        if(equipment.Count > _bookmarks.Count)
-            while(equipment.Count > _bookmarks.Count)
-            {
-                var slot = Object.Instantiate(_bookmarks[0]);
-                _bookmarks.Add(slot);
-            }
-
-        for (int i = 0; i < equipment.Count; i++)
+        foreach(EquipmentBookmark bookmark in _bookmarks)
         {
-            _bookmarks[i].SetEquipment(equipment[i]);
-            _bookmarks[i].Initialize();
-            _bookmarks[i].OnChangeEquipmentEvent += ChangeEquipment;
+            var type = Type.GetType(bookmark.TypeReference);
+            foreach (Equipment equip in equipment)
+            {
+                if (equip.GetType() == type)
+                {
+                    bookmark.SetEquipment(equip);
+                    bookmark.Initialize();
+                    bookmark.OnChangeEquipmentEvent += ChangeEquipment;
+                }
+                    
+            }
         }
-        SetListeners();
 
+        SetListeners();
     }
+
+    protected override void OnOpen()
+    {
+        OpenThree(_bookmarks[0]);
+    }
+
     public void OpenThree(EquipmentBookmark bookmark)
     {
         SetActiveBookmark(_activeBookmark, false);

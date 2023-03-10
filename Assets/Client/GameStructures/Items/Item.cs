@@ -46,7 +46,7 @@ public class Item : ScriptableObject, IHaveDescription, IJsonSerializable
         
         var repository = Architecture.Game.GetRepository<ItemsRepository>();
 
-        Item item = repository.GetItem(data["Id"].ToString());
+        Item item = repository.GetItem<Item>(data["Id"].ToString());
 
         Initialize(item);
     }

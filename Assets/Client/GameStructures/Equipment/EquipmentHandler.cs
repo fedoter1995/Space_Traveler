@@ -103,11 +103,11 @@ namespace GameStructures.Equipment
             var repository = Architecture.Game.GetRepository<ItemsRepository>();
 
 
-            var equipment = (Equipment)repository.GetItem(id);
+            var equipment = repository.GetItem<Equipment>(id);
+
+            Debug.Log(equipment);
 
             var type = equipment.GetType();
-
-            Debug.Log(type);
 
             if (type.IsSubclassOf(typeof(Weapon)) || type == typeof(Weapon))
             {

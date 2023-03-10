@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bddd2b3cae537347ad88bbbbd0d362f, type: 3}
-  m_Name: Ship Skin
+  m_Name: Azimut_01
   m_EditorClassIdentifier: 
   _id: shipskin01
-  _name: Azimut_09
+  _name: Azimut_01
   _description: 
-  _icon: {fileID: 21300000, guid: 652a206b53c93e24db0ab17bbee33c99, type: 3}
+  _icon: {fileID: 21300000, guid: 287894fe8cfca524ca13ce862d7101fa, type: 3}
   _prefab: {fileID: 0}
   _slotType: 0
   _modifiers:
   - _preset: {fileID: 11400000, guid: acdaffb1a5ab2754e8c7b34493edf288, type: 2}
-    _value: 21
+    _value: 5
   _equipType: 1
