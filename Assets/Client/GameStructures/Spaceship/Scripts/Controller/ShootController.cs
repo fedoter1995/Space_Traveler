@@ -10,7 +10,7 @@ public class ShootController : MonoBehaviour
     private Coroutine shootEnumerator = null;
     private bool isInitialize = false;
 
-    private ShipStatsHandler Stats => (ShipStatsHandler)ship.Handler;
+    private ShipStatsHandler Stats => (ShipStatsHandler)ship.StatsHandler;
     private void Update()
     { 
         if(isInitialize)

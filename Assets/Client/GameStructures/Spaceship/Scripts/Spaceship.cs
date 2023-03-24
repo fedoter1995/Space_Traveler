@@ -5,18 +5,26 @@ using CustomTools;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using GameStructures.Hit;
-using GameStructures.Equipment;
+using GameStructures.Gear;
 using GameStructures.Stats;
+using GameStructures.Garage.Workshop;
 
-[RequireComponent(typeof(SpaceShipController))]
+[RequireComponent(typeof(SpaceShipController),typeof(SpaceshipCameraController))]
 public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable, IHaveStatsHandler
 {
+    [SerializeField]
+    private string _name;
+
     [SerializeField]
     private Inventory _inventory = new Inventory();
     [SerializeField]
     private EquipmentHandler _equipment = new EquipmentHandler();
     [SerializeField]
     private ShipStatsHandler _stats = new ShipStatsHandler();
+
+
+    [SerializeField]
+    private WorkshopSettings _workshopSettings;
 
     private SpaceShipController shipController;
     private ShootController shootController;
@@ -29,12 +37,15 @@ public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable, IHaveStatsH
     public event Action<object,DamageType,DamageValue> OnTakeDamageEvent;
     #endregion
 
+    public string Name => _name;
     public Observable<int> HealthPoints { get; private set; }
     public SpaceShipController Controller => shipController;
     //public ShipStatsHandler Stats => _stats;
     public EquipmentHandler Equipment => _equipment;
     public Inventory Inventory => _inventory;
-    public StatsHandler Handler => _stats;
+    public StatsHandler StatsHandler => _stats;
+    public WorkshopSettings WorkshopSettings => _workshopSettings;
+
 
     private float offset = -90;
     private float move = 0;
@@ -47,30 +58,17 @@ public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable, IHaveStatsH
     public void Initialize()
     {
         var inventory = Architecture.Game.GetInteractor<InventoryInteractor>().collection;
-        var equipment = Architecture.Game.GetInteractor<EquipmentInteractor>().equipment;
-        var statsHandler = Architecture.Game.GetInteractor<SpaceshipStatsHandlerInteractor>().statsHandler;
+
         var manager = new KeyboardInputManager();
         _inventory = inventory;
-        _equipment = equipment;
-        _stats = statsHandler;
 
-        _equipment.EquipmentInitialize();
+        _equipment.Initialize();
         _stats.Initialize();
+        _workshopSettings.Initialize(this);
         shootController.Initialize(manager, this);
         shipController.Initialize(manager, this);
         HealthPoints = new Observable<int>((int)_stats.HealthPoints);
     }
-
-
-    #region OnTrigger
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        var obj = collision.GetComponent<ItemObject>();
-        if (obj != null)
-            _inventory.TryToAddToCollection(obj, obj.ItemSlot.CurrentItem, obj.ItemSlot.Amount);
-    }
-    #endregion
-
     public void TakeDamage(HitDamage damage)
     {
         foreach (KeyValuePair<DamageType, DamageValue> entry in damage.DamageTypeValueDict)
@@ -84,55 +82,64 @@ public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable, IHaveStatsH
         if (HealthPoints.Value <= 0)
             Debug.Log("Game Over");
     }
-
     public void ShootSound(AudioClip clip)
     {
         var audio = GameObject.FindWithTag("Sounds").GetComponent<AudioSource>();
         audio.clip = clip;
         audio.Play();
     }
-
-    private void GetComponents()
-    {
-        serializableObjects = new List<IJsonSerializable>();
-
-        shipController = MyTools.GetComponent<SpaceShipController>(gameObject);
-        shootController = MyTools.GetComponent<ShootController>(gameObject);
-
-    }
     public void SetObjectData(Dictionary<string, object> data)
     {
         GetComponents();
+
         if (data != null)
         {
-            foreach (IJsonSerializable obj in serializableObjects)
+            foreach(IJsonSerializable obj in serializableObjects)
             {
-                string objKey = obj.ToString();
-                if (data.ContainsKey(objKey))
-                {
-                    JObject jobj = (JObject)data[objKey];
-                    var newData = jobj.ToObject<Dictionary<string, object>>();
-                    obj.SetObjectData(newData);
-                }
+                var objData = MyTools.JObjectToDict<string, object>((JObject)data[obj.ToString()]);
+                obj.SetObjectData(objData);
             }
         }
     }
-
     public Dictionary<string, object> GetObjectData()
     {
-        var dict = new Dictionary<string, object>();
-        foreach(IJsonSerializable obj in serializableObjects)
+        var data = new Dictionary<string, object>();
+
+        foreach (IJsonSerializable obj in serializableObjects)
         {
-            dict.Add(obj.ToString(), obj.GetObjectData());
+            data.Add(obj.ToString(), obj.GetObjectData());
         }
 
-        return dict;
+        return data;
     }
-
     public void TakeHit(Hit hit)
     {
         var dmg = hit.GetHitDamage(_stats.Resistances);
         TakeDamage(dmg);
     }
+    public override string ToString()
+    {
+        return _name;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var obj = collision.GetComponent<ItemObject>();
+        if (obj != null)
+            _inventory.TryToAddToCollection(obj, obj.ItemSlot.CurrentItem, obj.ItemSlot.Amount);
+    }
+    private void GetComponents()
+    {
+        serializableObjects = new List<IJsonSerializable>();
+
+        serializableObjects.Add(_stats);
+        serializableObjects.Add(_equipment);
+        serializableObjects.Add(_workshopSettings);
+
+        shipController = gameObject.GetComponent<SpaceShipController>();
+        shootController = gameObject.GetComponent<ShootController>();
+
+    }
+
 }
 

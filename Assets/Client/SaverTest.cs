@@ -11,13 +11,5 @@ public class SaverTest : MonoBehaviour
             var interactor = Game.saveController;
             interactor.Save();
         }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            var interactor = Game.GetInteractor<GameStatisticsInteractor>();
-            Debug.Log(interactor.statistics.Points);
-            Debug.Log(interactor.statistics.DestroyedAsteroidsNumb[AsteroidType.Large]);
-            Debug.Log(interactor.statistics.DestroyedAsteroidsNumb[AsteroidType.Medium]);
-            Debug.Log(interactor.statistics.DestroyedAsteroidsNumb[AsteroidType.Small]);
-        }
     }
 }

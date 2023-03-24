@@ -10,7 +10,7 @@ public class SpaceShipController : MonoBehaviour, IShipController
     private float currentMovementSpeed = 0;
     private float swing = 0;
     private Spaceship ship;
-    private ShipStatsHandler stats => (ShipStatsHandler)ship.Handler;
+    private ShipStatsHandler stats => (ShipStatsHandler)ship.StatsHandler;
 
     
 

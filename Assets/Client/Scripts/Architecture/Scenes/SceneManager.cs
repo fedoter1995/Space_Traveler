@@ -30,6 +30,7 @@ namespace Architecture
             scenesConfigMap = new Dictionary<string, SceneConfig>();
 
             saveController = new SaveDataController();
+
             saveController.Initialize();
 
             InitializeSceneConfigs();

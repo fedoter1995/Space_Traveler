@@ -48,8 +48,7 @@ namespace Architecture
 
         private static void InitSceneManager()
         {
-            sceneManager = new SceneManager();
-            
+            sceneManager = new SceneManager();           
         }
 
         #endregion

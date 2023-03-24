@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,28 +9,7 @@ namespace CustomTools
 {
     public class MyTools
     {
-        public static T GetComponent<T>(GameObject sender)
-        {
-
-            var component = sender.GetComponent<T>();
-            
-            if(component == null)
-                throw new System.Exception($"Cant find {typeof(T)} in {sender}");
-
-            return component;
-            
-        }
-        public static T GetComponentInChildren<T>(GameObject sender)
-        {
-
-            var component = sender.GetComponentInChildren<T>();
-
-            if (component == null)
-                throw new System.Exception($"Cant find {typeof(T)} in {sender}");
-
-            return component;
-
-        }
+       
         public static T LoadObjectResource<T>(string fileName) where T : Object
         {
             var prefab = Resources.Load<T>(fileName);
@@ -48,32 +28,25 @@ namespace CustomTools
             else
                 return prefab;
         }
-        public static GameObject Create(string name)
-        {
-            return new GameObject(name);
-        }
         public static GameObject Create(string name, Vector3 position, Quaternion rotation)
         {
             var go = new GameObject(name);
             go.transform.position = position;
             go.transform.rotation = rotation;
             return go;
-        }
-        public static GameObject Create(Object original)
+        }       
+        public static Dictionary<T, B> JObjectToDict<T, B>(JObject obj)
         {
-            return Object.Instantiate(original) as GameObject;
+            var dict = obj.ToObject<Dictionary<T, B>>();
+
+            return dict;
         }
-        public static GameObject Create(Object original, Vector3 position, Quaternion rotation)
+        public static List<T> JArrayToList<T>(JArray array)
         {
-            return Object.Instantiate(original, position, rotation) as GameObject;
+            var list = array.ToObject<List<T>>();
+
+            return list;
         }
-        public static GameObject Create(Object original, Transform parent)
-        {
-            return Object.Instantiate(original, parent) as GameObject;
-        }
-        public static GameObject Create(Object original, Vector3 position, Quaternion rotation, Transform parent)
-        {
-            return Object.Instantiate(original, position, rotation, parent) as GameObject;
-        }
+
     }
 }

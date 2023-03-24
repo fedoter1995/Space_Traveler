@@ -1,5 +1,5 @@
 ﻿using GameStructures.Effects;
-using GameStructures.Equipment.Weapons;
+using GameStructures.Gear.Weapons;
 using Stats;
 using System;
 using System.Collections.Generic;

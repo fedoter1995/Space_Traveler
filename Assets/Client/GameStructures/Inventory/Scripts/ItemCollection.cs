@@ -67,9 +67,18 @@ public class ItemCollection : IJsonSerializable
     {
         OnItemStateChangedEvent?.Invoke();
     }
-    public void OnRemove(Item item, int amount)
+    public bool TryToRemove(Item item, int amount)
     {
-        OnRemovedEvent?.Invoke(item, amount);
+        var SlotWithSameItem = _slots.Find(slot => slot.ItemID == item.Id);
+
+        if (SlotWithSameItem.Amount >= amount)
+        {
+            SlotWithSameItem.Amount -= amount;
+            OnRemovedEvent?.Invoke(item, amount);
+            return true;
+        }
+        
+        return false;
     }
 
     #region SerializationJSON
@@ -93,7 +102,15 @@ public class ItemCollection : IJsonSerializable
             _slots = new List<ItemSlot>(slots);
         }
     }
+    public bool HaveItemAmount(Item item, int amount)
+    {
+        var SlotWithSameItem = _slots.Find(slot => slot.ItemID == item.Id);
 
+        if (SlotWithSameItem.Amount >= amount)
+            return true;
+
+        return false;
+    }
     public Dictionary<string, object> GetObjectData()
     {
         var items = new Dictionary<string, object>();

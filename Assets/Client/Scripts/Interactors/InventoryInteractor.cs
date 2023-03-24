@@ -10,18 +10,16 @@ public class InventoryInteractor : Interactor
     public override void OnCreate()
     {
         collection = new Inventory();
-    }
-    public override void OnInitialize()
-    {
         var saveDataInteractor = Game.saveController;
         var objectData = saveDataInteractor.Load(ToString());
-        if(objectData != null)
+        if (objectData != null)
             collection.SetObjectData(objectData);
         else
         {
 
             if (Game.HaveComponent<SpaceshipInteractor>())
             {
+
                 var spaceship = Game.GetInteractor<SpaceshipInteractor>().spaceship;
                 collection = spaceship.Inventory;
             }
@@ -31,10 +29,7 @@ public class InventoryInteractor : Interactor
             }
         }
     }
-    public override void OnStart()
-    {
-        
-    }
+
 
     public override Dictionary<string, object> GetObjectData()
     {

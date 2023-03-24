@@ -17,10 +17,8 @@ MonoBehaviour:
   - ItemsRepository
   - StatsPresetRepository
   _interactorsReferences:
-  - AsteroidsInteractor
-  - EquipmentInteractor
+  - SpaceshipInteractor
   - InventoryInteractor
-  - SpaceshipStatsHandlerInteractor
   _uiControllersReferences:
   - GarageUIController
   - TooltipUIController

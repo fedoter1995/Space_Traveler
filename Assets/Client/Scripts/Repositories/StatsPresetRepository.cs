@@ -9,7 +9,7 @@ public class StatsPresetRepository : Repository
 {
     private StatPresetDataBase database;
 
-    public override void OnInitialize()
+    public override void OnCreate()
     {
         ResourcesLoad();
     }

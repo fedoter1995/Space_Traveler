@@ -7,8 +7,8 @@ using CustomTools;
 using Newtonsoft.Json.Linq;
 using GameStructures.Stats;
 using GameStructures.Effects;
-using GameStructures.Equipment.Weapons;
-using GameStructures.Equipment;
+using GameStructures.Gear.Weapons;
+using GameStructures.Gear;
 
 [Serializable]
 public class ShipStatsHandler : StatsHandler, IJsonSerializable
@@ -26,8 +26,6 @@ public class ShipStatsHandler : StatsHandler, IJsonSerializable
     #endregion
     [SerializeField,Header("Damages")]
     private List<Damage> _damages;
-    //[SerializeField, Header("Attributes")]
-    //private List<Stats.Attribute> _attributes;
     [SerializeField, Header("Resistances")]
     private List<Resistance> _resistances;
     [SerializeField, Header("Chances")]
@@ -127,31 +125,16 @@ public class ShipStatsHandler : StatsHandler, IJsonSerializable
         ProjectileSpeed = GetStat(SHOT_SPEED).Value;
 
     }
-   /* protected List<StatModifier> AttributesMultModifiers()
-    {
-        List<StatModifier> modifiers = new List<StatModifier>(); ;
-        foreach (Stats.Attribute attribute in _attributes)
-        {
-            var attributeModifiers = new List<StatModifier>(attribute.Modifiers);
-            foreach (StatModifier modifier in attributeModifiers)
-            {
-                var multModifier = new StatModifier(modifier.Preset, (modifier.Value * attribute.Value));
-                modifiers.Add(multModifier);
-            }
-            modifiers = new List<StatModifier>();
-        }
-        return modifiers;
-    }*/
     public override void Initialize()
     {
-        //InitializeStats(_attributes);
         InitializeStats(_stats);
         InitializeStats(_resistances);
         InitializeStats(_damages);
         InitializeStats(_chances);
         InitializeStats(_multipliers);
         Spaceship = Game.GetInteractor<SpaceshipInteractor>().spaceship;
-        Equipment = Game.GetInteractor<EquipmentInteractor>().equipment;
+        Equipment = Spaceship.Equipment;
+        Equipment.OnEquipmentChangeEvent += CalculateValues;
         CalculateValues();
         shotPoints = new List<ShootPosition>(Spaceship.gameObject.GetComponentsInChildren<ShootPosition>());
     }

@@ -1,7 +1,7 @@
-using GameStructures.Equipment;
-using GameStructures.Equipment.Armors;
-using GameStructures.Equipment.Engine;
-using GameStructures.Equipment.Weapons;
+using GameStructures.Gear;
+using GameStructures.Gear.Armors;
+using GameStructures.Gear.Engine;
+using GameStructures.Gear.Weapons;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Item/DataBase")]
@@ -13,7 +13,7 @@ public class ItemDataBase : ScriptableObject
     [SerializeField, Header("Weapons")]
     private List<Weapon> _weapons = new List<Weapon>();
     [SerializeField, Header("Armors")]
-    private List<Armor> _armors = new List<Armor>();
+    private List<ShipSkin> _armors = new List<ShipSkin>();
     [SerializeField, Header("Engines")]
     private List<MainEngine> _engines = new List<MainEngine>();
     [SerializeField, Header("Other Items")]

@@ -7,7 +7,7 @@ namespace Stats
 {
     public static class TakeDamageHandler
     {
-
+        
     }
 }
 

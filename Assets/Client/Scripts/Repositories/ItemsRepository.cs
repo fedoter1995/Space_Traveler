@@ -7,7 +7,7 @@ public class ItemsRepository : Repository
 {
     private ItemDataBase database;
 
-    public override void OnInitialize()
+    public override void OnCreate()
     {
         ResourcesLoad();
     }
