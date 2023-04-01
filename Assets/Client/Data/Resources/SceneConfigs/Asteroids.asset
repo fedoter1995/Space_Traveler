@@ -19,6 +19,6 @@ MonoBehaviour:
   _interactorsReferences:
   - SpaceshipInteractor
   - InventoryInteractor
-  - GameStatisticsInteractor
+  - AsteroidsInteractor
   _uiControllersReferences: []
   environmentSettings: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}

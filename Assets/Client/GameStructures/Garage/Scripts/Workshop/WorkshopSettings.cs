@@ -45,7 +45,7 @@ namespace GameStructures.Garage.Workshop
         {
             var array = (JArray)data["AvailableEquipment"];
 
-            var equipmentData = MyTools.JArrayToList<Dictionary<string, object>>(array);
+            var equipmentData = CustomConvert.JArrayToList<Dictionary<string, object>>(array);
 
             var repository = Architecture.Game.GetRepository<ItemsRepository>();
             
@@ -73,7 +73,14 @@ namespace GameStructures.Garage.Workshop
 
             return data;
         }
+        public bool HasEquipment(string id)
+        {
+            var item = _availableEquipment.Find(item => item.Id == id);
+            if (item != null)
+                return true;
 
+            return false;
+        }
         public override string ToString()
         {
             return "WorkshopSettings";

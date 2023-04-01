@@ -1,4 +1,4 @@
-﻿using GameStructures.Hit;
+﻿using GameStructures.Hits;
 using GameStructures.Stats;
 using Stats;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 public interface ITakeHit
 {
     event Action<HitStats> OnTakeHitEvent;
-    void TakeHit(Hit hit);
+    void TakeHit(object sender, Hit hit);
 }
 struct Message
 {

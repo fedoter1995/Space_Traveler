@@ -14,8 +14,7 @@ public class EquipmentUISlot : TooltipUIObject, IUIEquipmentSlot
 {
     [SerializeField]
     private Equipment _equip;
-    [SerializeField]
-    private CraftRequirements _requirements;
+
 
     [SerializeField]
     private Image _image;
@@ -28,16 +27,12 @@ public class EquipmentUISlot : TooltipUIObject, IUIEquipmentSlot
 
     public event Action<EquipmentUISlot> OnClickEvent;
 
-    private TooltipUI tooltip;
-
     public EquipmentBranch Branch { get; private set; }
-    public CraftRequirements Requirements => _requirements;
     public Equipment Equip => _equip;
 
     public void Initialize(EquipmentBranch branch)
     {
         Branch = branch;
-        tooltip = Game.GetUIController<TooltipUIController>().tooltip;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -46,11 +41,11 @@ public class EquipmentUISlot : TooltipUIObject, IUIEquipmentSlot
     }
     public override void OnPointerEnter(PointerEventData eventData)
     {
-        ShowDescription(eventData);
+        //ShowDescription(eventData);
     }
     public override void OnPointerExit(PointerEventData eventData)
     {
-        tooltip.HideTooltip();
+        //tooltip.HideTooltip();
     }
 
 
@@ -62,12 +57,6 @@ public class EquipmentUISlot : TooltipUIObject, IUIEquipmentSlot
     {
         _hideFilter.gameObject.SetActive(!availability);
         Availability = availability;
-    }
-
-    private void ShowDescription(PointerEventData eventData)
-    {
-        var description = Equip.GetDescriptionData();
-        tooltip.ShowTooltip(description, eventData);
     }
 
     void OnGUI()

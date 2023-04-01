@@ -15,11 +15,9 @@ public class EquipmentTree : MonoBehaviour
     private List<EquipmentBranch> _branches;
 
     public event Action<EquipmentUISlot> OnChangeSlotEvent;
-    public event Action<Equipment> OnChangeEqipmentEvent;
     public string Name => _name;
     public string TypeReference => _type;
     public EquipmentUISlot SlotActual { get; private set; }
-    public Equipment EquipActual { get; private set; }
     public void SetActive(bool activity)
     {
         gameObject.SetActive(activity);
@@ -36,9 +34,7 @@ public class EquipmentTree : MonoBehaviour
             {
                 if (slot.Equip == equip)
                 {
-                    Debug.Log(equip);
                     ChangeActiveSlot(slot);
-                    EquipActual = slot.Equip;
                 }
            
 
@@ -58,11 +54,6 @@ public class EquipmentTree : MonoBehaviour
         SlotActual.SetActive(true);
 
         OnChangeSlotEvent?.Invoke(SlotActual);
-    }
-    public void SetActualEquipment(Equipment equipment)
-    {
-        EquipActual = equipment;
-        OnChangeEqipmentEvent.Invoke(EquipActual);
     }
 
 }

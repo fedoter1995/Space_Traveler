@@ -8,9 +8,6 @@ namespace UI.Tooltip
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class TooltipWindow : MonoBehaviour, ITooltipWindow
     {
-        protected const string END_LINE = "\n";
-        protected const string SPACE = " ";
-        
         
         [SerializeField]
         private CanvasGroup _group;

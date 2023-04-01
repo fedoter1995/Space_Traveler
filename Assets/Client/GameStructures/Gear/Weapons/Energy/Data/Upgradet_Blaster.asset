@@ -18,6 +18,14 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: 730b7daa160a4b345a5ef8746decad5e, type: 3}
   _prefab: {fileID: 0}
   _slotType: 0
+  _craftRequirements:
+    _elements:
+    - _element: {fileID: 11400000, guid: e8973df9dfe8df14685e33cb3be989f6, type: 2}
+      _amount: 700
+    - _element: {fileID: 11400000, guid: c0ea0ac871286cb4d870a856485ff5df, type: 2}
+      _amount: 450
+    _equipments:
+    - {fileID: 11400000, guid: f1dfd88d6757206459a1ea5f9bea2837, type: 2}
   _modifiers:
   - _preset: {fileID: 11400000, guid: 451f21948761ffb44930bfa3aff77e73, type: 2}
     _value: 250

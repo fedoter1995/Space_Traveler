@@ -23,8 +23,7 @@ namespace Garage.UI
         {
             this.three = tree;
             _textMesh.text = tree.Name;
-            tree.OnChangeEqipmentEvent += SetEquipment;
-            SetEquipment(tree.EquipActual);
+            SetEquipment(tree.SlotActual.Equip);
             SetActive(false);
         }
 

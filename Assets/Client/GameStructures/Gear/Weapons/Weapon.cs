@@ -1,4 +1,5 @@
 ﻿using CustomTools;
+using GameStructures.Hits;
 using GameStructures.Stats;
 using Stats;
 using System;
@@ -27,9 +28,9 @@ namespace GameStructures.Gear.Weapons
             projectilePool = new Pool<Projectile>(projectile, _projectilesLimit, projectileStorage.transform, !_haveLimit);
         }
 
-        public virtual void Shot(ShotStats shotStats, HitStats hitStats)
+        public virtual void Shot(object sender, ShotStats shotStats, HitStats hitStats)
         {
-            _shootPreset.Shot(shotStats, hitStats, projectilePool);
+            _shootPreset.Shot(sender, shotStats, hitStats, projectilePool);
         }
         public override List<StatModifier> GetAllModifiers()
         {

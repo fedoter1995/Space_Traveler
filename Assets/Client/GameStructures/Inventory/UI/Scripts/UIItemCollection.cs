@@ -1,3 +1,4 @@
+using GameStructures.Items;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +17,9 @@ public class UIItemCollection : MonoBehaviour
         this.collection = collection;
 
         slots = new List<UIInventorySlot>();
+        var collectionSlots = this.collection.GetSlots();
 
-        foreach (ItemSlot slot in this.collection.Slots)
+        foreach (IItemSlot slot in collectionSlots)
         {
             var newSlot = Instantiate(_slotPrefab,transform);
             newSlot.SetSlot(slot);
@@ -26,23 +28,24 @@ public class UIItemCollection : MonoBehaviour
     }
     public void UpdateSlots()
     {
-        if(slots.Count == collection.Slots.Count)
+        var collectionSlots = collection.GetSlots();
+        if (slots.Count == collectionSlots.Count)
         {
             for(int i = 0; i < slots.Count; i++)
             {
-                slots[i].SetSlot(collection.Slots[i]);
+                slots[i].SetSlot(collectionSlots[i]);
             }
         }
-        else if(slots.Count < collection.Slots.Count)
+        else if(slots.Count < collectionSlots.Count)
         {
-            for (int i = 0; i < collection.Slots.Count; i++)
+            for (int i = 0; i < collectionSlots.Count; i++)
             {
                 if(i < slots.Count)
-                    slots[i].SetSlot(collection.Slots[i]);
+                    slots[i].SetSlot(collectionSlots[i]);
                 else
                 {
                     var newSlot = Instantiate(_slotPrefab, transform);
-                    newSlot.SetSlot(collection.Slots[i]);
+                    newSlot.SetSlot(collectionSlots[i]);
                     slots.Add(newSlot);
                 }
             }

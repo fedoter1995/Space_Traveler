@@ -3,23 +3,25 @@ using GameStructures.Garage.Workshop;
 using GameStructures.Gear;
 using Garage.UI;
 using System;
-using System.Collections;
+using TMPro;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UI;
 
 public class WorkshopTab : GarageTab
 {   
+
     [SerializeField]
     private EquipmentBookmark _bookmarkPrefab;
     [SerializeField]
-    private Transform _equipmentList;
+    private CraftPanel _craftPanel;
+
+
     [SerializeField]
     private Transform _treesList;
     [SerializeField]
-    private Button _craftButton;
-
-
+    private Transform _equipmentList;
 
 
     private List<EquipmentTree> threes;
@@ -30,17 +32,28 @@ public class WorkshopTab : GarageTab
 
     private Spaceship spaceship;
 
+
+    public EquipmentUISlot SlotActual => activeBookmark.Three.SlotActual;
+
     public override void Initialize()
     {
         Close();
 
-        InitTrees();
+        _craftPanel.Initialize();
 
-        _craftButton.onClick.AddListener(TryChangeEquipment);
+        _craftPanel.ButtonClickEvent.AddListener(TryChangeEquipment);
+
+        spaceship = Game.GetInteractor<SpaceshipInteractor>().spaceship;
+
+        InitTrees();
     }
     protected override void OnOpen()
     {
         OpenTree(bookmarks[0]);
+    }
+    private void OnChangeTreeItem(EquipmentUISlot slot)
+    {
+        _craftPanel.OnChangeObject(slot);
     }
     public void OpenTree(EquipmentBookmark bookmark)
     {
@@ -48,6 +61,7 @@ public class WorkshopTab : GarageTab
             SetActiveBookmark(activeBookmark, false);
         activeBookmark = bookmark;
         SetActiveBookmark(activeBookmark, true);
+        OnChangeTreeItem(activeBookmark.Three.SlotActual);
     }
 
     private void TryChangeEquipment()
@@ -56,12 +70,17 @@ public class WorkshopTab : GarageTab
 
         if (slot.Availability)
         {    
-            activeBookmark.Three.SetActualEquipment(slot.Equip);
             spaceship.Equipment.SetEquipment(slot.Equip);
+            activeBookmark.SetEquipment(slot.Equip);
         }
         else
-            TryToCraftEquipment(slot);
-
+        {
+            if(_craftPanel.TryToCraftEquipment(slot))
+            {
+                activeBookmark.SetEquipment(slot.Equip);
+                OnChangeTreeItem(slot);
+            }
+        }
     }
     private void SetActiveBookmark(EquipmentBookmark bookmark, bool activity)
     {
@@ -69,7 +88,6 @@ public class WorkshopTab : GarageTab
     }
     private void InitTrees()
     {
-
         CreateTrees();
     }
     private void CreateBookmark(EquipmentTree three)
@@ -82,24 +100,8 @@ public class WorkshopTab : GarageTab
         SetActiveBookmark(bookmark, false);
         bookmarks.Add(bookmark);
     }
-    private bool TryToCraftEquipment(EquipmentUISlot slot)
-    {
-        if (CheckRequirements(slot.Requirements))
-        {
-            slot.SetAvailability(true);
-
-            activeBookmark.Three.SetActualEquipment(slot.Equip);
-            spaceship.WorkshopSettings.AddToAvailableEquipment(slot.Equip);
-            spaceship.Equipment.SetEquipment(slot.Equip);
-            return true;
-        }
-
-
-        return false;
-    }
     private void CreateTrees()
     {
-        spaceship = Game.GetInteractor<SpaceshipInteractor>().spaceship;
 
         threes = new List<EquipmentTree>();
 
@@ -113,6 +115,8 @@ public class WorkshopTab : GarageTab
         {
 
             var tree = Instantiate(treePrefab, _treesList);
+
+            tree.OnChangeSlotEvent += OnChangeTreeItem;
 
             var type = Type.GetType(tree.TypeReference);
 
@@ -128,25 +132,5 @@ public class WorkshopTab : GarageTab
 
             threes.Add(tree);
         }
-    }
-    private bool CheckRequirements(CraftRequirements requirements)
-    {
-        var inventory = spaceship.Inventory;
-
-        var availableEquipment = spaceship.WorkshopSettings.AvailableEquipment;
-
-        foreach(Equipment equipment in requirements.Equipments)
-            if (!availableEquipment.Contains(equipment))
-                return false;
-        
-
-        foreach(ItemSlot slot in requirements.Items)
-            if (!inventory.HaveItemAmount(slot.CurrentItem, slot.Amount))
-                return false;
-
-        foreach (ItemSlot slot in requirements.Items)
-            inventory.TryToRemove(slot.CurrentItem, slot.Amount);
-
-        return true;
     }
 }

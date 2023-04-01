@@ -1,4 +1,5 @@
 ﻿using CustomTools;
+using GameStructures.Hits;
 using GameStructures.Stats;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace GameStructures.Gear.Weapons
     public class TripleShotting : ShotPreset
     {
 
-        public override void Shot(ShotStats shotStats, HitStats hitStats, Pool<Projectile> projectilePool)
+        public override void Shot(object sender, ShotStats shotStats, HitStats hitStats, Pool<Projectile> projectilePool)
         {
 
             var proj = projectilePool.GetFreeObject();
@@ -29,9 +30,9 @@ namespace GameStructures.Gear.Weapons
             var hitStats3 = new HitStats(hitStats);
 
 
-            proj.Initialize(projSettings, hitStats1);
-            proj_1.Initialize(projSettings1, hitStats2);
-            proj_2.Initialize(projSettings2, hitStats3);
+            proj.Initialize(sender, projSettings, hitStats1);
+            proj_1.Initialize(sender, projSettings1, hitStats2);
+            proj_2.Initialize(sender, projSettings2, hitStats3);
 
             proj.transform.position = shotStats.ShotPos[0];
             proj_1.transform.position = shotStats.ShotPos[1];

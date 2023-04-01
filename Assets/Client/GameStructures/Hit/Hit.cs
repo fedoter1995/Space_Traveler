@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Hit
+namespace GameStructures.Hits
 {
     public class Hit
     {

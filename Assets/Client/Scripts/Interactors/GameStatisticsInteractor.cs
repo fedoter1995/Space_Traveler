@@ -22,7 +22,7 @@ class GameStatisticsInteractor : Interactor
         var objectData = Game.saveController.Load(statistics.ToString());
         statistics.SetObjectData(objectData);
         if(asteroidsInteractor != null)
-        asteroidsInteractor.asteroids.OnDestroyAsteroidEvent += statistics.OnDestroyAsteroid;
+            asteroidsInteractor.asteroids.OnDestroyAsteroidEvent += statistics.OnDestroyAsteroid;
     }
 
     public void GetInteractors()

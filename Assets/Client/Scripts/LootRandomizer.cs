@@ -1,38 +1,39 @@
+using GameStructures.Items;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace CustomTools
 {
-    public class LootRandomizer
+    public class LootRandomizer : MonoBehaviour
     {
-        public static void DropLoot(List<LootSlot> slots, Vector3 position)
+        [SerializeField]
+        protected List<LootSlot> _loot;
+
+        public void DropLoot(object sender, Inventory target)
         {
-            var loot = GiveLoot(slots);
-            if(loot.Count > 0)
-                foreach (ItemSlot slot in loot)
-                {
-                    var item = Object.Instantiate(slot.CurrentItem.Prefab, position, Quaternion.identity);
-                    item.ItemSlot = slot;
-                    item.ItemSlot.CurrentItem.Initialize(item.ItemSlot.CurrentItem);
-                }
+            var droppedItems = GiveLoot(_loot);
+
+            Debug.Log(droppedItems.Count);
+
+            target.TryToAddToCollection(sender, droppedItems);
         }
-        private static List<ItemSlot> GiveLoot(List<LootSlot> slot)
+        private  List<ItemSlot> GiveLoot(List<LootSlot> slots)
         {
             var issuedSlots = new List<ItemSlot>();
 
-            foreach(LootSlot itemSlot in slot)
+            System.Random rnd = new System.Random();
+
+            foreach (LootSlot slot in slots)
             {
-                if(itemSlot.CurrentItem == null)
-                    continue;
+                float numb = rnd.Next(1, 101);
 
-                var randomNumb = Random.Range(0f, 1.0001f);
-
-
-                if (itemSlot.DropChance >= randomNumb)
+                if (slot.DropChance >= numb)
                 {
-                    issuedSlots.Add(itemSlot);
+                    var newSlot = new ItemSlot();
+                    newSlot.SetItem(slot.CurrentItem, slot.Amount);
+                    issuedSlots.Add(newSlot);
                 }
-
             }
 
             return issuedSlots;

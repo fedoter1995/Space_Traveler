@@ -1,3 +1,4 @@
+using GameStructures.Items;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,8 @@ public class UIInventorySlot : MonoBehaviour
     private UIInventoryItem _uiItem;
 
 
-    public void SetSlot(ItemSlot slot)
+    public void SetSlot(IItemSlot slot)
     {
-        Debug.Log(slot);
         _uiItem.SetItemSlot(slot);
     }
 }

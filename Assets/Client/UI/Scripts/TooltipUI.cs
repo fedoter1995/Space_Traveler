@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace UI.Tooltip
 {
-    public class TooltipUI : MonoBehaviour
+/*    public class TooltipUI : MonoBehaviour
     {
 
 		[SerializeField]
@@ -33,5 +33,5 @@ namespace UI.Tooltip
 		{
 			_description.Hide();
 		}
-	}
+	}*/
 }

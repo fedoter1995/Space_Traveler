@@ -26,7 +26,6 @@ namespace GameStructures.Stats
             InitializeStats(_stats);
             CalculateValues();
             IsInitialize = true;
-            OnValuesCalculated();
         }
         public virtual List<StatModifier> GetAllModifiers()
         {

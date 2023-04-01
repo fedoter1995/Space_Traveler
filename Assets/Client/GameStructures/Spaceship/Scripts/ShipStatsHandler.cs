@@ -9,6 +9,7 @@ using GameStructures.Stats;
 using GameStructures.Effects;
 using GameStructures.Gear.Weapons;
 using GameStructures.Gear;
+using GameStructures.Hits;
 
 [Serializable]
 public class ShipStatsHandler : StatsHandler, IJsonSerializable

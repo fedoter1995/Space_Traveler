@@ -94,7 +94,27 @@ namespace CustomTools
             }
 
         }
-
+        public void HideObjects()
+        {
+            if (pool.Count > 0)
+            {
+                foreach(var obj in pool)
+                {
+                    obj.gameObject.SetActive(false);
+                }
+            }
+        }
+        public void AddObject(T obj)
+        {
+            pool.Enqueue(obj);
+        }
+        public void AddObjects(List<T> objects)
+        {
+            foreach(T obj in objects)
+            {
+                pool.Enqueue(obj);
+            }
+        }
         private void OnObjectDisable(T obj)
         {
             ActiveObjects.Remove(obj);

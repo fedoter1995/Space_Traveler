@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using GameStructures.Items;
 
 public class UIInventoryItem : MonoBehaviour
 {
@@ -15,10 +16,10 @@ public class UIInventoryItem : MonoBehaviour
     private Image _icon;
 
 
-    private ItemSlot itemSlot;
+    private IItemSlot itemSlot;
 
 
-    public void SetItemSlot(ItemSlot slot)
+    public void SetItemSlot(IItemSlot slot)
     {
         itemSlot = slot;
         _name.text = itemSlot.CurrentItem.name;

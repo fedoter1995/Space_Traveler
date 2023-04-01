@@ -1,4 +1,5 @@
 ﻿using CustomTools;
+using GameStructures.Hits;
 using GameStructures.Stats;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace GameStructures.Gear.Weapons
         [SerializeField]
         private Vector2 _delta;
 
-        public override void Shot(ShotStats shotStats, HitStats hitStats, Pool<Projectile> projectilePool)
+        public override void Shot(object sender, ShotStats shotStats, HitStats hitStats, Pool<Projectile> projectilePool)
         {
 
             var proj = projectilePool.GetFreeObject();
@@ -24,8 +25,8 @@ namespace GameStructures.Gear.Weapons
             var projSettings = new ProjSettings(shotStats.ShotDir[1], shotStats.ShotSpeed);
             var projSettings1 = new ProjSettings(shotStats.ShotDir[2], shotStats.ShotSpeed);
 
-            proj.Initialize(projSettings, hitStats);
-            proj_1.Initialize(projSettings1, hitStats);
+            proj.Initialize(sender, projSettings, hitStats);
+            proj_1.Initialize(sender, projSettings1, hitStats);
 
             proj.transform.position = shotStats.ShotPos[1] - _delta;
             proj_1.transform.position = shotStats.ShotPos[2] - _delta;

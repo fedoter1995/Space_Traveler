@@ -1,4 +1,4 @@
-using GameStructures.Hit;
+using GameStructures.Hits;
 using GameStructures.Stats;
 using Stats;
 using System;
@@ -30,7 +30,7 @@ public class DamageTakeTest : MonoBehaviour, ITakeHit
         }
     }
 
-    public void TakeHit(Hit hit)
+    public void TakeHit(object sender, Hit hit)
     {
         var takenDamage = hit.GetHitDamage(statsHandler.Resistances);
         TakeDamage(takenDamage);

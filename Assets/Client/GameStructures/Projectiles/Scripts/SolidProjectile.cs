@@ -1,4 +1,5 @@
-﻿using GameStructures.Stats;
+﻿using GameStructures.Hits;
+using GameStructures.Stats;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,8 +10,9 @@ public class SolidProjectile : Projectile
 
     private Coroutine moveEnumerator = null;
 
-    public override void Initialize(ProjSettings settings, HitStats hitStats)
+    public override void Initialize(object sender, ProjSettings settings, HitStats hitStats)
     {
+        this.sender = sender;
         this.settings = settings;
         this.hitStats = hitStats;
     }

@@ -4,7 +4,7 @@ using CustomTools.Observable;
 using CustomTools;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using GameStructures.Hit;
+using GameStructures.Hits;
 using GameStructures.Gear;
 using GameStructures.Stats;
 using GameStructures.Garage.Workshop;
@@ -62,7 +62,6 @@ public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable, IHaveStatsH
         var manager = new KeyboardInputManager();
         _inventory = inventory;
 
-        _equipment.Initialize();
         _stats.Initialize();
         _workshopSettings.Initialize(this);
         shootController.Initialize(manager, this);
@@ -94,12 +93,14 @@ public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable, IHaveStatsH
 
         if (data != null)
         {
-            foreach(IJsonSerializable obj in serializableObjects)
+            foreach (IJsonSerializable obj in serializableObjects)
             {
-                var objData = MyTools.JObjectToDict<string, object>((JObject)data[obj.ToString()]);
+                var objData = CustomConvert.JObjectToDict<string, object>((JObject)data[obj.ToString()]);
                 obj.SetObjectData(objData);
             }
         }
+        else
+            Equipment.Initialize();
     }
     public Dictionary<string, object> GetObjectData()
     {
@@ -112,7 +113,7 @@ public class Spaceship : MonoBehaviour, ITakeHit, IJsonSerializable, IHaveStatsH
 
         return data;
     }
-    public void TakeHit(Hit hit)
+    public void TakeHit(object sender, Hit hit)
     {
         var dmg = hit.GetHitDamage(_stats.Resistances);
         TakeDamage(dmg);

@@ -49,7 +49,7 @@ public class SpaceshipInteractor : Interactor
             CreatePlayer("Spaceship 1");
 
         if (obj.ContainsKey(spaceship.ToString()))
-            shipData = MyTools.JObjectToDict<string, object>((JObject)obj[spaceship.ToString()]);
+            shipData = CustomConvert.JObjectToDict<string, object>((JObject)obj[spaceship.ToString()]);
 
         spaceship.SetObjectData(shipData);
     }

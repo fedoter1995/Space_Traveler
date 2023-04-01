@@ -33,8 +33,8 @@ RectTransform:
   m_Father: {fileID: 7717805874009026106}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.28, y: 0.5}
-  m_AnchorMax: {x: 0.28, y: 0.5}
+  m_AnchorMin: {x: 0.46, y: 0.5}
+  m_AnchorMax: {x: 0.46, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -167,8 +167,8 @@ RectTransform:
   m_Father: {fileID: 7717805874009026106}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.16, y: 0.5}
-  m_AnchorMax: {x: 0.16, y: 0.5}
+  m_AnchorMin: {x: 0.22, y: 0.5}
+  m_AnchorMax: {x: 0.22, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -345,7 +345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1227219649416488173, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.34
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 1227219649416488173, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_AnchorMax.y
@@ -353,7 +353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1227219649416488173, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.34
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 1227219649416488173, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_AnchorMin.y
@@ -459,7 +459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1227219649416488173, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.22
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: 1227219649416488173, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_AnchorMax.y
@@ -467,7 +467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1227219649416488173, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.22
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: 1227219649416488173, guid: 22baba937be439a489b399251a2397f5, type: 3}
       propertyPath: m_AnchorMin.y

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TooltipUIController : UIController
 {
-    public TooltipUI tooltip;
+    /*public TooltipUI tooltip;
 
     public override void OnCreate()
     {
@@ -20,5 +20,5 @@ public class TooltipUIController : UIController
         }
         else
             this.tooltip = tooltip;
-    }
+    }*/
 }

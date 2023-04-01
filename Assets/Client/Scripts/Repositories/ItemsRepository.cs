@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Architecture;
+using GameStructures.Items;
 
 public class ItemsRepository : Repository
 {

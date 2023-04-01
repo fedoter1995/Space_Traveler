@@ -4,125 +4,31 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
 using Newtonsoft.Json.Linq;
-[Serializable]
-public class ItemCollection : IJsonSerializable
-{
-    [SerializeField]
-    private bool _saveable = true;
-    [SerializeField]
-    private List<ItemSlot> _slots = new List<ItemSlot>();
+using GameStructures.Items;
 
-    public List<ItemSlot> Slots
-    {
-        get
-        {
-            var newList = new List<ItemSlot>(_slots);
-            return newList;
-        }
-    }
+[Serializable]
+public abstract class ItemCollection : IJsonSerializable
+{
 
     #region Events
-    public event Action<object, Item, int> OnAddedEvent;    
-    public event Action<Item, int> OnRemovedEvent;
-    public event Action OnItemStateChangedEvent;
+    public abstract event Action<object, Item, int> OnAddedEvent;    
+    public abstract event Action<Item, int> OnRemovedEvent;
+    public abstract event Action OnItemStateChangedEvent;
 
     #endregion
-
-    public int GetItemAmount(string itemID)
-    {
-        var amount = 0;
-        var slotsWidthItems = _slots.FindAll(slot => !slot.IsEmpty && slot.ItemID == itemID);
-        foreach (ItemSlot slot in slotsWidthItems)
-            amount += slot.Amount;
-
-        return amount;
-    }
-    public ItemSlot GetSlot(string itemID)
-    {
-        return _slots.Find(slot => slot.ItemID == itemID);
-    }
-    public List<ItemSlot> GetNotEmptySlots()
-    {
-        var slots = _slots.FindAll(slot => !slot.IsEmpty);
-        return slots;
-    }
-    public void TryToAddToCollection(object sender, Item item, int amount)
-    {
-        var SlotWithSameItem = _slots.Find(slot => slot.ItemID == item.Id);
-
-        AddToSlot(sender, SlotWithSameItem, item, amount);
-
-    }
-    private void AddToSlot(object sender, ItemSlot slot, Item item, int amount)
-    {
-
-        var clonnedItem = item;
-
-        slot.Amount += amount;
-        
-        OnAddedEvent?.Invoke(sender, item, amount);
-        OnStateChange();
-    }
-    public void OnStateChange()
-    {
-        OnItemStateChangedEvent?.Invoke();
-    }
-    public bool TryToRemove(Item item, int amount)
-    {
-        var SlotWithSameItem = _slots.Find(slot => slot.ItemID == item.Id);
-
-        if (SlotWithSameItem.Amount >= amount)
-        {
-            SlotWithSameItem.Amount -= amount;
-            OnRemovedEvent?.Invoke(item, amount);
-            return true;
-        }
-        
-        return false;
-    }
+    public abstract List<IItemSlot> GetSlots();
+    public abstract int GetItemAmount(string itemID);
+    public abstract IItemSlot GetSlot(string itemID);
+    public abstract List<IItemSlot> GetNotEmptySlots();
+    public abstract void TryToAddToCollection(object sender, Item item, int amount);
+    public abstract void TryToAddToCollection(object sender, List<ItemSlot> slots);
+    public abstract void OnStateChange();
+    public abstract bool TryToRemove(Item item, int amount);
 
     #region SerializationJSON
-    public void SetObjectData(Dictionary<string, object> data)
-    {
-        if(data != null)
-        {
-            JObject jobjSlots = (JObject)data["Slots"];
-            var newSlotsData = jobjSlots.ToObject<Dictionary<string, object>>();
-            var slots = new List<ItemSlot>();
+    public abstract void SetObjectData(Dictionary<string, object> data);
+    public abstract Dictionary<string, object> GetObjectData();
+    public abstract bool HaveItemAmount(Item item, int amount);
 
-            foreach (KeyValuePair<string, object> entry in newSlotsData)
-            {
-                JObject slotJObject = (JObject)entry.Value;
-                var slotData = slotJObject.ToObject<Dictionary<string, object>>();
-
-                var slot = new ItemSlot();
-                slot.SetObjectData(slotData);
-                slots.Add(slot);
-            }
-            _slots = new List<ItemSlot>(slots);
-        }
-    }
-    public bool HaveItemAmount(Item item, int amount)
-    {
-        var SlotWithSameItem = _slots.Find(slot => slot.ItemID == item.Id);
-
-        if (SlotWithSameItem.Amount >= amount)
-            return true;
-
-        return false;
-    }
-    public Dictionary<string, object> GetObjectData()
-    {
-        var items = new Dictionary<string, object>();
-        var data = new Dictionary<string, object>();
-
-        foreach (ItemSlot slot in _slots)
-        {
-            items.Add($"{slot.CurrentItem.Name}", slot.GetObjectData());
-        }
-        data.Add("Slots", items);
-
-        return data;
-    }
     #endregion
 }

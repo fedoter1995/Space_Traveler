@@ -2,6 +2,7 @@ using GameStructures.Gear;
 using GameStructures.Gear.Armors;
 using GameStructures.Gear.Engine;
 using GameStructures.Gear.Weapons;
+using GameStructures.Items;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Item/DataBase")]
@@ -16,6 +17,8 @@ public class ItemDataBase : ScriptableObject
     private List<ShipSkin> _armors = new List<ShipSkin>();
     [SerializeField, Header("Engines")]
     private List<MainEngine> _engines = new List<MainEngine>();
+    [SerializeField, Header("Elements")]
+    private List<Element> _elements = new List<Element>();
     [SerializeField, Header("Other Items")]
     private List<Item> _items = new List<Item>();
     public string Name => _name;
@@ -34,10 +37,12 @@ public class ItemDataBase : ScriptableObject
 
             item = (T)FindItem(items, id);
         }
-        else
+        else if(typeof(T) == typeof(Element) || itemType.IsSubclassOf(typeof(Element)))
         {
-            item = (T)FindItem(_items, id);
+            item = (T)FindItem(_elements, id);
         }
+        else
+            item = (T)FindItem(_items, id);
 
         return item;
 

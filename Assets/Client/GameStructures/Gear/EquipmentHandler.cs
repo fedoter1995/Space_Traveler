@@ -59,8 +59,6 @@ namespace GameStructures.Gear
                 SetEquipment(obj["Main_Engine"].ToString());
                 SetEquipment(obj["Ship_Skin"].ToString());
             }
-
-            Initialize();
         }
         public Dictionary<string, object> GetObjectData()
         {

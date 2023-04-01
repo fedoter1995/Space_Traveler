@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStructures.Projectiles
+namespace GameStructures.Hits
 {
     public class HitModifier
     {
