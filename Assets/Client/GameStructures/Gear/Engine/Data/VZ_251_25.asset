@@ -28,5 +28,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: eb77e8d5c55f08a4ab9233d59e5d7b60, type: 2}
   _modifiers:
   - _preset: {fileID: 11400000, guid: 681f095cfd874c14aa60ec6c71fd7fda, type: 2}
-    _value: 5
+    _value: 4
+  - _preset: {fileID: 11400000, guid: fc1e4544ea8d03b45aa9ea30610f1fbc, type: 2}
+    _value: 1
+  - _preset: {fileID: 11400000, guid: 28db7d8f429bed44f87ea0a3f35e9496, type: 2}
+    _value: 1
   _equipType: 2

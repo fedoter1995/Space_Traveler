@@ -2,14 +2,11 @@ using Architecture;
 using GameStructures.Garage.Workshop;
 using GameStructures.Gear;
 using GameStructures.Items;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+using GameStructures.Spaceship;
 
 public class CraftHandler
 {
-    private Spaceship spaceship;
+    private Starship spaceship;
     public CraftHandler()
     {
         spaceship = Game.GetInteractor<SpaceshipInteractor>().spaceship;

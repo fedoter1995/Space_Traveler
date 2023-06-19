@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Stats;
 using System;
 using GameStructures.Hits;
 using GameStructures.Stats;
@@ -16,36 +15,27 @@ public abstract class Projectile : MonoBehaviour, IDoingHit, IPoolsObject<Projec
     protected ProjSettings settings;
     protected object sender;
 
+    public Action<Projectile> OnDisableObject { get; set; }
 
-    public event Action<Projectile> OnDisableEvent;
-
-    protected virtual void OnTriggerEnter2D(Collider2D colision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        var ship = colision.GetComponentInParent<Spaceship>();
 
-        if (ship != null)
-            return;
+        var target = collision.GetComponentInParent<ITakeHit>();
 
-        var childTarged = colision.GetComponentInParent<ITakeHit>();
-        var target = colision.GetComponent<ITakeHit>();
+        if (target == null)
+            target = collision.GetComponent<ITakeHit>();
 
-        if (target != null)
+        if (target != null && target.Obj != sender)
         {
             Hit(target);
             return;
         }
-        else if(childTarged != null)
-        {
-            Hit(childTarged);
-            return;
-        }
-
     }
     public abstract void Initialize(object sender, ProjSettings settings, HitStats stats);
     public abstract void Move();
     protected virtual void SetActive(bool activity)
     {
-        OnDisableEvent?.Invoke(this);
+        OnDisableObject?.Invoke(this);
         gameObject.SetActive(activity);
     }
     public virtual List<StatModifier> GetAllModifiers()

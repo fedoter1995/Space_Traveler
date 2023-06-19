@@ -1,5 +1,6 @@
 using Architecture;
 using CustomTools;
+using GameStructures.Spaceship;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,20 +8,19 @@ using UnityEngine;
 
 public class SpaceshipInteractor : Interactor
 {
-    private List<Spaceship> ships;
 
-    public Spaceship spaceship { get; private set; }
-
+    public Starship spaceship { get; private set; }
 
 
     public override void OnCreate()
     {
-        ships = Resources.LoadAll<Spaceship>("").ToList();
         SetObjectData(GetSaveData());
     }
     public override void OnInitialize()
     {
         spaceship.Initialize();
+
+
     }
 
     public void ChangePlayerPosition(Vector3 position)
@@ -61,13 +61,25 @@ public class SpaceshipInteractor : Interactor
 
     private void CreatePlayer(string Name)
     {
-        var playerPref = ships.FindAll(ship => ship.Name == Name);
-            if (playerPref.Count > 1)
-                throw new System.Exception("Multiple items with the same name found");
-            else if (playerPref.Count < 1)
-                throw new System.Exception($"No elements with the name {Name} were found");
-            else
-                spaceship = GameObject.Instantiate(playerPref[0]);
+
+        var spawns = Object.FindObjectsOfType<PlayerSpawn>();
+
+        var playerPref = Resources.Load<Starship>(Name);
+        if (playerPref == null)
+        throw new System.Exception($"No elements with the name {Name} were found");
+        else
+            spaceship = GameObject.Instantiate(playerPref);
+
+        spaceship.gameObject.SetActive(false);
+
+        foreach (PlayerSpawn spawn in spawns)
+        {
+            if(spawn.IsInitial)
+            {
+                spaceship.gameObject.SetActive(true);
+                ChangePlayerPosition(spawn.Position);
+            }
+        }
 
     }
     private Dictionary<string, object> GetSaveData()

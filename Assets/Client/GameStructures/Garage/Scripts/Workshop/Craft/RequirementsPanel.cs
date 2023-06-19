@@ -3,6 +3,7 @@ using CustomTools;
 using GameStructures.Garage.Workshop;
 using GameStructures.Gear;
 using GameStructures.Items;
+using GameStructures.Spaceship;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class RequirementsPanel : MonoBehaviour
 
     private Pool<RequirementSlot> slotsPool;
 
-    private Spaceship spaceship;
+    private Starship spaceship;
     public void Initialize()
     {
         spaceship = Game.GetInteractor<SpaceshipInteractor>().spaceship;
@@ -54,7 +55,14 @@ public class RequirementsPanel : MonoBehaviour
         }
 
     }
-
+    public void Alert()
+    {
+        foreach(RequirementSlot slot in slotsPool.ActiveObjects)
+        {
+            if (!slot.Availability)
+                slot.Alert();
+        }
+    }
     private bool CheckAvailability(string id, int amount, out int availableQuantity)
     {
         var elementAmount = spaceship.Inventory.GetItemAmount(id);

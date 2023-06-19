@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a9a02fb32bd1147885bbf3d863c21e, type: 3}
   m_Name: PhysicalCritChance_Preset
   m_EditorClassIdentifier: 
-  _statID: crit01
+  _statID: critchance01
   _statName: Physical_Crit_Chance
-  _type: 0
-  _damageType: 2
+  _effectRef: {fileID: 11400000, guid: 39d0ae6a1c9cd124585fbc801da97162, type: 2}

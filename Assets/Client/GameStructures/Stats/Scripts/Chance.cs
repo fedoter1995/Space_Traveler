@@ -1,5 +1,4 @@
 ﻿using GameStructures.Effects;
-using Stats;
 using UnityEngine;
 
 namespace GameStructures.Stats
@@ -11,12 +10,12 @@ namespace GameStructures.Stats
         private ChancePreset _chancePreset;
 
         public ChancePreset Preset => _chancePreset;
-        public EffectType EffectType => _chancePreset.EffectType;
-        public DamageType DamageType => _chancePreset.DamageType;
+        public EffectStatPreset EffectRef => _chancePreset.EffectRef;
 
         public override void Initialize(StatsHandler handler)
         {
             base.Initialize(handler);
+
             if (statPreset is null)
                 statPreset = _chancePreset;
             else

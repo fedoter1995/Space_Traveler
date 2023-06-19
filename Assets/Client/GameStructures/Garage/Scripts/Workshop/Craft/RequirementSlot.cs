@@ -10,9 +10,11 @@ public class RequirementSlot : MonoBehaviour,IPoolsObject<RequirementSlot>
     [SerializeField]
     private TextMeshProUGUI _textMesh;
 
+    public Action<RequirementSlot> OnDisableObject { get; set; }
+
     public bool Availability { get; private set; } = false;
 
-    public event Action<RequirementSlot> OnDisableEvent;
+    
     public void SetSlot(Item item, string amount, bool availability)
     {
         _textMesh.gameObject.SetActive(true);
@@ -26,9 +28,12 @@ public class RequirementSlot : MonoBehaviour,IPoolsObject<RequirementSlot>
         _textMesh.gameObject.SetActive(false);
         Availability = availability;
     }
-
+    public void Alert()
+    {
+        _itemUISlot.Alert();
+    }
     private void OnDisable()
     {
-        OnDisableEvent?.Invoke(this);
+        OnDisableObject?.Invoke(this);
     }
 }

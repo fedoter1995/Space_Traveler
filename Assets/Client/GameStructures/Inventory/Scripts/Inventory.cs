@@ -122,7 +122,7 @@ public class Inventory : ItemCollection
     {
         var SlotWithSameItem = _elements.Find(slot => slot.ItemID == item.Id);
 
-        if (SlotWithSameItem.Amount >= amount)
+        if (SlotWithSameItem != null && SlotWithSameItem.Amount >= amount)
             return true;
 
         return false;

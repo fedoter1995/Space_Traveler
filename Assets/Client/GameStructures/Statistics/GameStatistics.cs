@@ -18,7 +18,6 @@ public class GameStatistics : IJsonSerializable
 
     public void OnDestroyAsteroid(Asteroid asteroid)
     {
-        Points += asteroid.PointPrice;
 
         if (DestroyedAsteroidsNumb.ContainsKey(asteroid.Type))
             DestroyedAsteroidsNumb[asteroid.Type]++;

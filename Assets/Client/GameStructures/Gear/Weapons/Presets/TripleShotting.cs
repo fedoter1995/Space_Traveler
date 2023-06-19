@@ -21,9 +21,9 @@ namespace GameStructures.Gear.Weapons
             var proj_1 = projectilePool.GetFreeObject();
             var proj_2 = projectilePool.GetFreeObject();
 
-            var projSettings = new ProjSettings(shotStats.ShotDir[0], shotStats.ShotSpeed);
-            var projSettings1 = new ProjSettings(shotStats.ShotDir[1], shotStats.ShotSpeed);
-            var projSettings2 = new ProjSettings(shotStats.ShotDir[2], shotStats.ShotSpeed);
+            var projSettings = new ProjSettings(shotStats.ShotDir, shotStats.ShotSpeed);
+            var projSettings1 = new ProjSettings(shotStats.ShotDir, shotStats.ShotSpeed);
+            var projSettings2 = new ProjSettings(shotStats.ShotDir, shotStats.ShotSpeed);
 
             var hitStats1 = new HitStats(hitStats);
             var hitStats2 = new HitStats(hitStats);
@@ -41,6 +41,10 @@ namespace GameStructures.Gear.Weapons
             proj.transform.rotation = shotStats.Rotation[0];
             proj_1.transform.rotation = shotStats.Rotation[1];
             proj_2.transform.rotation = shotStats.Rotation[2];
+
+            proj.transform.up = shotStats.ShotDir.normalized;
+            proj_1.transform.up = shotStats.ShotDir.normalized;
+            proj_2.transform.up = shotStats.ShotDir.normalized;
 
             proj.Move();
             proj_1.Move();

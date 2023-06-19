@@ -1,5 +1,4 @@
 ﻿using GameStructures.Effects;
-using Stats;
 using UnityEngine;
 
 namespace GameStructures.Stats
@@ -9,18 +8,24 @@ namespace GameStructures.Stats
     {
         [SerializeField]
         private MultiplierPreset _multiplierPreset;
-          
+         
         public MultiplierPreset Preset => _multiplierPreset;
-        public EffectType EffectType => _multiplierPreset.EffectType;
+        public MultiplierType MultiplierType => _multiplierPreset.MultiplierType;
         public DamageType DamageType => _multiplierPreset.DamageType;
 
         public override void Initialize(StatsHandler handler)
         {
             base.Initialize(handler);
+
             if (statPreset is null)
                 statPreset = _multiplierPreset;
             else
                 _multiplierPreset = statPreset as MultiplierPreset;
         }
+    }
+    public enum MultiplierType
+    {
+        DamageMultiplier,
+        DotMultiplier,
     }
 }

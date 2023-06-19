@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CustomTools;
+using GameStructures.Spaceship;
 
 public class ProjectileStorage : MonoBehaviour
 {
@@ -10,13 +11,13 @@ public class ProjectileStorage : MonoBehaviour
     [SerializeField] private Transform shotPoint;
 
 
-    private Spaceship _spaceShip;
+    private Starship _spaceShip;
     private GameObject _container;
     private Pool<Projectile> projectilePool;
 
     private void Start()
     {
-        _spaceShip = GameObject.FindWithTag("Player").GetComponent<Spaceship>();
+        _spaceShip = GameObject.FindWithTag("Player").GetComponent<Starship>();
         _container = GameObject.FindWithTag("ProjectilesPool");
         projectilePool = new Pool<Projectile>(prefab, poolSize, _container.transform, autoExpand);
 

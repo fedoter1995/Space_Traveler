@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using NavMesh;
 namespace GameStructures.Meteors
 {
-    public interface IAsteroid : ITakeHit, IDoingHit, IGivePoints, IPoolsObject<Asteroid>
+    public interface IAsteroid : IDoingHit, IHaveNavMeshModifier, IPoolsObject<Asteroid>, IHaveTakeHitHandler
     {
 
     }

@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1767093837025719057}
   - component: {fileID: 4543724462846581404}
+  - component: {fileID: 4965759893334914159}
   - component: {fileID: 8357842584072522774}
+  - component: {fileID: 3354084619360424525}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: TakeDamageCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,6 +87,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &4965759893334914159
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423738302793012869}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!60 &8357842584072522774
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -116,6 +139,18 @@ PolygonCollider2D:
       - {x: 0.29, y: -0.28}
       - {x: 0.29, y: 0.14999999}
       - {x: 0.01, y: 0.29}
+--- !u!114 &3354084619360424525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423738302793012869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0a2d9af255bf5498c17a02d8fad0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1923183167506154707
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,19 +220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 2
-  stats:
-    _environment: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}
-    _stats:
-    - _baseValue: 10
-      _statPreset: {fileID: 11400000, guid: ccb74381b994ea94094e00f9e3a25e55, type: 2}
-    - _baseValue: 120
-      _statPreset: {fileID: 11400000, guid: 9d3afddd9695c034f8611b7566d06117, type: 2}
-    _damages:
-    - _baseValue: 10
-      _damagePreset: {fileID: 11400000, guid: 4b80589b9b9123c4791247993da4618b, type: 2}
-    _resistances:
-    - _baseValue: 1
-      _resistancePreset: {fileID: 11400000, guid: 32634766e354a0441a992ced57b20515, type: 2}
+  _takeDamageHandler: {fileID: 3354084619360424525}
+  stats: {fileID: 11400000, guid: e458a14d23f5d8c4f9d23c948e639fcf, type: 2}
 --- !u!114 &6261893066758202166
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206f146d34b208a4b9ccbc3751e52f63, type: 3}
+  m_Name: ShipStatsHandler
+  m_EditorClassIdentifier: 
+  _handlerType: 1
+  _environment: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}
+  _stats:
+  - _name: 
+    _baseValue: 100
+    _statPreset: {fileID: 11400000, guid: ccb74381b994ea94094e00f9e3a25e55, type: 2}
+  - _name: 
+    _baseValue: 1
+    _statPreset: {fileID: 11400000, guid: c8ebd83aeb288844f8e5d790f4586ea3, type: 2}
+  - _name: 
+    _baseValue: 1
+    _statPreset: {fileID: 11400000, guid: d4194c88f65f44148aff1b885082dbd5, type: 2}
+  - _name: 
+    _baseValue: 1
+    _statPreset: {fileID: 11400000, guid: d7bb7af76b974994cbeb11e2410dd963, type: 2}
+  - _name: 
+    _baseValue: 1
+    _statPreset: {fileID: 11400000, guid: 0d4a75c97450b264e802b0e894793e21, type: 2}
+  - _name: 
+    _baseValue: 1
+    _statPreset: {fileID: 11400000, guid: 3504551fae455d34b9860e535f126879, type: 2}
+  - _name: 
+    _baseValue: 1
+    _statPreset: {fileID: 11400000, guid: 0de2a51c966e1a346ab38237cc2e5ad4, type: 2}
+  - _name: 
+    _baseValue: 1
+    _statPreset: {fileID: 11400000, guid: 84b7c5039b3e34d48b469bf117949752, type: 2}
+  - _name: Projectile_speed
+    _baseValue: 1
+    _statPreset: {fileID: 11400000, guid: 0077d77b70c673a49aade32a2f025412, type: 2}
+  _damages:
+  - _name: 
+    _baseValue: 0
+    _damagePreset: {fileID: 11400000, guid: 4b80589b9b9123c4791247993da4618b, type: 2}
+  - _name: 
+    _baseValue: 0
+    _damagePreset: {fileID: 11400000, guid: 2f7f554d65420f74794b67f889368d39, type: 2}
+  _resistances:
+  - _name: 
+    _baseValue: 0
+    _resistancePreset: {fileID: 11400000, guid: 32634766e354a0441a992ced57b20515, type: 2}
+  _chances: []
+  _multipliers: []

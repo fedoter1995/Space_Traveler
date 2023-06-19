@@ -27,6 +27,8 @@ MonoBehaviour:
     _equipments:
     - {fileID: 11400000, guid: e4ab1e3fa2829664897515c496340545, type: 2}
   _modifiers:
-  - _preset: {fileID: 11400000, guid: acdaffb1a5ab2754e8c7b34493edf288, type: 2}
+  - _preset: {fileID: 11400000, guid: baac489a7a42c7547b302fa37d2916db, type: 2}
     _value: 10
+  - _preset: {fileID: 11400000, guid: acdaffb1a5ab2754e8c7b34493edf288, type: 2}
+    _value: 15
   _equipType: 1

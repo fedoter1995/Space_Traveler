@@ -9,13 +9,12 @@ public class Menu : MonoBehaviour
     [SerializeField] private GameObject proceedButton;
     [SerializeField] private Dropdown dropdownController;
 
-    private SpaceshipStats spaceship;
     private static bool gameIsRunning = false;
     private bool settings = false;
 
     private void Start()
     {
-        spaceship = GameObject.FindWithTag("Player").GetComponent<SpaceshipStats>();
+
         controlSettingsPanel.SetActive(false);
 
         if (!gameIsRunning)

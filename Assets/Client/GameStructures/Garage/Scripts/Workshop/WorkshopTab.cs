@@ -1,13 +1,10 @@
 using Architecture;
-using GameStructures.Garage.Workshop;
 using GameStructures.Gear;
 using Garage.UI;
 using System;
-using TMPro;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UI;
+using GameStructures.Spaceship;
 
 public class WorkshopTab : GarageTab
 {   
@@ -30,7 +27,7 @@ public class WorkshopTab : GarageTab
 
     private EquipmentBookmark activeBookmark;
 
-    private Spaceship spaceship;
+    private Starship spaceship;
 
 
     public EquipmentUISlot SlotActual => activeBookmark.Three.SlotActual;
@@ -79,6 +76,10 @@ public class WorkshopTab : GarageTab
             {
                 activeBookmark.SetEquipment(slot.Equip);
                 OnChangeTreeItem(slot);
+            }
+            else
+            {
+                _craftPanel.Alert();
             }
         }
     }

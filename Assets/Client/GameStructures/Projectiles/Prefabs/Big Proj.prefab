@@ -215,9 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0fd330e11ee53428c0eeb1bb2e3918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifetime: 1
+  _lifetime: 10
   _modifiers:
-  - _preset: {fileID: 11400000, guid: fca675f015a4d9b418bf33f892d2889b, type: 2}
-    _value: 200
   - _preset: {fileID: 11400000, guid: be01c314698fb304eba6a0041cdae016, type: 2}
     _value: 10
+    _affects: 

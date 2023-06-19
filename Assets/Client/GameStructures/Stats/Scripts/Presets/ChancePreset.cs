@@ -1,5 +1,4 @@
 ﻿using GameStructures.Effects;
-using Stats;
 using UnityEngine;
 
 
@@ -9,10 +8,7 @@ namespace GameStructures.Stats
     public class ChancePreset : StatPreset
     {
         [SerializeField]
-        private EffectType _type = EffectType.Critical;
-        [SerializeField]
-        private DamageType _damageType = DamageType.None;
-        public EffectType EffectType => _type;
-        public DamageType DamageType => _damageType;
+        private EffectStatPreset _effectRef;
+        public EffectStatPreset EffectRef => _effectRef;
     }
 }

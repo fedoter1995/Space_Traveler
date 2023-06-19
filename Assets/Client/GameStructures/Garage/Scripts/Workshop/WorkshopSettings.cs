@@ -4,7 +4,7 @@ using CustomTools;
 using GameStructures.Gear;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
-
+using GameStructures.Spaceship;
 
 namespace GameStructures.Garage.Workshop
 {
@@ -16,22 +16,22 @@ namespace GameStructures.Garage.Workshop
 
         private List<Equipment> _availableEquipment;
 
-        private Spaceship spaceship;
+        private Starship starship;
 
         public List<Equipment> AvailableEquipment
         {
             get
             {
                 if (_availableEquipment == null)
-                    _availableEquipment = spaceship.Equipment.GetEquipment();
+                    _availableEquipment = starship.Equipment.GetEquipment();
 
                 return _availableEquipment;
             }
         }
         public List<EquipmentTree> Trees => _trees;
-        public void Initialize(Spaceship spaceship)
+        public void Initialize(Starship starship)
         {
-            this.spaceship = spaceship;
+            this.starship = starship;
         }
         public void AddToAvailableEquipment(Equipment equipment)
         {

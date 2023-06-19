@@ -1,16 +1,23 @@
 using GameStructures.Hits;
 using GameStructures.Stats;
-using Stats;
+using GameStructures.Zones;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Tests;
 using UnityEngine;
 
-public class DamageTakeTest : MonoBehaviour, ITakeHit
+public class DamageTakeTest : MonoBehaviour, ITakeHit, IHaveTakeHitHandler
 {
     [SerializeField]
     private TestResistanceseStatsHandler statsHandler;
+
+    public Vector3 Position => transform.position;
+
+    public IHaveTakeHitHandler Obj => this;
+
+    public TakeDamageHandler TakeHitHandler => throw new NotImplementedException();
+
+    public TriggerObjectType Type => throw new NotImplementedException();
+
     public event Action<HitStats> OnTakeHitEvent;
 
     private void Awake()
@@ -21,10 +28,9 @@ public class DamageTakeTest : MonoBehaviour, ITakeHit
 
     public void TakeDamage(HitDamage damage)
     {
-        foreach (KeyValuePair<DamageType, DamageValue> entry in damage.DamageTypeValueDict)
+        foreach (DamageTypeValue dmg in damage.DamageTypeValues)
         {
-            
-            Message damageMessage = new Message(this, entry.Key, entry.Value);
+            TakeDamageMessage damageMessage = new TakeDamageMessage(this, dmg);
 
             Debug.Log(damageMessage);
         }
@@ -32,7 +38,7 @@ public class DamageTakeTest : MonoBehaviour, ITakeHit
 
     public void TakeHit(object sender, Hit hit)
     {
-        var takenDamage = hit.GetHitDamage(statsHandler.Resistances);
+        var takenDamage = hit.GetHitDamage();
         TakeDamage(takenDamage);
     }
 }

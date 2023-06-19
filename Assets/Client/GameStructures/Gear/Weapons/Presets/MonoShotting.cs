@@ -16,10 +16,11 @@ namespace GameStructures.Gear.Weapons
         public override void Shot(object sender, ShotStats shotStats, HitStats hitStats, Pool<Projectile> projectilePool)
         {
             var proj = projectilePool.GetFreeObject();
-            var projSettings = new ProjSettings(shotStats.ShotDir[0], shotStats.ShotSpeed);
+            var projSettings = new ProjSettings(shotStats.ShotDir, shotStats.ShotSpeed);
             proj.Initialize(sender, projSettings, hitStats);
             proj.transform.position = shotStats.ShotPos[0];
             proj.transform.rotation = shotStats.Rotation[0];
+            proj.transform.up = shotStats.ShotDir.normalized;
             proj.Move();
         }
     }

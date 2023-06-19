@@ -9,7 +9,10 @@ namespace GameStructures.Stats
     public abstract class BaseStat : IJsonSerializable
     {
         [SerializeField]
+        protected string _name;
+        [SerializeField]
         protected float _baseValue;
+
 
         protected StatPreset statPreset;
         public string Name  => statPreset.Name; 
@@ -17,6 +20,7 @@ namespace GameStructures.Stats
         protected float value;
         public float Value { get => value; }
 
+        public string Id => statPreset.Id;
         protected StatsHandler statsHandler;
 
         public virtual void Initialize(StatsHandler handler)
@@ -52,7 +56,6 @@ namespace GameStructures.Stats
             value = newValue;
 
         }
-
         public virtual void SetObjectData(Dictionary<string, object> data)
         {
             var id = data["Stat_ID"].ToString();
@@ -63,7 +66,6 @@ namespace GameStructures.Stats
             _baseValue = basevalue;
 
         }
-
         public virtual Dictionary<string, object> GetObjectData()
         {
             var data = new Dictionary<string, object>();

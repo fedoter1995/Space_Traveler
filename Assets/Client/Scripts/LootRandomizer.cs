@@ -14,8 +14,6 @@ namespace CustomTools
         {
             var droppedItems = GiveLoot(_loot);
 
-            Debug.Log(droppedItems.Count);
-
             target.TryToAddToCollection(sender, droppedItems);
         }
         private  List<ItemSlot> GiveLoot(List<LootSlot> slots)

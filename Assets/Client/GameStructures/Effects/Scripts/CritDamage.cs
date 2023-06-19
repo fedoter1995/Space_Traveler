@@ -1,47 +1,43 @@
 ﻿using GameStructures.Stats;
-using Stats;
-using System;
 using System.Collections.Generic;
-using UnityEngine;
+
 
 namespace GameStructures.Effects
 {
     public static  class CritDamage
-    {    
-        public static HitDamage CalculateValues(HitDamage damage, List<Chance> chances, List<Multiplier> multipliers)
+    {   
+        public static HitDamage CalculateValues(HitDamage damage, List<Multiplier> multipliers, List<Chance> chances)
         {
-            var resultDamage = new Dictionary<DamageType, DamageValue>();
+            var resultDamage = new List<DamageTypeValue>();
 
-            if (chances == null || chances.Count <= 0)
-                return damage;
-            if(multipliers == null || multipliers.Count <= 0)
-                return damage;
-
-            foreach (KeyValuePair<DamageType, DamageValue> entry in damage.DamageTypeValueDict)
+            foreach (DamageTypeValue dmg in damage.DamageTypeValues)
             {
-
                 var randomValue = UnityEngine.Random.Range(0, 100.1f);
 
-                var chance = chances.Find(chance => chance.DamageType == entry.Key);
 
-                var mult = multipliers.Find(multiplier => multiplier.DamageType == entry.Key);
-                float multiplier = 1f;
-                if (mult != null)
-                    multiplier = mult.Value;
+                var multiplier = multipliers.Find(item => item.DamageType == dmg.Type);
+                var chance = chances.Find(item => item.EffectRef == multiplier.Preset);
+                float mult = 1f;
+                float ch = 100f;
+                
+                if (multiplier != null)
+                    mult = multiplier.Value;
 
+                if(chance != null)
+                    ch = chance.Value;
 
-                if (chance != null && chance.Value >= randomValue)
+                if(ch >= randomValue)
                 {
-                    var newDamageInt = entry.Value.intNumber * multiplier;
+                    var newDamageInt = dmg.Value * mult;
 
-                    var newDamageValue = new DamageValue((int)newDamageInt, true);
+                    var newDamageValue = new DamageTypeValue((int)newDamageInt, dmg.Type, true);
 
-                    resultDamage.Add(entry.Key, newDamageValue);
+                    resultDamage.Add(newDamageValue);
                 }
                 else
-                    resultDamage.Add(entry.Key, entry.Value);
-
-
+                {
+                    resultDamage.Add(dmg);
+                }
 
             }
             
@@ -49,10 +45,6 @@ namespace GameStructures.Effects
 
             return resultHitDamage;
         }
-    }
-    public enum EffectType
-    {
-        Critical
     }
 }
 

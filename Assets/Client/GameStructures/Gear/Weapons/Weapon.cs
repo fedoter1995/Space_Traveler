@@ -1,7 +1,6 @@
 ﻿using CustomTools;
 using GameStructures.Hits;
 using GameStructures.Stats;
-using Stats;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +22,7 @@ namespace GameStructures.Gear.Weapons
         public override void InitEquipment()
         {
             if (projectileStorage == null)
-                CreateProjectileStorage();
+                projectileStorage = new GameObject($"{Name}_Projectile_Storage");
 
             projectilePool = new Pool<Projectile>(projectile, _projectilesLimit, projectileStorage.transform, !_haveLimit);
         }
@@ -37,10 +36,6 @@ namespace GameStructures.Gear.Weapons
             var modifiers = new List<StatModifier>(_modifiers);
             modifiers.AddRange(projectile.GetAllModifiers());
             return modifiers;
-        }
-        protected void CreateProjectileStorage()
-        {
-            projectileStorage = new GameObject($"{Name}_Projectile_Storage");
         }
 
     }

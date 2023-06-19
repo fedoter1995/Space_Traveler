@@ -10,9 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4278302697026399657}
   - component: {fileID: 3753955683552891998}
+  - component: {fileID: 8282124742870807657}
   - component: {fileID: 2395550324998215284}
+  - component: {fileID: 495157409144381421}
+  - component: {fileID: 6223849675567887879}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: TakeDamageCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,6 +88,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &8282124742870807657
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122064703949351473}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!60 &2395550324998215284
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -127,6 +151,34 @@ PolygonCollider2D:
       - {x: 0.22999999, y: -0.22999999}
       - {x: 0.32, y: -0.099999994}
       - {x: 0.32, y: 0.099999994}
+--- !u!114 &495157409144381421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122064703949351473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa0352a4d56abd42ad2fc69deb72448, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 0.6, y: 0.6, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
+--- !u!114 &6223849675567887879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122064703949351473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0a2d9af255bf5498c17a02d8fad0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7103426643349448430
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,21 +248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
-  stats:
-    _environment: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}
-    _stats:
-    - _baseValue: 10
-      _statPreset: {fileID: 11400000, guid: ccb74381b994ea94094e00f9e3a25e55, type: 2}
-    - _baseValue: 1
-      _statPreset: {fileID: 11400000, guid: 163bdfe5edd49104987986bc2905340b, type: 2}
-    - _baseValue: 1
-      _statPreset: {fileID: 11400000, guid: c8ebd83aeb288844f8e5d790f4586ea3, type: 2}
-    - _baseValue: 1
-      _statPreset: {fileID: 11400000, guid: 9d3afddd9695c034f8611b7566d06117, type: 2}
-    _damages: []
-    _resistances:
-    - _baseValue: 12
-      _resistancePreset: {fileID: 11400000, guid: 32634766e354a0441a992ced57b20515, type: 2}
+  _takeDamageHandler: {fileID: 6223849675567887879}
+  stats: {fileID: 11400000, guid: 8dd612d4997dfce49beb2c27bd70d664, type: 2}
   _numberOfFragments: 2
   _fragmentsType: 2
 --- !u!114 &5483266699556409694

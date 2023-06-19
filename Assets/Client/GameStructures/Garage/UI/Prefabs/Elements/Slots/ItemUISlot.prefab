@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9161483858898407333}
   - component: {fileID: 5351399755915094260}
   - component: {fileID: 7784731087375346730}
+  - component: {fileID: 8624023791290529697}
   m_Layer: 0
   m_Name: Stroke
   m_TagString: Untagged
@@ -76,6 +77,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &8624023791290529697
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547943880612673585}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5795263448377836139
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +182,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 4681777061339001699}
   _stroke: {fileID: 7784731087375346730}
+  _alertGroup: {fileID: 8624023791290529697}
+  _hideDelta: 0.02
 --- !u!1 &8636375744764382653
 GameObject:
   m_ObjectHideFlags: 0

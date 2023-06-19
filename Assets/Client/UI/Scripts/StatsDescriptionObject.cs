@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class StatsDescriptionObject : TextMeshProUGUI, IPoolsObject<StatsDescriptionObject>
 {
-    public event Action<StatsDescriptionObject> OnDisableEvent;
+    public Action<StatsDescriptionObject> OnDisableObject { get; set; }
 }

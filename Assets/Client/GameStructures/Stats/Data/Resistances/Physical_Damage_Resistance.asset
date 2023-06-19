@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b09e997c72a44640a91a704e3b83e94, type: 3}
   m_Name: Physical_Damage_Resistance
   m_EditorClassIdentifier: 
-  _statID: 0SR01
+  _statID: resistance01
   _statName: Physical_Damage_Resistance
   _type: 2

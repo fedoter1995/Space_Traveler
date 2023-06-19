@@ -11,6 +11,8 @@ namespace CustomTools
         public List<T> ActiveObjects { get; } = new List<T>();
         private Transform poolsParent;
         private Queue<T> pool = new Queue<T>();
+
+
         public event Action<T> OnCreateNewObjectEvent;
 
         public Queue<T> objectsPool => pool;
@@ -44,7 +46,7 @@ namespace CustomTools
             var obj = UnityEngine.Object.Instantiate(prefab, poolsParent);
             obj.transform.localPosition = position;
             obj.gameObject.SetActive(activity);
-            obj.OnDisableEvent += OnObjectDisable;
+            obj.OnDisableObject += OnObjectDisable;
 
             pool.Enqueue(obj);
             OnCreateNewObjectEvent?.Invoke(obj);

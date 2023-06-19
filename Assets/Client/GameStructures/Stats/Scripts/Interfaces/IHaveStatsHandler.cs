@@ -1,4 +1,5 @@
-﻿using Stats;
+﻿
+using UnityEngine;
 
 namespace GameStructures.Stats
 {

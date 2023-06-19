@@ -11,7 +11,8 @@ namespace GameStructures.Stats
         protected StatModifierPreset _preset;
         [SerializeField]
         protected float _value;
-
+        [SerializeField]
+        protected List<StatsHandlerType> _affects;
         public StatModifierPreset Preset => _preset;
         public string Name => _preset.Name;
         public string Description => _preset.Description;

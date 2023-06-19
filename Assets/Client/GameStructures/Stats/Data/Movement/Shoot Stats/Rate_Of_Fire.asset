@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f382a2a050bfcb14bbb065b1e6b50944, type: 3}
   m_Name: Rate_Of_Fire
   m_EditorClassIdentifier: 
-  _statID: 0SP2
+  _statID: rateoffire
   _statName: Rate_Of_Fire

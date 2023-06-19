@@ -7,23 +7,29 @@ using UnityEngine;
 namespace GameStructures.Stats
 {
     [Serializable]
-    public abstract class StatsHandler
+    public abstract class StatsHandler : ScriptableObject
     {
-
+        /// A
+        [SerializeField]
+        protected StatsHandlerType _handlerType;
         /// A set of basic stats
         [SerializeField]
         protected EnvironmentSettings _environment;
 
-        [SerializeField,Header("Standart Stats")]
-        protected List<Stat> _stats;
+        public virtual event Action OnCalculateValuesEvent;
 
         public bool IsInitialize { get; private set; } = false;
         public EnvironmentSettings CurrentEnvironment => _environment;
-
-        protected abstract void OnValuesCalculated();
+        
+        public void SetEnvironment(EnvironmentSettings environment)
+        {
+            _environment = environment;
+            CalculateValues();
+        }  
+        public abstract void CalculateValues();
+        public abstract BaseStat GetStat(string statName);
         public virtual void Initialize()
         {
-            InitializeStats(_stats);
             CalculateValues();
             IsInitialize = true;
         }
@@ -48,31 +54,8 @@ namespace GameStructures.Stats
             var arrangeList = new List<StatModifier>(ArrangeModifiers(relevantModifiers));
             return arrangeList;
         }
-        public virtual void CalculateValues()
-        {
-            if(_environment == null)
-            {
-                _environment = Game.DefaultEnvironment;
-            }
-            CalculateValuesInList(_stats);
-            OnValuesCalculated();
-        }
-        public List<Stat> GetStats()
-        {
-            var newList = new List<Stat>(_stats);
 
-            return newList;
-        }
-        public Stat GetStat(string statName)
-        {
-            var findedStat = _stats.Find(stat => stat.Name == statName);
-            return findedStat;
-        }
-        public void SetEnvironment(EnvironmentSettings environment)
-        {
-            _environment = environment;
-            CalculateValues();
-        }  
+        protected abstract void OnValuesCalculated();
         protected List<StatModifier> ArrangeModifiers(List<StatModifier> sourceList)
         {
             var flatModifiers = new List<StatModifier>();
@@ -103,19 +86,43 @@ namespace GameStructures.Stats
         }
         protected void InitializeStats<T>(List<T> stats) where T : BaseStat
         {
-            for (int i = 0; i < stats.Count; i++)
-            {
-                stats[i].Initialize(this);
-            }
+            if(stats != null)
+                for (int i = 0; i < stats.Count; i++)
+                {
+                    stats[i].Initialize(this);
+                }
         }
         protected void CalculateValuesInList<T>(List<T> stats) where T : BaseStat
         {
-            for (int i = 0; i < stats.Count; i++)
-            {
-                stats[i].CalculateValue();
+            if(stats != null)
+            { 
+                for (int i = 0; i < stats.Count; i++)
+                {
+                    stats[i].CalculateValue();
+                }
             }
+
+        }
+        protected T FindStatInList<T>(List<T> stats, string name) where T : BaseStat
+        {
+            if(stats != null)
+                foreach(T stat in stats)
+                {
+                    if (stat.Name == name)
+                        return stat;
+                }
+            return null;
         }
 
+    }
+
+    public enum StatsHandlerType
+    {
+        Player,
+        Spaceship,
+        Enemy,
+        Boss,
+        Asteroid
     }
 }
 

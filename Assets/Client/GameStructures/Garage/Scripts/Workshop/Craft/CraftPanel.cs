@@ -54,5 +54,9 @@ public class CraftPanel : MonoBehaviour
         }
         return false;
     }
+    public void Alert()
+    {
+        _requirements.Alert();
+    }
 
 }

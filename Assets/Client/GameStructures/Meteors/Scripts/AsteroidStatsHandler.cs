@@ -4,15 +4,16 @@ using GameStructures.Stats;
 using UnityEngine;
 
 [Serializable]
+[CreateAssetMenu(menuName = "StatsHandler/AsteroidStats")]
 public class AsteroidStatsHandler : StatsHandler
 {
 
     #region Const
     private const string HEALTH = "Max_Health_Points";
-    private const string POINT_PRICE = "Price";
     #endregion
 
-
+    [SerializeField, Header("Stats")]
+    private List<Stat> _stats;
     [SerializeField, Header("Damages")]
     private List<Damage> _damages;
     [SerializeField, Header("Resistance")]
@@ -20,7 +21,6 @@ public class AsteroidStatsHandler : StatsHandler
 
     public List<Resistance> Resistances => _resistances;
     public int HealthPoints { get; private set; }
-    public int PointPrice { get; private set; }
 
     public override void Initialize()
     {
@@ -30,6 +30,11 @@ public class AsteroidStatsHandler : StatsHandler
         CalculateValues();
         OnValuesCalculated();
     }
+
+    public void AsteroidStatsInitialize()
+    {
+        Initialize();
+    }
     public override void CalculateValues()
     {
         CalculateValuesInList(_stats);
@@ -38,21 +43,21 @@ public class AsteroidStatsHandler : StatsHandler
     }
     public HitDamage GetShotDamage()
     {
-        var DamageTypeValueDict = new Dictionary<DamageType, DamageValue>();
+        var DamageTypeValue = new List<DamageTypeValue>();
         foreach (Damage damage in _damages)
         {
             try
             {
-                var dmgValue = new DamageValue((int)damage.Value);
-                DamageTypeValueDict.Add(damage.Type, dmgValue);
+                var dmg = new DamageTypeValue((int)damage.Value, damage.Type);
+                DamageTypeValue.Add(dmg);
             }
             catch
             {
-                throw new Exception($"Cant Add {damage} to {DamageTypeValueDict}");
+                throw new Exception($"Cant Add {damage} to {DamageTypeValue}");
             }
         }
 
-        HitDamage shotDamage = new HitDamage(DamageTypeValueDict);
+        HitDamage shotDamage = new HitDamage(DamageTypeValue);
 
         return shotDamage;
     }
@@ -81,7 +86,15 @@ public class AsteroidStatsHandler : StatsHandler
     protected override void OnValuesCalculated()
     {
         HealthPoints = (int)GetStat(HEALTH).Value;
-        PointPrice = (int)GetStat(POINT_PRICE).Value;
+    }
+
+    public override BaseStat GetStat(string statName)
+    {
+        var stats = new List<BaseStat>(_stats);
+        stats.AddRange(_damages);
+        stats.AddRange(_resistances);
+
+        return stats.Find(stat => stat.Name == statName);
     }
 }
 

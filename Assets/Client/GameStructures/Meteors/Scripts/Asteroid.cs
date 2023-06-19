@@ -7,6 +7,8 @@ using System.Runtime.Serialization;
 using GameStructures.Stats;
 using Newtonsoft.Json.Linq;
 using GameStructures.Hits;
+using GameStructures.Player;
+using GameStructures.Spaceship;
 
 namespace GameStructures.Meteors
 {
@@ -15,64 +17,49 @@ namespace GameStructures.Meteors
     {   
         [SerializeField]
         protected AsteroidType _type;
+        [SerializeField]
+        private TakeDamageHandler _takeDamageHandler;
 
         [SerializeField]
-        private AsteroidStatsHandler stats = new AsteroidStatsHandler();
+        private AsteroidStatsHandler stats;
 
         private LootRandomizer loot;
+        public Action<Asteroid> OnDisableObject { get; set; }
 
-
+        public event Action<int> OnHealthChangeEvent;
+        public event Action<Asteroid> OnDestroyEvent;
+        public event Action OnEnableEvent;
+        public event Action OnDisableEvent;
         public AsteroidStatsHandler Stats => stats;
 
-        public event Action<object,DamageType,DamageValue> OnTakeDamageEvent;
-        public event Action<int> OnHealthChangeEvent;
-        public event Action<Asteroid> OnDisableEvent;
-        public event Action<Asteroid> OnDestroyEvent;
-        public event Action<HitStats> OnTakeHitEvent;
-
         public Observable<int> HealthPoints { get; private set; }
-
         public AsteroidType Type => _type;
-        public int PointPrice => stats.PointPrice;
+        public Vector3 Position => transform.position;
+
+        public TakeDamageHandler TakeHitHandler => _takeDamageHandler;
 
         public virtual void Initialize()
         {
+            if (_takeDamageHandler == null)
+                throw new Exception("TakeDamageHandler is not installed");          
+
             stats.Initialize();
             stats.CalculateValues();
+
+            _takeDamageHandler.Initialize(this, stats.Resistances);
+            _takeDamageHandler.OnTakeDamageEvent += TakeDamage;
+
             if (HealthPoints == null)
-                InitObservable(Stats.HealthPoints);
+                HealthPoints = new Observable<int>(Stats.HealthPoints);
 
             loot = GetComponent<LootRandomizer>();
         }
-        public virtual void DestroyAsteroid(object sender)
+
+        public void TakeDamage(object sender, DamageTypeValue damage)
         {
-        
-            OnDestroyEvent?.Invoke(this);
-
-            var spaceship = sender as Spaceship;
-
-            if(spaceship != null)
-                loot.DropLoot(this, spaceship.Inventory);
-
-            gameObject.SetActive(false);
-        }
-        public void TakeDamage(object sender, HitDamage damage)
-        {
-            foreach (KeyValuePair<DamageType, DamageValue> entry in damage.DamageTypeValueDict)
-            {
-                Message damageMessage = new Message(this, entry.Key, entry.Value);
-
-                HealthPoints.Value -= entry.Value.intNumber;
-                OnTakeDamageEvent?.Invoke(this, entry.Key, entry.Value);
-            }
-
+            HealthPoints.Value -= damage.Value;
             if (HealthPoints.Value <= 0)
                 DestroyAsteroid(sender);
-        }
-        public void TakeHit(object sender, Hit hit)
-        {
-            var takenDamage = hit.GetHitDamage(Stats.Resistances);
-            TakeDamage(sender, takenDamage);
         }
         public void Hit(ITakeHit target)
         {
@@ -80,21 +67,7 @@ namespace GameStructures.Meteors
             var hit = new Hit(hitStats);
             target.TakeHit(this, hit);
         }
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            var target = collision.GetComponent<ITakeHit>();
-        
-            if (target != null && target is not Asteroid)
-                Hit(target);
-        }
-        private void OnDisable()
-        {
-            OnDisableEvent?.Invoke(this);
-        }
-        private void InitObservable(int value)
-        {
-            HealthPoints = new Observable<int>(value);
-        }
+
         public void SetObjectData(Dictionary<string, object> data)
         {
 
@@ -103,7 +76,7 @@ namespace GameStructures.Meteors
 
             gameObject.SetActive(Activity);
             var hp = System.Convert.ToInt32(data["HealthPoints"]);
-            InitObservable(hp);
+            HealthPoints = new Observable<int>(hp);
             transform.position = new Vector3(coord.x,coord.y,0);
 
         }
@@ -119,15 +92,40 @@ namespace GameStructures.Meteors
 
             return data;
         }
+        protected virtual void DestroyAsteroid(object sender)
+        {
+        
+            OnDestroyEvent?.Invoke(this);
+            
+            var spaceship = sender as Starship;
+
+            if(spaceship != null)
+                loot.DropLoot(this, spaceship.Inventory);
+
+            gameObject.SetActive(false);
+        }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            var target = collision.GetComponent<ITakeHit>();
+        
+            if (target != null && target is not Asteroid)
+                Hit(target);
+        }
+        private void OnDisable()
+        {
+            OnDisableEvent?.Invoke();
+            OnDisableObject?.Invoke(this);
+        }
+
     }
-    [DataContract]
+
     public enum AsteroidType
     {
         Large,
         Medium,
         Small
     }
-    struct Vec2Pos
+    public struct Vec2Pos
     {
         public float x { get; private set; }
         public float y { get; private set; }
@@ -135,6 +133,16 @@ namespace GameStructures.Meteors
         {
             this.x = x;
             this.y = y;
+        }
+    }
+    public struct AsteroidState
+    {
+        public Vec2Pos Position { get; private set; }
+        public bool Activity { get; private set; }
+        public AsteroidState(Vec2Pos position, bool activity)
+        {
+            Position = position;
+            Activity = activity;
         }
     }
 }

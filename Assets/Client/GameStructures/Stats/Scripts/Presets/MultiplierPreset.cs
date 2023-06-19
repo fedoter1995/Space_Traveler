@@ -1,17 +1,16 @@
 ﻿using GameStructures.Effects;
-using Stats;
 using UnityEngine;
 
 namespace GameStructures.Stats
 {
     [CreateAssetMenu(menuName = "Stats/New_Multiplier_Preset")]
-    public class MultiplierPreset : StatPreset
+    public class MultiplierPreset : EffectStatPreset
     {
         [SerializeField]
-        private EffectType _type = EffectType.Critical;
+        private MultiplierType _multiplierType = MultiplierType.DamageMultiplier;
         [SerializeField]
         private DamageType _damageType = DamageType.Physical;
-        public EffectType EffectType => _type;
+        public MultiplierType MultiplierType => _multiplierType;
         public DamageType DamageType => _damageType;
     }
 }

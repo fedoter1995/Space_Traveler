@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Increased_swing_slowdown
   m_EditorClassIdentifier: 
   _modifierName: Increased swing slowdown
+  _description: "\u0423\u0432\u0435\u043B\u0438\u0447\u0435\u043D\u0438\u0435 \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u0438
+    \u0441\u0442\u0430\u0431\u0438\u043B\u0438\u0437\u0430\u0446\u0438\u0438"
   _type: 0
   _zoneOfInfluence:
   - {fileID: 11400000, guid: 0de2a51c966e1a346ab38237cc2e5ad4, type: 2}

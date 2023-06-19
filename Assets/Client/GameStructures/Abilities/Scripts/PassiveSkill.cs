@@ -6,5 +6,12 @@ namespace GameStructures.Abilities
     public class PassiveSkill : Ability
     {
         public List<StatModifier> Modifiers => _statModifiers;
+
+
+
+        public List<StatModifier> GetAllModifiers()
+        {
+            return _statModifiers;
+        }
     }
 }

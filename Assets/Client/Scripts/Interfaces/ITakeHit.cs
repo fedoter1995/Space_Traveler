@@ -1,31 +1,28 @@
 ﻿using GameStructures.Hits;
 using GameStructures.Stats;
-using Stats;
+using GameStructures.Zones;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
-public interface ITakeHit
+public interface ITakeHit : ITriggerObject
 {
     event Action<HitStats> OnTakeHitEvent;
+    IHaveTakeHitHandler Obj { get; }
+
     void TakeHit(object sender, Hit hit);
 }
-struct Message
+public struct TakeHitMessage
 {
-    public object sender;
-    public DamageType type;
-    public DamageValue dmg;
+    private object sender;
+    private HitStats stats;
 
-    public Message(object sender, DamageType type, DamageValue dmg)
+    public TakeHitMessage(object sender, HitStats stats)
     {
         this.sender = sender;
-        this.type = type;
-        this.dmg = dmg;
+        this.stats = stats;
     }
     public override string ToString()
     {
-        return $"{sender} take {dmg} {type} damage";
+        return $"{sender} take {stats} damage";
     }
 }

@@ -73,12 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Spaceship 2
   _inventory:
-    _saveable: 1
-    _slots:
-    - _item: {fileID: 11400000, guid: 1fe6ead72e456d34d98cba8794916d4f, type: 2}
-      _amount: 0
-    - _item: {fileID: 11400000, guid: 1d954c93a48b80546bfd38de3da979ee, type: 2}
-      _amount: 0
+    _elements: []
   _equipment:
     _equipmentSet:
       _mainWeapon: {fileID: 11400000, guid: f74c9c5728c45d749b06605ecb43bced, type: 2}
@@ -120,10 +115,8 @@ MonoBehaviour:
     - _baseValue: 5
       _multiplierPreset: {fileID: 11400000, guid: 39d0ae6a1c9cd124585fbc801da97162, type: 2}
   _workshopSettings:
-    _threes:
-    - {fileID: 120489521768290153, guid: 986586f8fdc70874fafe26f3b66a774c, type: 3}
-    - {fileID: 1548626587019644960, guid: 5759896d5fd50a0498f569f43d152c48, type: 3}
-    - {fileID: 3912761310097003379, guid: 9a8a6a84e693cb14282c8cafa8bdd5e3, type: 3}
+    _trees: []
+  type: 0
 --- !u!114 &4027105414567217549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +327,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
