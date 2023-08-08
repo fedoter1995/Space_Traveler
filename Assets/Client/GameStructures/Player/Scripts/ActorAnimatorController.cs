@@ -6,78 +6,89 @@ using UnityEngine;
 
 namespace GameStructures.Player
 {
+    [RequireComponent(typeof(AttackAnimationTriggerHandler))]
     public class ActorAnimatorController : AnimatorController
     {   
         private ActorController controller;
+        private AttackAnimationTriggerHandler triggerHandler;
 
         #region Hash Animator Var
-        private int IntSpeed = Animator.StringToHash("Speed");
+        private int IntStance = Animator.StringToHash("Stance");
         private int IntJump = Animator.StringToHash("Jump");
-        private int IntIsAttack = Animator.StringToHash("IsAttack");
-        private int IntAttack = Animator.StringToHash("Attack");
+        private int IntLanding = Animator.StringToHash("Landing");
+        private int IntAttack1 = Animator.StringToHash("Attack1");
+        private int IntAttack2 = Animator.StringToHash("Attack2");
+        private int IntIsBlock = Animator.StringToHash("IsBlock");
+        private int IntMovement = Animator.StringToHash("HorizontalMovement");
+        private int IntOnGround = Animator.StringToHash("OnGround");
         #endregion
 
-        public event Action OnAttackDealDamageEvent;
-
+        public event Action<int> AttackTriggerEvent;
         public void Initialize(ActorController controller)
         {
             this.controller = controller;
-            controller.OnJumpEvent += Jump;
-            controller.OnLandingEvent += Landing;
-            controller.OnBeginComboEvent += OnBeginCombo;
+            triggerHandler = GetComponent<AttackAnimationTriggerHandler>();
+
+
+
+            this.controller.OnGroundStateChangeEvent += ChangeOnGroundState;
+            this.controller.OnJumpEvent += Jump;
+            this.controller.OnLandingEvent += Landing;
+            this.controller.OnChangeStanceEvent += ChangeStance;
+            this.controller.OnAttack1Event += OnAttack1;
+            this.controller.OnAttack2Event += OnAttack2;
+            this.controller.OnBlockStateChangeEvent += BlockStateChange;
+            this.controller.OnMoveStateChangeEvent += WalkAnim;
+            triggerHandler.OnAttackTriggerEvent += OnAttackTriggerEvent;
         }
-        private void Update()
-        {
-            ChangeSpeed();
+
+        private void Landing()
+        {        
+            SetTrigger(IntLanding);
         }
-        private void ChangeSpeed()
+        private void OnAttackTriggerEvent(int attackId)
         {
-            if (controller.IsRunning)
-                SetFloat(IntSpeed, 1f);
-            else if (controller.IsMoveing)
-                SetFloat(IntSpeed, 0.5f);
+            controller.OnAttackTriggered(attackId);
+        }
+        private void WalkAnim(bool isMove)
+        {
+            if (isMove)
+            {
+                SetFloat(IntMovement, 1);
+            }
             else
-                SetFloat(IntSpeed, 0f);
+            {
+                SetFloat(IntMovement, 0);
+            }
+
+        }
+        private void ChangeOnGroundState(bool onGround)
+        {
+            SetBool(IntOnGround, onGround);
+        }
+        private void ChangeStance(ActorStance stance)
+        {
+            SetInt(IntStance, stance.GetHashCode());
         }
         private void Jump()
         {
-            SetFloat(IntJump, 1f);
+            SetTrigger(IntJump);
         }
-        private void Landing()
+        private void BlockStateChange(BlockState blockState)
         {
-            SetFloat(IntJump, 0f);
+            if (blockState == BlockState.BlockEnable)
+                SetBool(IntIsBlock, true);
+            else if (blockState == BlockState.BlockDisable)
+                SetBool(IntIsBlock, false);
         }
-        private void OnBeginCombo()
+        private void OnAttack1()
         {
-            SetBool(IntIsAttack, true);
-            SetFloat(IntAttack, 0);                      
+            SetTrigger(IntAttack1);                      
         }
-        private void OnAttackEnd()
+        private void OnAttack2()
         {
-            if (controller.AttackQueue.Count > 0)
-            {
-                controller.AttackQueue.Dequeue();
-                if (controller.AttackQueue.Count > 0)
-                {
-                    SetBool(IntIsAttack, true);
-                    SetFloat(IntAttack, controller.AttackQueue.Peek().AnimatorVarRef);
-                }
-                else
-                {
-                    SetBool(IntIsAttack, false);
-                    controller.IsAttack = false;
-                }
-            }
-            else
-            {
-                SetBool(IntIsAttack, false);
-                controller.IsAttack = false;
-            }
-            
+            SetTrigger(IntAttack2);
         }
-        private void DealDamage()
-        {
-            controller.OnDealDamage();
-        }
+
     }
 }

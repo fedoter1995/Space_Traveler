@@ -3,7 +3,7 @@ using System;
 using GameStructures.Stats;
 using System.Collections.Generic;
 
-public interface ITakeDamage : ITakeHit
+public interface ITakeDamage
 {
     event Action<object, DamageTypeValue> OnTakeDamageEvent;
     void TakeDamage(object sender, HitDamage damage);
@@ -21,6 +21,6 @@ public struct TakeDamageMessage
 
     public override string ToString()
     {
-        return $"{sender} take {dmg.Type} {dmg.Value} damage";
+        return $"{sender} take {dmg.Value} {dmg.Type} damage";
     }
 }

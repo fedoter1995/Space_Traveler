@@ -36,7 +36,7 @@ namespace GameStructures.Meteors
         public AsteroidType Type => _type;
         public Vector3 Position => transform.position;
 
-        public TakeDamageHandler TakeHitHandler => _takeDamageHandler;
+        public TakeHitHandler TakeHitHandler => _takeDamageHandler;
 
         public virtual void Initialize()
         {
@@ -46,7 +46,7 @@ namespace GameStructures.Meteors
             stats.Initialize();
             stats.CalculateValues();
 
-            _takeDamageHandler.Initialize(this, stats.Resistances);
+            _takeDamageHandler.Initialize(this, stats);
             _takeDamageHandler.OnTakeDamageEvent += TakeDamage;
 
             if (HealthPoints == null)

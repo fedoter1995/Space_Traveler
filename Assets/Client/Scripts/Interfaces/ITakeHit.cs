@@ -6,7 +6,7 @@ using UnityEngine;
 
 public interface ITakeHit : ITriggerObject
 {
-    event Action<HitStats> OnTakeHitEvent;
+    event Action OnTakeHitEvent;
     IHaveTakeHitHandler Obj { get; }
 
     void TakeHit(object sender, Hit hit);

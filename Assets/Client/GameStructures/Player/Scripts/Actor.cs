@@ -20,7 +20,7 @@ namespace GameStructures.Player
         [SerializeField]
         private Inventory _inventory = new Inventory();
         [SerializeField]
-        private EquipmentHandler _equipment = new EquipmentHandler();
+        private SpaceshipModuleHandler _equipment = new SpaceshipModuleHandler();
         [SerializeField]
         private ActorStatsHandler _stats;
         [SerializeField]
@@ -28,11 +28,11 @@ namespace GameStructures.Player
         [SerializeField]
         private WorkshopSettings _workshopSettings;
         [SerializeField]
-        private TriggerZone _triggerZone;
+        private EnemyTriggerZone _triggerZone;
 
 
         private ActorController actorController;
-        private ActorShootController shootController;
+        private ActorCombatController combatController;
         private ActorAnimatorController animatorController;
 
         private List<IJsonSerializable> serializableObjects;
@@ -45,7 +45,7 @@ namespace GameStructures.Player
 
         public Observable<int> HealthPoints { get; private set; }
         public ActorController Controller => actorController;
-        public EquipmentHandler Equipment => _equipment;
+        public SpaceshipModuleHandler Equipment => _equipment;
         public Inventory Inventory => _inventory;
         public ActorStatsHandler StatsHandler => _stats;
         public Vector3 Position => transform.position;
@@ -59,11 +59,11 @@ namespace GameStructures.Player
         {
             actorController = GetComponent<ActorController>();
             animatorController = GetComponentInChildren<ActorAnimatorController>();
-
+            combatController = GetComponentInChildren<ActorCombatController>();
 
             actorController.Initialize(new KeyboardActorInputManager(), this);
             animatorController.Initialize(Controller);
-
+            combatController.Initialize(this, _stats);
             StatsHandler.Initialize();
         }
 

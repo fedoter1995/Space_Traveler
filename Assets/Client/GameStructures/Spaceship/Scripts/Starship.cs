@@ -20,7 +20,7 @@ namespace GameStructures.Spaceship
         [SerializeField]
         private Inventory _inventory = new Inventory();
         [SerializeField]
-        private EquipmentHandler _equipment = new EquipmentHandler();
+        private SpaceshipModuleHandler _equipment = new SpaceshipModuleHandler();
         [SerializeField]
         private StarshipStatsHandler _stats;
         [SerializeField]
@@ -44,15 +44,15 @@ namespace GameStructures.Spaceship
         public string Name => _name;
         public Observable<int> HealthPoints { get; private set; }
         public StarshipController Controller => shipController;
-        public EquipmentHandler Equipment => _equipment;
+        public SpaceshipModuleHandler Equipment => _equipment;
         public Inventory Inventory => _inventory;
-        public StatsHandler StatsHandler => _stats;
+        public StarshipStatsHandler StatsHandler => _stats;
         public WorkshopSettings WorkshopSettings => _workshopSettings;
         public Vector3 Position => transform.position;
         public TriggerObjectType Type => TriggerObjectType.Player;
 
-        public TakeDamageHandler TakeHitHandler => _takeDamageHandler;
-
+        public TakeHitHandler TakeHitHandler => _takeDamageHandler;
+        public TakeDamageHandler TakeDamageHandler => _takeDamageHandler;
 
         public void Initialize()
         {
@@ -65,7 +65,7 @@ namespace GameStructures.Spaceship
             shootController.Initialize(manager, this);
             shipController.Initialize(manager, this);
 
-            _takeDamageHandler.Initialize(this, _stats.Resistances);
+            _takeDamageHandler.Initialize(this, StatsHandler);
 
             _takeDamageHandler.OnTakeDamageEvent += TakeDamage;
 

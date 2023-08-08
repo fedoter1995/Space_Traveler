@@ -18,11 +18,12 @@ public class DamageTakeTest : MonoBehaviour, ITakeHit, IHaveTakeHitHandler
 
     public TriggerObjectType Type => throw new NotImplementedException();
 
-    public event Action<HitStats> OnTakeHitEvent;
+    TakeHitHandler IHaveTakeHitHandler.TakeHitHandler => throw new NotImplementedException();
+
+    public event Action OnTakeHitEvent;
 
     private void Awake()
     {
-
         statsHandler.Initialize();
     }
 

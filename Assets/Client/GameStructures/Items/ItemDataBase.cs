@@ -12,7 +12,7 @@ public class ItemDataBase : ScriptableObject
     private string _name;
 
     [SerializeField, Header("Weapons")]
-    private List<Weapon> _weapons = new List<Weapon>();
+    private List<SpaceshipWeapon> _weapons = new List<SpaceshipWeapon>();
     [SerializeField, Header("Armors")]
     private List<ShipSkin> _armors = new List<ShipSkin>();
     [SerializeField, Header("Engines")]

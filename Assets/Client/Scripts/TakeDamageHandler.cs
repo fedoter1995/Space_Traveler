@@ -9,32 +9,19 @@ using GameStructures.Zones;
 
 namespace GameStructures.Hits
 {
-    [RequireComponent(typeof(Collider))]
-    public class TakeDamageHandler : MonoBehaviour, ITakeDamage
+    [RequireComponent(typeof(Collider2D))]
+    public class TakeDamageHandler : TakeHitHandler, ITakeDamage
     {
 
-        [SerializeField]
-        private TriggerObjectType _triggerType;
+        private IHaveResistances resistancesHandler;
 
-        
-        private List<Resistance> resistances;
-
-        public Vector3 Position => transform.position;
-        public IHaveTakeHitHandler Obj { get; private set; }
-
-        public TriggerObjectType Type => _triggerType;
 
         public event Action<object, DamageTypeValue> OnTakeDamageEvent;
-        public event Action<HitStats> OnTakeHitEvent;
-
-        public void Initialize(IHaveTakeHitHandler obj, List<Resistance> resistances)
+        public override event Action OnTakeHitEvent;
+        public void Initialize(IHaveTakeHitHandler obj, IHaveResistances resistancesHandler)
         {
             Obj = obj;
-            SetResistances(resistances);
-        }
-        public void SetResistances(List<Resistance> resistances)
-        {
-            this.resistances = resistances;
+            this.resistancesHandler = resistancesHandler;
         }
         public void TakeDamage(object sender, HitDamage damage)
         {
@@ -42,33 +29,56 @@ namespace GameStructures.Hits
 
             foreach (DamageTypeValue dmg in currentDamage.DamageTypeValues)
             {
-                TakeDamageMessage damageMessage = new TakeDamageMessage(this, dmg);
+                if(dmg.Value > 0)
+                {
+                    TakeDamageMessage damageMessage = new TakeDamageMessage(this, dmg);
 
-                OnTakeDamageEvent?.Invoke(sender, dmg);
+                    OnTakeDamageEvent?.Invoke(sender, dmg);
+                
+                    Debug.Log(damageMessage);
+                }
+
             }
+            
         }
-        public void TakeHit(object sender, Hit hit)
+        public override void TakeHit(object sender, Hit hit)
         {
             var takenDamage = hit.GetHitDamage();
-            TakeDamage(sender, takenDamage);
+
+            if(!takenDamage.IsZeroValue())
+            {
+                TakeDamage(sender, takenDamage);
+            }
+
+            OnTakeHitEvent?.Invoke();
         }
         private HitDamage ApplyResistances(HitDamage damage)
         {
             var resultDictionary = new List<DamageTypeValue>();
-
+            var resistances = resistancesHandler.GetResistances();
             foreach (DamageTypeValue dmg in damage.DamageTypeValues)
             {
-                var res = resistances.Find(res => res.Type == dmg.Type);
-
-                if (res != null)
+                if(dmg.Value > 0)
                 {
-                    var resultIntDamage = (int)(dmg.Value - dmg.Value * (res.Value / 100));
-                    var newDamageValue = new DamageTypeValue(resultIntDamage, dmg.Type, dmg.IsCrit);
+                    Resistance res = null;
 
-                    resultDictionary.Add(newDamageValue);
+                    if (resistances != null)
+                        res = resistances.Find(res => res.Type == dmg.Type);
+                    else
+                        Debug.Log("Resistances is not installed");
+
+
+                    if (res != null)
+                    {
+                        var resultIntDamage = (int)(dmg.Value - dmg.Value * (res.Value / 100));
+                        var newDamageValue = new DamageTypeValue(resultIntDamage, dmg.Type, dmg.IsCrit);
+
+                        resultDictionary.Add(newDamageValue);
+                    }
+                    else
+                        resultDictionary.Add(dmg);
                 }
-                else
-                    resultDictionary.Add(dmg);
+                
             }
             var newHitDamage = new HitDamage(resultDictionary);
 

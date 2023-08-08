@@ -20,6 +20,17 @@ namespace GameStructures.Stats
             DamageTypeValues = new List<DamageTypeValue>();
             DamageTypeValues.Add(damageTypeValue);
         }
+
+        public bool IsZeroValue()
+        {
+            var damageValue = 0;
+            foreach (DamageTypeValue dmg in DamageTypeValues)
+            {
+                damageValue += dmg.Value;
+            }
+
+            return damageValue == 0;
+        }
     }
     [Serializable]
     public struct DamageTypeValue

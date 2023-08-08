@@ -27,11 +27,6 @@ namespace GameStructures.Effects
         private CancellationTokenSource cts;
         private CancellationToken cancellationToken;
 
-        private void Awake()
-        {
-            Initialize();
-        }
-
     /* private void Update()
         {
             if(Input.GetKeyDown(KeyCode.K))
@@ -54,7 +49,6 @@ namespace GameStructures.Effects
                 dot.Initialize(cancellationToken);
             }
         }
-
         public void AddNewStatusEffect(LastingEffect effect)
         {
             var effectTypeName = effect.GetType().Name;
@@ -70,7 +64,6 @@ namespace GameStructures.Effects
                     }
             }
         }
-
         private void ModeChanged(PlayModeStateChange playModeState)
         {
             if (playModeState == PlayModeStateChange.EnteredEditMode && cts != null)

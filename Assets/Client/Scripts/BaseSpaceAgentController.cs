@@ -8,7 +8,7 @@ namespace Controllers
     public abstract class BaseSpaceAgentController : MonoBehaviour
     {
         [SerializeField]
-        protected TriggerZone _viewZone;
+        protected EnemyTriggerZone _viewZone;
 
         private BaseSpaceStatsHandler statsHandler;
         private NavMeshAgent navMeshAgent;

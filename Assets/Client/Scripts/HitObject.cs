@@ -12,7 +12,7 @@ public class HitObject : MonoBehaviour, ITakeHit
 
     public TriggerObjectType Type => throw new NotImplementedException();
 
-    public event Action<HitStats> OnTakeHitEvent;
+    public event Action OnTakeHitEvent;
 
     private void Awake()
     {

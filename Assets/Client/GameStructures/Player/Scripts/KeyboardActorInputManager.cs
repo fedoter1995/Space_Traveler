@@ -8,11 +8,16 @@ namespace Assets.Client.GameStructures.Player.Scripts
     public class KeyboardActorInputManager : IActorInputManager
     {
         #region Move Buttons
-        private KeyCode Right = KeyCode.D;
-        private KeyCode Left = KeyCode.A;
-        private KeyCode Space = KeyCode.Space;
-        private KeyCode Shift = KeyCode.LeftShift;
-        private KeyCode Attack1Button = KeyCode.Mouse0;
+        private KeyCode right = KeyCode.D;
+        private KeyCode left = KeyCode.A;
+        private KeyCode space = KeyCode.Space;
+        private KeyCode shift = KeyCode.LeftShift;
+        private KeyCode attackButton1 = KeyCode.Mouse0;
+        private KeyCode attackButton2 = KeyCode.Mouse1;
+        private KeyCode blockButton = KeyCode.F;
+        private KeyCode changeStanceButton = KeyCode.Q;
+
+        public KeyCode ChangeStanceButton => changeStanceButton;
         #endregion
 
         public Vector2 MoveVector
@@ -21,10 +26,21 @@ namespace Assets.Client.GameStructures.Player.Scripts
             {
                 Vector2 moveVector = new Vector2(0, 0);
 
-                if (Input.GetKey(Right))              
-                    moveVector += new Vector2(1, 0);                
-                if(Input.GetKey(Left))              
-                    moveVector += new Vector2(-1, 0);
+                if(IsRun)
+                {
+                    if (Input.GetKey(right))              
+                        moveVector += new Vector2(2, 0);                
+                    if(Input.GetKey(left))              
+                        moveVector += new Vector2(-2, 0);
+                }
+                else
+                {
+                    if (Input.GetKey(right))
+                        moveVector += new Vector2(1, 0);
+                    if (Input.GetKey(left))
+                        moveVector += new Vector2(-1, 0);
+                }
+
                 
                 return moveVector;
             }
@@ -33,33 +49,28 @@ namespace Assets.Client.GameStructures.Player.Scripts
         {
             get
             {
-                return Input.GetKey(Shift);
+                return Input.GetKey(shift);
             }
         }
         public bool IsMove
         {
             get
             {
-                return Input.GetKey(Right) || Input.GetKey(Left);
+                return Input.GetKey(right) || Input.GetKey(left);
             }
         }
         public bool Jump
         {
             get
             {
-                return Input.GetKeyDown(Space);
-            }
-        }
-        public bool Attack1
-        {
-            get
-            {
-                return Input.GetKeyDown(Attack1Button);
+                return Input.GetKeyDown(space);
             }
         }
 
-        public bool Attack2 => throw new System.NotImplementedException();
+        public KeyCode AttackButton1 => attackButton1;
 
-        public bool Attack3 => throw new System.NotImplementedException();
+        public KeyCode BlockButton => blockButton;
+
+        public KeyCode AttackButton2 => attackButton2;
     }
 }

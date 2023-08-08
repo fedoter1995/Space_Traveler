@@ -3,7 +3,7 @@ using GameStructures.Zones;
 
 namespace GameStructures.Spaceship
 {
-    public interface IStarship : IJsonSerializable, ITriggerObject, IHaveStatsHandler, IHaveTakeHitHandler
+    public interface IStarship : IJsonSerializable, ITriggerObject, IHaveStatsHandler<StarshipStatsHandler>, IHaveTakeHitHandler
     {
 
     }

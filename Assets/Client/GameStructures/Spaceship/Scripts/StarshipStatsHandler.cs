@@ -11,7 +11,7 @@ using GameStructures.Spaceship;
 
 [Serializable]
 [CreateAssetMenu(menuName = "StatsHandler/Ship_Stats")]
-public class StarshipStatsHandler : StatsHandler, IJsonSerializable
+public class StarshipStatsHandler : StatsHandler, IJsonSerializable, IHaveResistances
 {
     #region Const
     private const string HEALTH_POINTS = "Max_Health_Points";
@@ -50,9 +50,8 @@ public class StarshipStatsHandler : StatsHandler, IJsonSerializable
     public int PenetrationsNumb { get; private set; }
 
 
-    public EquipmentHandler Equipment { get; private set; }
+    public SpaceshipModuleHandler Equipment { get; private set; }
     public Starship Spaceship { get; private set; }
-    public List<Resistance> Resistances => _resistances;
 
 
     public override void CalculateValues()
@@ -264,5 +263,11 @@ public class StarshipStatsHandler : StatsHandler, IJsonSerializable
 
     }
 
+    public List<Resistance> GetResistances()
+    {
+        CalculateValues();
+        
+        return _resistances;
+    }
 }
 

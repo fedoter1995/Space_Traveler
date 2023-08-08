@@ -12,10 +12,19 @@ public abstract class AnimatorController : MonoBehaviour
     {
         _animator.SetBool(hash, bolean);
     }
+    protected void SetInt(int hash, int iteger)
+    {
+        _animator.SetInteger(hash, iteger);
+    }
 
     protected void SetFloat(int hash, float value)
     {
         _animator.SetFloat(hash, value);
+    }
+
+    protected void SetTrigger(int hash)
+    {
+        _animator.SetTrigger(hash);
     }
 
 }

@@ -22,7 +22,9 @@ namespace GameStructures.Stats
     }
     public enum DamageType
     {
-        None,
+        Fire,
+        Cold,
+        Electro,
         Enegy,
         Physical
     }

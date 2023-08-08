@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace GameStructures.Stats
 {
-    public interface IHaveStatsHandler
+    public interface IHaveStatsHandler<T> where T : StatsHandler
     {
-        public StatsHandler StatsHandler { get; }
+        public T StatsHandler { get; }
     }
 }

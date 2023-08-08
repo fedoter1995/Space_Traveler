@@ -2,6 +2,6 @@
 
 public interface IHaveTakeHitHandler
 {
-    TakeDamageHandler TakeHitHandler { get; }
+     TakeHitHandler TakeHitHandler { get; }
 }
 

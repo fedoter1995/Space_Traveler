@@ -8,12 +8,12 @@ namespace GameStructures.Hits
     public class ComboElement
     {
         [SerializeField]
-        private float _animatorRef;
+        private int _animationId;
         [SerializeField]
         private AddedModifiers _addedModifiers;
 
 
-        public float AnimatorVarRef => _animatorRef;
+        public int AnimationId => _animationId;
         public AddedModifiers AddedModifiers => _addedModifiers;
     }
 }

@@ -11,7 +11,7 @@ namespace Controllers
     public abstract class CombatSpaceAgentController : BaseSpaceAgentController
     {
         [SerializeField]
-        protected TriggerZone _fireZone;
+        protected EnemyTriggerZone _fireZone;
         protected abstract void ShootAction(ITriggerObject obj);
         public override void OnDestroyObject()
         {

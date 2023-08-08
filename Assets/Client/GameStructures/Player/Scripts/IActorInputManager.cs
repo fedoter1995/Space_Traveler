@@ -9,8 +9,10 @@ namespace GameStructures.Player
         bool IsRun { get; }
         Vector2 MoveVector { get; }
         public bool Jump { get; }
-        public bool Attack1 { get; }
-        public bool Attack2 { get; }
-        public bool Attack3 { get; }
+
+        public KeyCode AttackButton1 { get; }
+        public KeyCode AttackButton2 { get; }
+        public KeyCode ChangeStanceButton { get; }
+        public KeyCode BlockButton { get; }
     }
 }

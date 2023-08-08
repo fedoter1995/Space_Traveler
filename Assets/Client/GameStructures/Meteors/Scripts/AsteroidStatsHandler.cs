@@ -5,7 +5,7 @@ using UnityEngine;
 
 [Serializable]
 [CreateAssetMenu(menuName = "StatsHandler/AsteroidStats")]
-public class AsteroidStatsHandler : StatsHandler
+public class AsteroidStatsHandler : StatsHandler, IHaveResistances
 {
 
     #region Const
@@ -95,6 +95,13 @@ public class AsteroidStatsHandler : StatsHandler
         stats.AddRange(_resistances);
 
         return stats.Find(stat => stat.Name == statName);
+    }
+
+    public List<Resistance> GetResistances()
+    {
+        CalculateValues(); 
+        return _resistances;
+        
     }
 }
 
