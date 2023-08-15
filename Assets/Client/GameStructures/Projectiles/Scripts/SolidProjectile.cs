@@ -1,43 +1,44 @@
-﻿using GameStructures.Hits;
-using GameStructures.Stats;
-using System;
+﻿using SpaceTraveler.GameStructures.Stats;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SolidProjectile : Projectile
+namespace SpaceTraveler.GameStructures.Projectiles
 {
-
-    private Coroutine moveEnumerator = null;
-
-    public override void Initialize(object sender, ProjSettings settings, HitStats hitStats)
+    public class SolidProjectile : Projectile
     {
-        this.sender = sender;
-        this.settings = settings;
-        this.hitStats = hitStats;
-    }
-    public override void Move()
-    {
-        if (moveEnumerator == null)
-            moveEnumerator = StartCoroutine(MoveRoutine());
 
-    }
-    private IEnumerator MoveRoutine()
-    {
-        float deltaTime = 0f;
-        while(deltaTime < _lifetime)
+        private Coroutine moveEnumerator = null;
+
+        public override void Initialize(object sender, ProjSettings settings, HitStats hitStats)
         {
-            yield return new WaitForFixedUpdate();
-            transform.Translate(settings.Dirrection * Time.fixedDeltaTime * settings.Speed, Space.World);
-            deltaTime += Time.fixedDeltaTime;
+            this.sender = sender;
+            this.settings = settings;
+            this.hitStats = hitStats;
         }
-        moveEnumerator = null;
-        SetActive(false);
-    }
-    protected override void SetActive(bool activity)
-    {
-        moveEnumerator = null;
-        base.SetActive(activity);
+        public override void Move()
+        {
+            if (moveEnumerator == null)
+                moveEnumerator = StartCoroutine(MoveRoutine());
+
+        }
+        private IEnumerator MoveRoutine()
+        {
+            float deltaTime = 0f;
+            while(deltaTime < _lifetime)
+            {
+                yield return new WaitForFixedUpdate();
+                transform.Translate(settings.Dirrection * Time.fixedDeltaTime * settings.Speed, Space.World);
+                deltaTime += Time.fixedDeltaTime;
+            }
+            moveEnumerator = null;
+            SetActive(false);
+        }
+        protected override void SetActive(bool activity)
+        {
+            moveEnumerator = null;
+            base.SetActive(activity);
+        }
     }
 }
+
 

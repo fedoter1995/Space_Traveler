@@ -1,14 +1,9 @@
-﻿using GameStructures.Stats;
+﻿using SpaceTraveler.GameStructures.Effects.Presets;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace GameStructures.Effects
+namespace SpaceTraveler.GameStructures.Effects
 {
     public class BuffEffect : LastingEffect
     {

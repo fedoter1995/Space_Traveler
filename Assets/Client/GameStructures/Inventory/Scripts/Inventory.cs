@@ -1,143 +1,145 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using UnityEngine;
-using GameStructures.Items;
 using Newtonsoft.Json.Linq;
+using SpaceTraveler.GameStructures.Items;
 
-[Serializable]
-public class Inventory : ItemCollection
+namespace SpaceTraveler.GameStructures.ItemCollections
 {
-    [SerializeField]
-    private List<ElementSlot> _elements = new List<ElementSlot>();
-
-    public override event Action<object, Item, int> OnAddedEvent;
-    public override event Action<Item, int> OnRemovedEvent;
-    public override event Action OnItemStateChangedEvent;
-
-    public override List<IItemSlot> GetSlots()
+    [Serializable]
+    public class Inventory : ItemCollection
     {
-        return new List<IItemSlot>(_elements);
-    }
-    public override int GetItemAmount(string itemID)
-    {
-        var amount = 0;
-        var slotsWidthItems = _elements.FindAll(slot => !slot.IsEmpty && slot.ItemID == itemID);
-        foreach (IItemSlot slot in slotsWidthItems)
-            amount += slot.Amount;
+        [SerializeField]
+        private List<ElementSlot> _elements = new List<ElementSlot>();
 
-        return amount;
-    }
-    public override IItemSlot GetSlot(string itemID)
-    {
-        return _elements.Find(slot => slot.ItemID == itemID);
-    }
-    public override List<IItemSlot> GetNotEmptySlots()
-    {
-        var slots = new List<IItemSlot>(_elements.FindAll(slot => !slot.IsEmpty));
+        public override event Action<object, Item, int> OnAddedEvent;
+        public override event Action<Item, int> OnRemovedEvent;
+        public override event Action OnItemStateChangedEvent;
 
-        return slots;
-    }
-    public override void TryToAddToCollection(object sender, Item item, int amount)
-    {
-        var SlotWithSameItem = _elements.Find(slot => slot.ItemID == item.Id);
-
-        if (SlotWithSameItem != null)
-            AddToSlot(sender, SlotWithSameItem, item, amount);
-        else
+        public override List<IItemSlot> GetSlots()
         {
-            SlotWithSameItem = new ElementSlot();
-            SlotWithSameItem.SetItem(item, amount);
-            _elements.Add(SlotWithSameItem);
+            return new List<IItemSlot>(_elements);
         }
-    }
-    public override void TryToAddToCollection(object sender, List<ItemSlot> slots)
-    {
-        foreach(ItemSlot itemSlot in slots)
+        public override int GetItemAmount(string itemID)
         {
-            var SlotWithSameItem = _elements.Find(slot => slot.ItemID == itemSlot.ItemID);
+            var amount = 0;
+            var slotsWidthItems = _elements.FindAll(slot => !slot.IsEmpty && slot.ItemID == itemID);
+            foreach (IItemSlot slot in slotsWidthItems)
+                amount += slot.Amount;
 
-            if(SlotWithSameItem != null)
-                AddToSlot(sender, SlotWithSameItem, itemSlot.CurrentItem, itemSlot.Amount);
+            return amount;
+        }
+        public override IItemSlot GetSlot(string itemID)
+        {
+            return _elements.Find(slot => slot.ItemID == itemID);
+        }
+        public override List<IItemSlot> GetNotEmptySlots()
+        {
+            var slots = new List<IItemSlot>(_elements.FindAll(slot => !slot.IsEmpty));
+
+            return slots;
+        }
+        public override void TryToAddToCollection(object sender, Item item, int amount)
+        {
+            var SlotWithSameItem = _elements.Find(slot => slot.ItemID == item.Id);
+
+            if (SlotWithSameItem != null)
+                AddToSlot(sender, SlotWithSameItem, item, amount);
             else
             {
                 SlotWithSameItem = new ElementSlot();
-                SlotWithSameItem.SetItem(itemSlot.CurrentItem, itemSlot.Amount);
+                SlotWithSameItem.SetItem(item, amount);
                 _elements.Add(SlotWithSameItem);
             }
         }
-    }
-    public override void OnStateChange()
-    {
-        OnItemStateChangedEvent?.Invoke();
-    }
-    public override bool TryToRemove(Item item, int amount)
-    {
-        var SlotWithSameItem = _elements.Find(slot => slot.ItemID == item.Id);
-
-        if (SlotWithSameItem.Amount >= amount)
+        public override void TryToAddToCollection(object sender, List<ItemSlot> slots)
         {
-            SlotWithSameItem.Amount -= amount;
-            OnRemovedEvent?.Invoke(item, amount);
-            return true;
-        }
-
-        return false;
-    }
-    public override void SetObjectData(Dictionary<string, object> data)
-    {
-        if (data != null)
-        {
-            JObject jobjSlots = (JObject)data["Slots"];
-            var newSlotsData = jobjSlots.ToObject<Dictionary<string, object>>();
-            var slots = new List<ElementSlot>();
-
-            foreach (KeyValuePair<string, object> entry in newSlotsData)
+            foreach(ItemSlot itemSlot in slots)
             {
-                JObject slotJObject = (JObject)entry.Value;
-                var slotData = slotJObject.ToObject<Dictionary<string, object>>();
+                var SlotWithSameItem = _elements.Find(slot => slot.ItemID == itemSlot.ItemID);
 
-                var slot = new ElementSlot();
-                slot.SetObjectData(slotData);
-                slots.Add(slot);
+                if(SlotWithSameItem != null)
+                    AddToSlot(sender, SlotWithSameItem, itemSlot.CurrentItem, itemSlot.Amount);
+                else
+                {
+                    SlotWithSameItem = new ElementSlot();
+                    SlotWithSameItem.SetItem(itemSlot.CurrentItem, itemSlot.Amount);
+                    _elements.Add(SlotWithSameItem);
+                }
             }
-            _elements = new List<ElementSlot>(slots);
         }
-    }
-    public override Dictionary<string, object> GetObjectData()
-    {
-        var items = new Dictionary<string, object>();
-        var data = new Dictionary<string, object>();
-
-        foreach (ElementSlot slot in this._elements)
+        public override void OnStateChange()
         {
-            items.Add($"{slot.CurrentItem.Name}", slot.GetObjectData());
+            OnItemStateChangedEvent?.Invoke();
         }
-        data.Add("Slots", items);
+        public override bool TryToRemove(Item item, int amount)
+        {
+            var SlotWithSameItem = _elements.Find(slot => slot.ItemID == item.Id);
 
-        return data;
-    }
-    public override bool HaveItemAmount(Item item, int amount)
-    {
-        var SlotWithSameItem = _elements.Find(slot => slot.ItemID == item.Id);
+            if (SlotWithSameItem.Amount >= amount)
+            {
+                SlotWithSameItem.Amount -= amount;
+                OnRemovedEvent?.Invoke(item, amount);
+                return true;
+            }
 
-        if (SlotWithSameItem != null && SlotWithSameItem.Amount >= amount)
-            return true;
+            return false;
+        }
+        public override void SetObjectData(Dictionary<string, object> data)
+        {
+            if (data != null)
+            {
+                JObject jobjSlots = (JObject)data["Slots"];
+                var newSlotsData = jobjSlots.ToObject<Dictionary<string, object>>();
+                var slots = new List<ElementSlot>();
 
-        return false;
-    }
-    public override string ToString()
-    {
-        return "Spaceship Inventory";
-    }
-    private void AddToSlot(object sender, IItemSlot slot, Item item, int amount)
-    {
-        var clonnedItem = item;
+                foreach (KeyValuePair<string, object> entry in newSlotsData)
+                {
+                    JObject slotJObject = (JObject)entry.Value;
+                    var slotData = slotJObject.ToObject<Dictionary<string, object>>();
 
-        slot.Amount += amount;
+                    var slot = new ElementSlot();
+                    slot.SetObjectData(slotData);
+                    slots.Add(slot);
+                }
+                _elements = new List<ElementSlot>(slots);
+            }
+        }
+        public override Dictionary<string, object> GetObjectData()
+        {
+            var items = new Dictionary<string, object>();
+            var data = new Dictionary<string, object>();
 
-        OnAddedEvent?.Invoke(sender, item, amount);
-        OnStateChange();
+            foreach (ElementSlot slot in this._elements)
+            {
+                items.Add($"{slot.CurrentItem.Name}", slot.GetObjectData());
+            }
+            data.Add("Slots", items);
+
+            return data;
+        }
+        public override bool HaveItemAmount(Item item, int amount)
+        {
+            var SlotWithSameItem = _elements.Find(slot => slot.ItemID == item.Id);
+
+            if (SlotWithSameItem != null && SlotWithSameItem.Amount >= amount)
+                return true;
+
+            return false;
+        }
+        public override string ToString()
+        {
+            return "Spaceship Inventory";
+        }
+        private void AddToSlot(object sender, IItemSlot slot, Item item, int amount)
+        {
+            var clonnedItem = item;
+
+            slot.Amount += amount;
+
+            OnAddedEvent?.Invoke(sender, item, amount);
+            OnStateChange();
+        }
     }
 }
+

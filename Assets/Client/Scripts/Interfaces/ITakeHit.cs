@@ -1,28 +1,29 @@
-﻿using GameStructures.Hits;
-using GameStructures.Stats;
-using GameStructures.Zones;
+﻿using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Zones;
 using System;
-using UnityEngine;
 
-public interface ITakeHit : ITriggerObject
+namespace SpaceTraveler.GameStructures.Hits
 {
-    event Action OnTakeHitEvent;
-    IHaveTakeHitHandler Obj { get; }
-
-    void TakeHit(object sender, Hit hit);
-}
-public struct TakeHitMessage
-{
-    private object sender;
-    private HitStats stats;
-
-    public TakeHitMessage(object sender, HitStats stats)
+    public interface ITakeHit : ITriggerObject
     {
-        this.sender = sender;
-        this.stats = stats;
+        event Action OnTakeHitEvent;
+        IHaveTakeHitHandler Obj { get; }
+
+        void TakeHit(object sender, Hit hit);
     }
-    public override string ToString()
+    public struct TakeHitMessage
     {
-        return $"{sender} take {stats} damage";
+        private object sender;
+        private HitStats stats;
+
+        public TakeHitMessage(object sender, HitStats stats)
+        {
+            this.sender = sender;
+            this.stats = stats;
+        }
+        public override string ToString()
+        {
+            return $"{sender} take {stats} damage";
+        }
     }
 }

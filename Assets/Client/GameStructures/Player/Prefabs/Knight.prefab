@@ -58,11 +58,6 @@ MonoBehaviour:
   _name: 
   _inventory:
     _elements: []
-  _equipment:
-    _equipmentSet:
-      _mainWeapon: {fileID: 0}
-      _engine: {fileID: 0}
-      _shipSkin: {fileID: 0}
   _stats: {fileID: 11400000, guid: c263c3bdc5c2c11499f29c6d168fb9b3, type: 2}
   _takeDamageHandler: {fileID: 2102595431108995878}
   _workshopSettings:
@@ -114,6 +109,9 @@ MonoBehaviour:
       _addedDamages: []
       _addedMultipliers: []
       _addedChances: []
+  _attackZones:
+  - {fileID: 1933417179314866750}
+  - {fileID: 6361105087584922543}
 --- !u!114 &2102595431108995878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,8 +540,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerCollider: {fileID: 4374263919382388167}
-  _correctTypes: 04000000
-  _attacksId: 
+  _correctTypes: 0400000002000000
+  _attacksId: 000000000100000002000000
 --- !u!1 &4336941737770885041
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,5 +626,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerCollider: {fileID: 263861360582206137}
-  _correctTypes: 04000000
-  _attacksId: 
+  _correctTypes: 0400000002000000
+  _attacksId: 03000000

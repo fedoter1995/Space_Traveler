@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Zones
+namespace SpaceTraveler.GameStructures.Zones
 {
     public class EnemyTriggerZone : TriggerZone
     {

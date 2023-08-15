@@ -1,7 +1,7 @@
-﻿using GameStructures.Effects;
+﻿using SpaceTraveler.GameStructures.Stats.Presets;
 using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats
 {
     [System.Serializable]
     public class Multiplier : BaseStat

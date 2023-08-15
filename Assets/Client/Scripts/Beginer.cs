@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Threading.Tasks;
 using Architecture;
-using GameStructures.Effects;
-using GameStructures.Stats;
 using UnityEngine;
 
 public class Beginer : MonoBehaviour

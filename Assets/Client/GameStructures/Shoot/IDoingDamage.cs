@@ -1,5 +1,9 @@
-﻿public interface IDoingDamage : IDoingHit
+﻿namespace SpaceTraveler.GameStructures.Hits
 {
-    void DealDamage(ITakeDamage target);
+    public interface IDoingDamage : IDoingHit
+    {
+        void DealDamage(ITakeDamage target);
+    }
 }
+
 

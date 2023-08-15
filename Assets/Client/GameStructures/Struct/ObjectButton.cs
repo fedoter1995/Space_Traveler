@@ -1,6 +1,5 @@
 ﻿using System;
-using GameStructures.InterractiveObjects;
-using UnityEngine;
+using SpaceTraveler.GameStructures.InterractiveObjects;
 
 namespace GameStructures.Struct
 {

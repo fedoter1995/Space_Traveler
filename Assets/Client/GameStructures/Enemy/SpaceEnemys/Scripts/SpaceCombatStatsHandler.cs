@@ -1,18 +1,13 @@
-using Architecture;
-using GameStructures.Gear;
-using GameStructures.Gear.Weapons;
-using GameStructures.Hits;
-using GameStructures.NPC;
-using GameStructures.Stats;
+using SpaceTraveler.GameStructures.Gear.Weapons;
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats
 {
     [Serializable]
-    public class SpaceCombatStatsHandler : BaseSpaceStatsHandler, IHaveResistances
+    public abstract class SpaceCombatStatsHandler : BaseSpaceStatsHandler, IHaveResistances
     {
 
         #region Const

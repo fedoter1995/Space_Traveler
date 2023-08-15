@@ -1,11 +1,9 @@
 using NavMesh;
 using NavMeshPlus.Components;
 using NavMeshPlus.Extensions;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(NavMeshSurface), typeof(CollectSources2d))]
 public class NavMeshContainer : MonoBehaviour

@@ -1,12 +1,9 @@
-﻿using Controllers;
-using DG.Tweening;
-using GameStructures.NPC;
-using GameStructures.Zones;
-using System.Collections;
+﻿using SpaceTraveler.GameStructures.Enemys.SpaceEnemys;
+using SpaceTraveler.GameStructures.Zones;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace GameStructures.Enemys
+namespace SpaceTraveler.GameStructures.Enemys
 {
     [RequireComponent(typeof(SpaceEnemyShootController), typeof(NavMeshAgent))]
     public class SpaceEnemyController : CombatSpaceAgentController

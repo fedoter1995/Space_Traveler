@@ -1,9 +1,9 @@
 ﻿using CustomTools;
-using GameStructures.Hits;
-using GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats;
 using UnityEngine;
+using SpaceTraveler.GameStructures.Projectiles;
 
-namespace GameStructures.Gear.Weapons
+namespace SpaceTraveler.GameStructures.Gear.Weapons
 {
     public abstract class ShotPreset : ScriptableObject
     {

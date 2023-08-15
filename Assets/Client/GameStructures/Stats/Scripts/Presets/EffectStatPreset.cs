@@ -1,8 +1,4 @@
-﻿using System;
-using UnityEngine;
-using System.Threading.Tasks;
-
-namespace GameStructures.Stats
+﻿namespace SpaceTraveler.GameStructures.Stats.Presets
 {
     public abstract class EffectStatPreset : StatPreset { }
 }

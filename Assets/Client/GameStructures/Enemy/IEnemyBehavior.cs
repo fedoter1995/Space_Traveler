@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using GameStructures.NPC;
-namespace GameStructures.Enemys
+﻿using SpaceTraveler.GameStructures.NPC;
+
+namespace SpaceTraveler.GameStructures.Enemys
 {
     public interface IEnemyBehavior : INpcBehavior
     {

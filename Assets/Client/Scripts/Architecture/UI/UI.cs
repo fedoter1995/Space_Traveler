@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using UnityEngine;
-
 namespace Architecture
 {
     public class UI<T> where T : IUIController

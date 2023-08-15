@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Zones
+namespace SpaceTraveler.GameStructures.Zones
 {
     [RequireComponent(typeof(Collider2D))]
     public abstract class TriggerZone : MonoBehaviour
@@ -27,6 +26,8 @@ namespace GameStructures.Zones
 
         protected virtual void AddObject(ITriggerObject obj)
         {
+            Debug.Log(obj);
+
             if (inZoneObjects.Contains(obj))
                 return;
 

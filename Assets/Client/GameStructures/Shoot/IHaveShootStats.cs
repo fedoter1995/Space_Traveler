@@ -1,7 +1,6 @@
-﻿using GameStructures.Hits;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats
 {
     public interface IHaveShootStats
     {

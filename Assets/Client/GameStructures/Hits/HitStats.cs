@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using GameStructures.Effects;
-using GameStructures.Stats;
+using SpaceTraveler.GameStructures.Effects;
 
-namespace GameStructures.Hits
+namespace SpaceTraveler.GameStructures.Stats
 {
     [Serializable]
     public class HitStats
@@ -14,6 +13,8 @@ namespace GameStructures.Hits
         private List<Chance> chances;
         [SerializeField]
         private List<Multiplier> multipliers;
+        [SerializeField]
+        private List<Effect> _effects;
         [SerializeField]
         private HitDamage damage;
         private int numbOfPenetrations = 0;

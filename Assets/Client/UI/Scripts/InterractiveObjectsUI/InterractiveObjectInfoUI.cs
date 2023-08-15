@@ -1,10 +1,9 @@
-﻿using CustomTools;
-using GameStructures.InterractiveObjects;
-using System;
+﻿using System;
 using TMPro;
 using UnityEngine;
+using SpaceTraveler.GameStructures.InterractiveObjects;
 
-namespace UI.InterractiveObjectsUI
+namespace SpaceTraveler.UI.InterractiveObjectsUI
 {
     [Serializable]
     public class InterractiveObjectInfoUI : UIWidget

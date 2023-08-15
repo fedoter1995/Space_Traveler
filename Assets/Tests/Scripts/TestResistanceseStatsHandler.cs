@@ -1,4 +1,4 @@
-using GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

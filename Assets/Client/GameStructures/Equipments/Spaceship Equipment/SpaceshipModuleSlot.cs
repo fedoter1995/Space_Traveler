@@ -1,8 +1,8 @@
-using GameStructures.Items;
+using SpaceTraveler.GameStructures.Items;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Gear
+namespace SpaceTraveler.GameStructures.Gear.Spaceship
 {
     [System.Serializable]
     public class SpaceshipModuleSlot : IJsonSerializable

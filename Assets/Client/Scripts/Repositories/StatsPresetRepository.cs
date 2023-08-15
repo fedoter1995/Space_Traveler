@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Architecture;
-using GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats.Presets;
+using SpaceTraveler.GameStructures.Stats;
 
 public class StatsPresetRepository : Repository
 {

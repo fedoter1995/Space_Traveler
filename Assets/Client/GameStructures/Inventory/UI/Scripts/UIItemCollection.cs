@@ -1,55 +1,58 @@
-using GameStructures.Items;
-using System.Collections;
+using SpaceTraveler.GameStructures.Items;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIItemCollection : MonoBehaviour
+namespace SpaceTraveler.GameStructures.ItemCollections.UI
 {
-    [SerializeField]
-    private UIInventorySlot _slotPrefab;
-
-    private List<UIInventorySlot> slots;
-
-    private ItemCollection collection;
-
-    public void Initilize(ItemCollection collection)
+    public class UIItemCollection : MonoBehaviour
     {
-        this.collection = collection;
+        [SerializeField]
+        private UIInventorySlot _slotPrefab;
 
-        slots = new List<UIInventorySlot>();
-        var collectionSlots = this.collection.GetSlots();
+        private List<UIInventorySlot> slots;
 
-        foreach (IItemSlot slot in collectionSlots)
+        private ItemCollection collection;
+
+        public void Initilize(ItemCollection collection)
         {
-            var newSlot = Instantiate(_slotPrefab,transform);
-            newSlot.SetSlot(slot);
-            slots.Add(newSlot);
-        }
-    }
-    public void UpdateSlots()
-    {
-        var collectionSlots = collection.GetSlots();
-        if (slots.Count == collectionSlots.Count)
-        {
-            for(int i = 0; i < slots.Count; i++)
+            this.collection = collection;
+
+            slots = new List<UIInventorySlot>();
+            var collectionSlots = this.collection.GetSlots();
+
+            foreach (IItemSlot slot in collectionSlots)
             {
-                slots[i].SetSlot(collectionSlots[i]);
+                var newSlot = Instantiate(_slotPrefab,transform);
+                newSlot.SetSlot(slot);
+                slots.Add(newSlot);
             }
         }
-        else if(slots.Count < collectionSlots.Count)
+        public void UpdateSlots()
         {
-            for (int i = 0; i < collectionSlots.Count; i++)
+            var collectionSlots = collection.GetSlots();
+            if (slots.Count == collectionSlots.Count)
             {
-                if(i < slots.Count)
-                    slots[i].SetSlot(collectionSlots[i]);
-                else
+                for(int i = 0; i < slots.Count; i++)
                 {
-                    var newSlot = Instantiate(_slotPrefab, transform);
-                    newSlot.SetSlot(collectionSlots[i]);
-                    slots.Add(newSlot);
+                    slots[i].SetSlot(collectionSlots[i]);
+                }
+            }
+            else if(slots.Count < collectionSlots.Count)
+            {
+                for (int i = 0; i < collectionSlots.Count; i++)
+                {
+                    if(i < slots.Count)
+                        slots[i].SetSlot(collectionSlots[i]);
+                    else
+                    {
+                        var newSlot = Instantiate(_slotPrefab, transform);
+                        newSlot.SetSlot(collectionSlots[i]);
+                        slots.Add(newSlot);
+                    }
                 }
             }
         }
-    }
 
+    }
 }
+

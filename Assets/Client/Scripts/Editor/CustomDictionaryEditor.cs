@@ -1,5 +1,4 @@
-using GameStructures.Items;
-using System.Collections;
+using SpaceTraveler.GameStructures.Items;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;

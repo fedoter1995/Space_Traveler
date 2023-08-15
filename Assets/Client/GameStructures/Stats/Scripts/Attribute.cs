@@ -1,8 +1,8 @@
-using System.Collections;
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats
 {
     [System.Serializable]
     public class Attribute : Stat

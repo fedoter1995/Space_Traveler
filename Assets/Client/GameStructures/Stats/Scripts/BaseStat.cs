@@ -1,9 +1,10 @@
 using Architecture;
-using System.Collections;
+using SpaceTraveler.GameStructures.Stats.Presets;
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats
 {
     [System.Serializable]
     public abstract class BaseStat : IJsonSerializable
@@ -15,7 +16,7 @@ namespace GameStructures.Stats
 
 
         protected StatPreset statPreset;
-        public string Name  => statPreset.Name; 
+        public string Name  => statPreset.Name;
         [System.NonSerialized]
         protected float value;
         public float Value { get => value; }

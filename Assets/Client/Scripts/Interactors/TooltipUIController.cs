@@ -1,8 +1,4 @@
 using Architecture;
-using System.Collections;
-using System.Collections.Generic;
-using UI.Tooltip;
-using UnityEngine;
 
 public class TooltipUIController : UIController
 {

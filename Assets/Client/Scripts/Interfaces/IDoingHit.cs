@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-public interface IDoingHit
+﻿namespace SpaceTraveler.GameStructures.Hits
 {
-    void Hit(ITakeHit target);
+    public interface IDoingHit
+    {
+        void Hit(ITakeHit target);
+    }
 }
+
 

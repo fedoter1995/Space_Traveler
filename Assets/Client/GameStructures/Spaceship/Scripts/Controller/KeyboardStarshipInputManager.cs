@@ -1,5 +1,4 @@
 using GameStructures.Spaceship;
-using System;
 using UnityEngine;
 
 public class KeyboardStarshipInputManager : IStarshipInputManager

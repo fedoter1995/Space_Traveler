@@ -4,13 +4,16 @@ using CustomTools.Observable;
 using CustomTools;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using GameStructures.Hits;
-using GameStructures.Gear;
-using GameStructures.Stats;
-using GameStructures.Garage.Workshop;
-using GameStructures.Zones;
+using SpaceTraveler.GameStructures.Workshop;
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.ItemCollections;
+using SpaceTraveler.GameStructures.Gear.Spaceship;
+using SpaceTraveler.GameStructures.Gear;
+using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Items;
+using SpaceTraveler.GameStructures.Zones;
 
-namespace GameStructures.Spaceship
+namespace SpaceTraveler.GameStructures.Spaceship
 {
     [RequireComponent(typeof(StarshipController),typeof(StarshipCameraController))]
     public class Starship : MonoBehaviour, IStarship
@@ -44,7 +47,7 @@ namespace GameStructures.Spaceship
         public string Name => _name;
         public Observable<int> HealthPoints { get; private set; }
         public StarshipController Controller => shipController;
-        public SpaceshipModuleHandler Equipment => _equipment;
+        public IEqupmentHandler Equipment => _equipment;
         public Inventory Inventory => _inventory;
         public StarshipStatsHandler StatsHandler => _stats;
         public WorkshopSettings WorkshopSettings => _workshopSettings;
@@ -100,7 +103,7 @@ namespace GameStructures.Spaceship
                 }
             }
             else
-                Equipment.Initialize();
+                _equipment.Initialize();
         }
         public Dictionary<string, object> GetObjectData()
         {

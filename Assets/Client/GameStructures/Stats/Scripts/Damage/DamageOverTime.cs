@@ -1,12 +1,8 @@
-﻿using GameStructures.Stats;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats.Presets;
 using UnityEngine;
 
-namespace GameStructures.Effects
+namespace SpaceTraveler.GameStructures.Effects
 {
     public class DamageOverTime : LastingStatEffect
     {

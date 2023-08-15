@@ -1,47 +1,49 @@
 using GameStructures.Hits;
-using GameStructures.Player;
 using GameStructures.Zones;
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.Zones;
 using System.Collections.Generic;
-using System.Security.Policy;
 using UnityEngine;
 
-public class ActorCombatController : MonoBehaviour
+namespace SpaceTraveler.GameStructures.Player
 {
-    [SerializeField]
-    private List<ComboElement> _comboElements = new List<ComboElement>();
-    [SerializeField]
-    private List<AttackTriggerZone> _attackZones;
-
-    private Actor actor;
-    private ActorStatsHandler statsHandler;
-
-    public void Initialize(Actor actor, ActorStatsHandler statsHandler)
+    public class ActorCombatController : MonoBehaviour
     {
-        this.actor = actor; 
-        this.statsHandler = statsHandler;
-    }
-    public void OnAttackTrigger(int attackId)
-    {
-        var comboElement = _comboElements.Find(element => element.AnimationId == attackId);
-        var currentZone = _attackZones.Find(zone => zone.AttacksId.Contains(attackId));
-        if(currentZone != null)
+        [SerializeField]
+        private List<ComboElement> _comboElements = new List<ComboElement>();
+        [SerializeField]
+        private List<AttackTriggerZone> _attackZones;
+
+        private Actor actor;
+        private ActorStatsHandler statsHandler;
+
+        public void Initialize(Actor actor, ActorStatsHandler statsHandler)
         {
-            DealHit(currentZone, comboElement);
+            this.actor = actor; 
+            this.statsHandler = statsHandler;
+        }
+        public void OnAttackTrigger(int attackId)
+        {
+            var comboElement = _comboElements.Find(element => element.AnimationId == attackId);
+            var currentZone = _attackZones.Find(zone => zone.AttacksId.Contains(attackId));
+            if(currentZone != null)
+            {
+                DealHit(currentZone, comboElement);
+            }
         }
 
-    }
-
-    private void DealHit(AttackTriggerZone zone, ComboElement comboElement)
-    {
-        foreach (ITriggerObject element in zone.InZoneObjects)
+        private void DealHit(AttackTriggerZone zone, ComboElement comboElement)
         {
-            var hitObj = element as ITakeHit;
-            
-            if(hitObj != null)
+            foreach (ITriggerObject element in zone.InZoneObjects)
             {
-                var hit = new Hit(statsHandler.GetHitStats());
-                hitObj.TakeHit(actor, hit);
+                var hitObj = element as ITakeHit;
+                if (hitObj != null)
+                {
+                    var hit = new Hit(statsHandler.GetHitStats());
+                    hitObj.TakeHit(actor, hit);
+                }
             }
         }
     }
 }
+

@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats.Presets
 {
     [CreateAssetMenu(menuName = "Stats/Presets/New_Resistance_Preset")]
     public class ResistancePreset : StatPreset

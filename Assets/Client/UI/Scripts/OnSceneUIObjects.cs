@@ -1,5 +1,5 @@
-using GameStructures.InterractiveObjects;
-using UI.InterractiveObjectsUI;
+using SpaceTraveler.GameStructures.InterractiveObjects;
+using SpaceTraveler.UI.InterractiveObjectsUI;
 using UnityEngine;
 namespace UI
 {

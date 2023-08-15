@@ -1,9 +1,10 @@
-﻿using GameStructures.Zones;
+﻿using SpaceTraveler.GameStructures.Enemys.SpaceEnemys;
+using SpaceTraveler.GameStructures.Zones;
 using System;
 using System.Collections;
 using UnityEngine;
 
-namespace GameStructures.Enemys
+namespace SpaceTraveler.GameStructures.Enemys
 {
     public class UFOShotBehavior : IEnemyBehavior
     {

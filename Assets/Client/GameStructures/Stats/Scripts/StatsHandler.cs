@@ -1,10 +1,9 @@
-using Architecture;
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats
 {
     [Serializable]
     public abstract class StatsHandler : ScriptableObject

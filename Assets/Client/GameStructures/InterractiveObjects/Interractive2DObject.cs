@@ -1,13 +1,8 @@
-﻿using GameStructures.Player;
-using GameStructures.Struct;
+﻿using SpaceTraveler.GameStructures.Player;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
-namespace GameStructures.InterractiveObjects
+namespace SpaceTraveler.GameStructures.InterractiveObjects
 {
     [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
     public abstract class Interractive2DObject : MonoBehaviour

@@ -1,9 +1,9 @@
-﻿using GameStructures.Stats;
-using GameStructures.Zones;
+﻿using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Zones;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Controllers
+namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
 {
     public abstract class BaseSpaceAgentController : MonoBehaviour
     {

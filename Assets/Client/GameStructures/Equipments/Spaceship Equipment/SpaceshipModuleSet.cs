@@ -1,17 +1,12 @@
-﻿using GameStructures.Gear.Armors;
-using GameStructures.Gear.Engine;
-using GameStructures.Gear.Weapons;
+﻿using SpaceTraveler.GameStructures.Items;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
-namespace GameStructures.Gear
+namespace SpaceTraveler.GameStructures.Gear.Spaceship
 {
     [Serializable]
-    public class SpaceshipModuleSet
+    public class SpaceshipModuleSet : IEqupmentModuleSet<SpaceshipEquipment>
     {
         [SerializeField]
         private SpaceshipWeapon _mainWeapon;
@@ -24,45 +19,45 @@ namespace GameStructures.Gear
         public MainEngine Engine => _engine;
         public ShipSkin ShipSkin => _shipSkin;
 
-        public List<Equipment> GetEquipment()
+        public List<SpaceshipEquipment> GetEquipment()
         {
-            var equipment = new List<Equipment>();
+            var equipment = new List<SpaceshipEquipment>();
             equipment.Add(MainWeapon);
             equipment.Add(Engine);
             equipment.Add(ShipSkin);
 
             return equipment;
         }
-        public void SetEquipment(Equipment equipment)
+
+        public bool TrySetEquipment(SpaceshipEquipment equipment)
         {
-            var type = equipment.GetType();
-
-            if (type.IsSubclassOf(typeof(SpaceshipWeapon)) || type == typeof(SpaceshipWeapon))
+            if (equipment != null)
             {
-                _mainWeapon = (SpaceshipWeapon)equipment;
-                _mainWeapon.InitEquipment();
-            }
-            else if (type.IsSubclassOf(typeof(ShipSkin)) || type == typeof(ShipSkin))
-            {
-                _shipSkin = (ShipSkin)equipment;
-                _shipSkin.InitEquipment();
-            }
-            else if (type.IsSubclassOf(typeof(MainEngine)) || type == typeof(MainEngine))
-            {
-                _engine = (MainEngine)equipment;
-                _engine.InitEquipment();
+                SetEquipment(equipment);
+                return true;
             }
 
+            return false;
         }
-        public void SetEquipment(string id)
-        {
 
+        public bool TrySetEquipment(string id)
+        {
             var repository = Architecture.Game.GetRepository<ItemsRepository>();
 
-            var equipment = repository.GetItem<Equipment>(id);
+            var equipment = repository.GetItem<SpaceshipEquipment>(id);
 
+            if (equipment != null)
+            {
+                SetEquipment(equipment);
+                return true;
+            }
+
+            return false;
+        }
+
+        private void SetEquipment(SpaceshipEquipment equipment)
+        {
             var type = equipment.GetType();
-
             if (type.IsSubclassOf(typeof(SpaceshipWeapon)) || type == typeof(SpaceshipWeapon))
             {
                 _mainWeapon = (SpaceshipWeapon)equipment;
@@ -78,6 +73,10 @@ namespace GameStructures.Gear
                 _engine = (MainEngine)equipment;
                 _engine.InitEquipment();
             }
+
         }
+
+
+
     }
 }

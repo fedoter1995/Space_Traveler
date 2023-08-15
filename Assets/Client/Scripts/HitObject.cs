@@ -1,5 +1,5 @@
-using GameStructures.Hits;
-using GameStructures.Zones;
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.Zones;
 using System;
 using UnityEngine;
 
@@ -11,6 +11,7 @@ public class HitObject : MonoBehaviour, ITakeHit
     public IHaveTakeHitHandler Obj => throw new NotImplementedException();
 
     public TriggerObjectType Type => throw new NotImplementedException();
+
 
     public event Action OnTakeHitEvent;
 

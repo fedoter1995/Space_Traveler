@@ -1,7 +1,8 @@
-﻿using GameStructures.Stats;
+﻿using SpaceTraveler.GameStructures.Abilities;
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System.Collections.Generic;
 
-namespace GameStructures.Abilities
+namespace SpaceTraveler.GameStructures.Abilities
 {
     public class PassiveSkill : Ability
     {

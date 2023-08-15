@@ -1,8 +1,8 @@
-﻿using GameStructures.Gear.Weapons;
+﻿using SpaceTraveler.GameStructures.Gear.Weapons;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats
 {
     public class ShotStats
     {

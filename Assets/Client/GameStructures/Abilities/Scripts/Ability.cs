@@ -1,8 +1,8 @@
-﻿using GameStructures.Stats;
+﻿using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Abilities
+namespace SpaceTraveler.GameStructures.Abilities
 {
     public abstract class Ability
     {

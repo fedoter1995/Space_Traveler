@@ -1,6 +1,5 @@
 using System;
 using TMPro;
-using UnityEngine;
 
 public class StatsDescriptionObject : TextMeshProUGUI, IPoolsObject<StatsDescriptionObject>
 {

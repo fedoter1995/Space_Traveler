@@ -1,11 +1,9 @@
-﻿using GameStructures.Stats;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace GameStructures.Gear.Engine
+namespace SpaceTraveler.GameStructures.Gear.Spaceship
 {
     [CreateAssetMenu(menuName = "Item/Equipment/MainEngine/new_Main_Engine")]
-    public class MainEngine : Equipment
+    public class MainEngine : SpaceshipEquipment
     {
         public override void InitEquipment()
         {

@@ -1,40 +1,40 @@
 using Cinemachine;
-using GameStructures.Player;
-using GameStructures.Spaceship;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class StarshipCameraController : MonoBehaviour
+namespace SpaceTraveler.GameStructures.Spaceship
 {
-    [SerializeField]
-    private CinemachineVirtualCamera cameraSettingsPrefab;
-
-    private CinemachineVirtualCamera cameraSettings;
-
-    private Starship spaceship;
-
-    private void OnEnable()
+    public class StarshipCameraController : MonoBehaviour
     {
-        CreateCameraSettings();
+        [SerializeField]
+        private CinemachineVirtualCamera cameraSettingsPrefab;
 
-        spaceship = GetComponent<Starship>();
+        private CinemachineVirtualCamera cameraSettings;
+
+        private Starship spaceship;
+
+        private void OnEnable()
+        {
+            CreateCameraSettings();
+
+            spaceship = GetComponent<Starship>();
 
 
-        Follow(spaceship.transform);
-    }
+            Follow(spaceship.transform);
+        }
 
-    private void CreateCameraSettings()
-    {
-        cameraSettings = Instantiate(cameraSettingsPrefab);
-    }
+        private void CreateCameraSettings()
+        {
+            cameraSettings = Instantiate(cameraSettingsPrefab);
+        }
 
-    public void LookAt(Transform target)
-    {
-        cameraSettings.LookAt = target;
-    }
-    public void Follow(Transform target)
-    {
-        cameraSettings.Follow = target;
+        public void LookAt(Transform target)
+        {
+            cameraSettings.LookAt = target;
+        }
+        public void Follow(Transform target)
+        {
+            cameraSettings.Follow = target;
+        }
     }
 }
+

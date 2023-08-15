@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameStructures.Zones
+namespace SpaceTraveler.GameStructures.Zones
 {
     public interface ITriggerObject
     {

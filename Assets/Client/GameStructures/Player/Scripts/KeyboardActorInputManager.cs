@@ -1,9 +1,6 @@
-﻿using GameStructures.Player;
-using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Client.GameStructures.Player.Scripts
+namespace SpaceTraveler.GameStructures.Player
 {
     public class KeyboardActorInputManager : IActorInputManager
     {

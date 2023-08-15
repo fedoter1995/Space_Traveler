@@ -1,9 +1,10 @@
-﻿using GameStructures.Stats;
-using GameStructures.Zones;
+﻿using SpaceTraveler.GameStructures.Player;
+using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Zones;
 
-namespace GameStructures.Spaceship
+namespace SpaceTraveler.GameStructures.Spaceship
 {
-    public interface IStarship : IJsonSerializable, ITriggerObject, IHaveStatsHandler<StarshipStatsHandler>, IHaveTakeHitHandler
+    public interface IStarship : IJsonSerializable, ITriggerObject, IHaveStatsHandler<StarshipStatsHandler>, IHaveTakeHitHandler, IPlayerObject
     {
 
     }

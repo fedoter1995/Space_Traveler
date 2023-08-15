@@ -1,4 +1,5 @@
-﻿using GameStructures.Hits;
+﻿
+using SpaceTraveler.GameStructures.Hits;
 
 public interface IHaveTakeHitHandler
 {

@@ -1,4 +1,6 @@
-namespace GameStructures.Stats
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
+
+namespace SpaceTraveler.GameStructures.Stats
 {
     public interface IStatModifier
     {

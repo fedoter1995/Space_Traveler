@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-namespace GameStructures.Stats
+
+namespace SpaceTraveler.GameStructures.Stats.Presets
 {
     [CreateAssetMenu(menuName = "Stats/New_Stat_Preset")]
     public class StatPreset : ScriptableObject

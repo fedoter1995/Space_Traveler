@@ -1,11 +1,8 @@
-﻿using System;
+﻿using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Effects.Presets
 {
     [CreateAssetMenu(menuName = "Buffs/New_BuffPreset")]
     public class BuffPreset : ScriptableObject

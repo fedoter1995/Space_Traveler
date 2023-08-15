@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using GameStructures.Stats;
-using GameStructures.Items;
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
+using SpaceTraveler.GameStructures.Items;
 
-namespace GameStructures.Gear
+namespace SpaceTraveler.GameStructures.Gear
 {
     public abstract class Equipment : Item
     {

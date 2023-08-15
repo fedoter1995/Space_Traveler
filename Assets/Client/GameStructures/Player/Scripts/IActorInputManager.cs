@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace GameStructures.Player
+namespace SpaceTraveler.GameStructures.Player
 {
     public interface IActorInputManager
     {

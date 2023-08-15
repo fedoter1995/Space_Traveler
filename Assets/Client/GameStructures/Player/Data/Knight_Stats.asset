@@ -21,16 +21,13 @@ MonoBehaviour:
   - _name: Movement_Speed
     _baseValue: 8
     _statPreset: {fileID: 11400000, guid: c8ebd83aeb288844f8e5d790f4586ea3, type: 2}
-  - _name: Projectile_Speed
-    _baseValue: 1
-    _statPreset: {fileID: 11400000, guid: 0077d77b70c673a49aade32a2f025412, type: 2}
   _resistances: []
   _damages:
   - _name: Physical
     _baseValue: 10
     _damagePreset: {fileID: 11400000, guid: 4b80589b9b9123c4791247993da4618b, type: 2}
   - _name: Energy
-    _baseValue: 0
+    _baseValue: 10
     _damagePreset: {fileID: 11400000, guid: 2f7f554d65420f74794b67f889368d39, type: 2}
   _chances: []
   _multipliers: []

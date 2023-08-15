@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Hits
+namespace SpaceTraveler.GameStructures.Hits
 {
     [Serializable]
     public class ComboElement

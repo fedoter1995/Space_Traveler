@@ -1,12 +1,7 @@
-﻿using GameStructures.Zones;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpaceTraveler.GameStructures.Zones;
 using UnityEngine;
 
-namespace Controllers
+namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
 {
     public abstract class CombatSpaceAgentController : BaseSpaceAgentController
     {

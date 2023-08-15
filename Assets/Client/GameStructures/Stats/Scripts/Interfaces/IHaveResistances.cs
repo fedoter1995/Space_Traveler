@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-namespace GameStructures.Stats
+
+namespace SpaceTraveler.GameStructures.Stats
 {
     public interface IHaveResistances
     {

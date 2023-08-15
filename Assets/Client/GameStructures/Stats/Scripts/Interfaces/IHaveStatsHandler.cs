@@ -1,7 +1,5 @@
 ﻿
-using UnityEngine;
-
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats
 {
     public interface IHaveStatsHandler<T> where T : StatsHandler
     {

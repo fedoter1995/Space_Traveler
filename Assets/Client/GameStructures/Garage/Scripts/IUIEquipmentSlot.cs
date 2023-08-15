@@ -1,4 +1,4 @@
-﻿using GameStructures.Gear;
+﻿using SpaceTraveler.GameStructures.Gear;
 using UnityEngine.EventSystems;
 
 public interface IUIEquipmentSlot : IPointerClickHandler

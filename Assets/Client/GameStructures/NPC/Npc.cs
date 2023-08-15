@@ -1,13 +1,12 @@
-﻿using Controllers;
-using CustomTools.Observable;
-using GameStructures.Gear;
-using GameStructures.Hits;
-using GameStructures.Stats;
+﻿using CustomTools.Observable;
+using SpaceTraveler.GameStructures.Enemys.SpaceEnemys;
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.Stats;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace GameStructures.NPC
+namespace SpaceTraveler.GameStructures.NPC
 {
     public class Npc : MonoBehaviour
     {

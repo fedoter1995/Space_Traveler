@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats.Presets
 {
     [CreateAssetMenu(menuName = "Stats/Presets/New_Damage_Preset")]
     public class DamagePreset : StatPreset

@@ -1,20 +1,20 @@
-using System.Collections;
+using SpaceTraveler.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GarageUI : MonoBehaviour
 {
     [SerializeField]
-    private List<GarageTab> _tabs;
+    private List<InteractiveTab> _tabs;
     [SerializeField]
-    private GarageBookmark _bookmarkPrefab;
+    private InteractiveTabBookmark _bookmarkPrefab;
 
     [SerializeField]
     private Transform _header;
 
-    private GarageBookmark activeBookmark;
+    private InteractiveTabBookmark activeBookmark;
 
-    private List<GarageBookmark> bookmarks;
+    private List<InteractiveTabBookmark> bookmarks;
 
 
     public void Initialize()
@@ -27,7 +27,7 @@ public class GarageUI : MonoBehaviour
         OpenTab(activeBookmark);
     }
 
-    public void OpenTab(GarageBookmark bookmark)
+    public void OpenTab(InteractiveTabBookmark bookmark)
     {
         SetActiveBookmark(activeBookmark, false);
         activeBookmark = bookmark;
@@ -35,21 +35,21 @@ public class GarageUI : MonoBehaviour
     }
 
 
-    private void SetActiveBookmark(GarageBookmark bookmark, bool activity)
+    private void SetActiveBookmark(InteractiveTabBookmark bookmark, bool activity)
     {
         bookmark.SetActive(activity);
     }
     private void SetupBookmarks()
     {
-        bookmarks = new List<GarageBookmark>();
-        foreach (GarageTab tab in _tabs)
+        bookmarks = new List<InteractiveTabBookmark>();
+        foreach (InteractiveTab tab in _tabs)
         {
             tab.Initialize();
             CreateBookmark(tab);
         }
     }
 
-    private void CreateBookmark(GarageTab tab)
+    private void CreateBookmark(InteractiveTab tab)
     {
         var bookmark = Instantiate(_bookmarkPrefab, _header);
 

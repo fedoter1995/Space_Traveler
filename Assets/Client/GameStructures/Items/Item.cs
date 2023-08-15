@@ -1,9 +1,9 @@
-using GameStructures.Garage.Workshop;
+using SpaceTraveler.GameStructures.Craft;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+
 using UnityEngine;
 
-namespace GameStructures.Items
+namespace SpaceTraveler.GameStructures.Items
 {
     [CreateAssetMenu(menuName = "Item/New_Item")]
     public class Item : ScriptableObject, IHaveDescription

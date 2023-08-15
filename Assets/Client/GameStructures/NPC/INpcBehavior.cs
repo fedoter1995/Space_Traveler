@@ -1,7 +1,7 @@
 ﻿
 using System.Collections;
 
-namespace GameStructures.NPC
+namespace SpaceTraveler.GameStructures.NPC
 {
     public interface INpcBehavior
     {

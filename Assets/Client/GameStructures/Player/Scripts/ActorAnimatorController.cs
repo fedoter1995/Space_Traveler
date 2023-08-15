@@ -1,10 +1,7 @@
-﻿using Architecture;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using UnityEngine;
 
-namespace GameStructures.Player
+namespace SpaceTraveler.GameStructures.Player
 {
     [RequireComponent(typeof(AttackAnimationTriggerHandler))]
     public class ActorAnimatorController : AnimatorController

@@ -3,14 +3,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using CustomTools;
-using System.Runtime.Serialization;
-using GameStructures.Stats;
 using Newtonsoft.Json.Linq;
-using GameStructures.Hits;
-using GameStructures.Player;
-using GameStructures.Spaceship;
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.Spaceship;
+using SpaceTraveler.GameStructures.Stats;
 
-namespace GameStructures.Meteors
+namespace SpaceTraveler.GameStructures.Meteors
 {
     [RequireComponent(typeof(LootRandomizer))]
     public class Asteroid : MonoBehaviour, IAsteroid, IJsonSerializable

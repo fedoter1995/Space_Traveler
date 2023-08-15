@@ -1,18 +1,17 @@
-﻿using Assets.Client.GameStructures.Player.Scripts;
-using CustomTools.Observable;
-using GameStructures.Garage.Workshop;
-using GameStructures.Gear;
-using GameStructures.Hits;
-using GameStructures.Stats;
-using GameStructures.Zones;
+﻿using CustomTools.Observable;
+using SpaceTraveler.GameStructures.Gear;
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.ItemCollections;
+using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Workshop;
+using SpaceTraveler.GameStructures.Zones;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Player
+namespace SpaceTraveler.GameStructures.Player
 {
-    public class Actor : MonoBehaviour
+    public class Actor : MonoBehaviour, IPlayerObject
     {
 
         [SerializeField]
@@ -20,7 +19,7 @@ namespace GameStructures.Player
         [SerializeField]
         private Inventory _inventory = new Inventory();
         [SerializeField]
-        private SpaceshipModuleHandler _equipment = new SpaceshipModuleHandler();
+        private ActorEquipmentHandler _equipment = new ActorEquipmentHandler();
         [SerializeField]
         private ActorStatsHandler _stats;
         [SerializeField]
@@ -45,7 +44,7 @@ namespace GameStructures.Player
 
         public Observable<int> HealthPoints { get; private set; }
         public ActorController Controller => actorController;
-        public SpaceshipModuleHandler Equipment => _equipment;
+        public IEqupmentHandler Equipment => _equipment;
         public Inventory Inventory => _inventory;
         public ActorStatsHandler StatsHandler => _stats;
         public Vector3 Position => transform.position;
@@ -53,18 +52,19 @@ namespace GameStructures.Player
 
         public TakeDamageHandler TakeHitHandler => _takeDamageHandler;
 
+        public WorkshopSettings WorkshopSettings => _workshopSettings;
 
-        
         private void Awake()
         {
             actorController = GetComponent<ActorController>();
             animatorController = GetComponentInChildren<ActorAnimatorController>();
             combatController = GetComponentInChildren<ActorCombatController>();
+            
+            StatsHandler.Initialize();
 
             actorController.Initialize(new KeyboardActorInputManager(), this);
             animatorController.Initialize(Controller);
             combatController.Initialize(this, _stats);
-            StatsHandler.Initialize();
         }
 
 

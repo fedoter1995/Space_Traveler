@@ -1,7 +1,5 @@
 ﻿using Architecture;
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 class GameStatisticsInteractor : Interactor
 {

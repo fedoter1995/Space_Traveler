@@ -1,19 +1,21 @@
 using UnityEngine;
 using Architecture;
-using GameStructures.Meteors;
-
-public class BreakableAsteroid : Asteroid
+namespace SpaceTraveler.GameStructures.Meteors
 {
-    
-    [SerializeField, Header("Break Settings")]
-    private int _numberOfFragments = 2;
-    [SerializeField]
-    private AsteroidType _fragmentsType;
-    
-    protected override void DestroyAsteroid(object sender)
+    public class BreakableAsteroid : Asteroid
     {
-        var interactor = Game.GetInteractor<AsteroidsInteractor>();
-        base.DestroyAsteroid(sender);
-    }
+    
+        [SerializeField, Header("Break Settings")]
+        private int _numberOfFragments = 2;
+        [SerializeField]
+        private AsteroidType _fragmentsType;
+    
+        protected override void DestroyAsteroid(object sender)
+        {
+            var interactor = Game.GetInteractor<AsteroidsInteractor>();
+            base.DestroyAsteroid(sender);
+        }
 
+    }
 }
+

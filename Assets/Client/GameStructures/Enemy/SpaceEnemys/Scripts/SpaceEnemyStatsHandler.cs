@@ -1,11 +1,7 @@
-﻿using GameStructures.Gear;
-using GameStructures.Gear.Weapons;
-using GameStructures.Stats;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SpaceTraveler.GameStructures.Stats;
 using UnityEngine;
 
-namespace GameStructures.Enemys
+namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
 {
     [System.Serializable]
     [CreateAssetMenu(menuName = "StatsHandler/Enemy")]

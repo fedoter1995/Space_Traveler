@@ -1,13 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using DG.Tweening;
 using GameStructures.MovingPlatforms;
-using GameStructures.Stats;
-using System.Threading;
-using System.Threading.Tasks;
-using static Cinemachine.CinemachineOrbitalTransposer;
 
 public class MovingPlatform : MonoBehaviour
 {

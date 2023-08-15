@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using GameStructures.Gear.Weapons;
-using GameStructures.Gear.Armors;
-using GameStructures.Gear.Engine;
-using GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
 
-namespace GameStructures.Gear
+namespace SpaceTraveler.GameStructures.Gear.Spaceship
 {
     [Serializable]
-    public class SpaceshipModuleHandler : IJsonSerializable
+    public class SpaceshipModuleHandler : IJsonSerializable, IEqupmentHandler
     {
         [SerializeField]
         private SpaceshipModuleSet _equipmentSet;
@@ -48,16 +45,37 @@ namespace GameStructures.Gear
             return equipment;
         }
 
+        public bool TrySetEquipment(Equipment equipment)
+        {
+            var spaceEquipment = equipment as SpaceshipEquipment;
+            if (spaceEquipment != null)
+            {
+                _equipmentSet.TrySetEquipment(equipment as SpaceshipEquipment);
+                OnEquipmentChangeEvent?.Invoke();
+                return true;
+            }
+            return false;
+        }
+
+        public bool TrySetEquipment(string id)
+        {
+            if (_equipmentSet.TrySetEquipment(id))
+            {
+                OnEquipmentChangeEvent?.Invoke();
+                return true;
+            }
+            return false;
+        }
         public void SetObjectData(Dictionary<string, object> obj)
         {
             if (_equipmentSet == null)
                 _equipmentSet = new SpaceshipModuleSet();
 
-            if(obj != null)
+            if (obj != null)
             {
-                SetEquipment(obj["Main_Weapon"].ToString());
-                SetEquipment(obj["Main_Engine"].ToString());
-                SetEquipment(obj["Ship_Skin"].ToString());
+                TrySetEquipment(obj["Main_Weapon"].ToString());
+                TrySetEquipment(obj["Main_Engine"].ToString());
+                TrySetEquipment(obj["Ship_Skin"].ToString());
             }
         }
         public Dictionary<string, object> GetObjectData()
@@ -70,15 +88,6 @@ namespace GameStructures.Gear
             data.Add("Ship_Skin", ShipSkin.Id);
 
             return data;
-        }
-        public void SetEquipment(Equipment equipment)
-        {
-            _equipmentSet.SetEquipment(equipment);
-            OnEquipmentChangeEvent?.Invoke();
-        }
-        public void SetEquipment(string id)
-        {
-            _equipmentSet.SetEquipment(id);
         }
         public override string ToString()
         {

@@ -1,11 +1,7 @@
-using Architecture;
-using GameStructures.Meteors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections;
+using SpaceTraveler.GameStructures.Meteors;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class GameStatistics : IJsonSerializable
 {

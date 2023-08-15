@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CustomTools.Observable
+﻿namespace CustomTools.Observable
 {
     public class ObservableHandler 
     {

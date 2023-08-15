@@ -1,6 +1,5 @@
-using GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats;
 using UnityEditor;
-using UnityEngine;
 
 [CustomEditor(typeof(BaseStat))]
 [CanEditMultipleObjects]

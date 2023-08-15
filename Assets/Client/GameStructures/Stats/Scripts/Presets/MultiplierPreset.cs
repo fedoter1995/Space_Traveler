@@ -1,7 +1,6 @@
-﻿using GameStructures.Effects;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats.Presets
 {
     [CreateAssetMenu(menuName = "Stats/New_Multiplier_Preset")]
     public class MultiplierPreset : EffectStatPreset

@@ -1,10 +1,10 @@
 ﻿using CustomTools;
-using GameStructures.Gear.Weapons;
-using GameStructures.Hits;
-using GameStructures.Stats;
+using SpaceTraveler.GameStructures.Gear.Weapons;
+using SpaceTraveler.GameStructures.Projectiles;
+using SpaceTraveler.GameStructures.Stats;
 using UnityEngine;
 
-namespace GameStructures.Enemys
+namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
 {
     public class SpaceEnemyShootController : MonoBehaviour
     {

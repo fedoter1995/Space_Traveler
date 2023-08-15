@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
-using System.Runtime.Serialization;
 using System.Collections.Generic;
 
-namespace GameStructures.Items
+namespace SpaceTraveler.GameStructures.Items
 {
     [System.Serializable]
     public class ItemSlot : IJsonSerializable, IItemSlot

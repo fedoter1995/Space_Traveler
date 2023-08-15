@@ -1,7 +1,8 @@
-﻿using System;
+﻿using SpaceTraveler.GameStructures.Stats.Presets;
+using System;
 using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats
 {
     [Serializable]
     public class Duration : BaseStat

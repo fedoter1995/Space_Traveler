@@ -1,7 +1,6 @@
-﻿using GameStructures.Stats;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats.Presets
 {
     [CreateAssetMenu(menuName = "Stats/New_DamageOverTime_Preset")]
     public class DamageOverTimePreset : OverTimeEffectStatPreset

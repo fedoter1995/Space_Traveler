@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace GameStructures.NPC
+namespace SpaceTraveler.GameStructures.NPC
 {
     [Serializable]
     public class NpcStats

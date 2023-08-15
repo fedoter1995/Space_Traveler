@@ -1,8 +1,7 @@
-using GameStructures.Player;
 using GameStructures.Spaceship;
+using SpaceTraveler.GameStructures.Spaceship;
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class StarshipController : MonoBehaviour
@@ -12,7 +11,7 @@ public class StarshipController : MonoBehaviour
     private float currentMovementSpeed = 0;
     private float swing = 0;
     private Starship ship;
-    private StarshipStatsHandler stats => (StarshipStatsHandler)ship.StatsHandler;
+    private StarshipStatsHandler stats => ship.StatsHandler;
 
     
 

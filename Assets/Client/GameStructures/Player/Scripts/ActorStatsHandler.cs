@@ -1,25 +1,20 @@
 ﻿using Architecture;
-using GameStructures.Gear.Weapons;
-using GameStructures.Hits;
-using GameStructures.Stats;
+using SpaceTraveler.GameStructures.Gear.Weapons;
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace GameStructures.Player
+namespace SpaceTraveler.GameStructures.Player
 {
     [CreateAssetMenu(menuName = "StatsHandler/ActorStatsHandler")]
     public class ActorStatsHandler : StatsHandler
     {
-
-
         private const string HEALTH_POINTS = "Max_Health_Points";
         private const string MOVE_SPEED = "Max_Movement_Speed";
-        private const string RATE_OF_FIRE = "Rate_Of_Fire";
-        private const string POJECTILE_SPEED = "Projectile_Speed";
-        private const string PENETRATIONS_NUMB = "Penetration_Numb";
 
         [SerializeField, Header("Standart Stats")]
         protected List<Stat> _stats;
@@ -39,7 +34,6 @@ namespace GameStructures.Player
 
         public float HealthPoints { get; private set; }
         public float MoveSpeed { get; private set; } = 2f;
-        public float ProjectileSpeed { get; private set; }
 
         public override event Action OnCalculateValuesEvent;
 
@@ -68,10 +62,6 @@ namespace GameStructures.Player
             OnValuesCalculated();
         }
 
-        public virtual void SetShootPoints(List<ShootPosition> points)
-        {
-            shotPoints = points;
-        }
         public HitStats GetHitStats()
         {
             var DamageTypeValues = new List<DamageTypeValue>();
@@ -125,12 +115,6 @@ namespace GameStructures.Player
             return new HitStats(hitDamage, chances, multipliers, 0);
 
         }
-        public ShotStats GetShotStats(Vector3 dirrection)
-        {
-            ShotStats shotStats = new ShotStats(dirrection, shotPoints, ProjectileSpeed);
-
-            return shotStats;
-        }
         public override List<StatModifier> GetAllModifiers()
         {
             var modifierList = new List<StatModifier>();
@@ -165,7 +149,6 @@ namespace GameStructures.Player
         {
             HealthPoints = GetStat(HEALTH_POINTS).Value;
             MoveSpeed = GetStat(MOVE_SPEED).Value;
-            ProjectileSpeed = GetStat(POJECTILE_SPEED).Value;
 
             OnCalculateValuesEvent?.Invoke();
         }

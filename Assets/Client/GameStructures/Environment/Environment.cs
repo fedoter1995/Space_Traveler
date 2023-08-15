@@ -1,5 +1,5 @@
 using Architecture;
-using GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats;
 using UnityEngine;
 
 namespace GameStructures.Environment

@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using CustomTools.Observable;
-using GameStructures.Stats;
-using GameStructures.Hits;
-using GameStructures.Zones;
+using SpaceTraveler.GameStructures.Stats;
 
-namespace GameStructures.Hits
+namespace SpaceTraveler.GameStructures.Hits
 {
-    [RequireComponent(typeof(Collider2D))]
     public class TakeDamageHandler : TakeHitHandler, ITakeDamage
     {
 
@@ -17,7 +12,6 @@ namespace GameStructures.Hits
 
 
         public event Action<object, DamageTypeValue> OnTakeDamageEvent;
-        public override event Action OnTakeHitEvent;
         public void Initialize(IHaveTakeHitHandler obj, IHaveResistances resistancesHandler)
         {
             Obj = obj;
@@ -25,6 +19,7 @@ namespace GameStructures.Hits
         }
         public void TakeDamage(object sender, HitDamage damage)
         {
+
             HitDamage currentDamage = ApplyResistances(damage);
 
             foreach (DamageTypeValue dmg in currentDamage.DamageTypeValues)
@@ -37,9 +32,7 @@ namespace GameStructures.Hits
                 
                     Debug.Log(damageMessage);
                 }
-
-            }
-            
+            }         
         }
         public override void TakeHit(object sender, Hit hit)
         {
@@ -50,10 +43,13 @@ namespace GameStructures.Hits
                 TakeDamage(sender, takenDamage);
             }
 
-            OnTakeHitEvent?.Invoke();
         }
         private HitDamage ApplyResistances(HitDamage damage)
         {
+            if(resistancesHandler == null)
+                Debug.LogError("Resistances Handler is not installed");
+
+
             var resultDictionary = new List<DamageTypeValue>();
             var resistances = resistancesHandler.GetResistances();
             foreach (DamageTypeValue dmg in damage.DamageTypeValues)

@@ -1,14 +1,10 @@
 ﻿using CustomTools;
-using GameStructures.Hits;
-using GameStructures.Stats;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SpaceTraveler.GameStructures.Gear.Weapons;
+using SpaceTraveler.GameStructures.Projectiles;
+using SpaceTraveler.GameStructures.Stats;
 using UnityEngine;
 
-namespace GameStructures.Gear.Weapons
+namespace SpaceTraveler.GameStructures.Gear.Weapons
 {
     [CreateAssetMenu(menuName = "Presets/Mono_Shotting")]
     public class MonoShotting : ShotPreset

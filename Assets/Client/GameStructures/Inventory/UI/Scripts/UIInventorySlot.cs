@@ -1,16 +1,18 @@
-using GameStructures.Items;
-using System.Collections;
-using System.Collections.Generic;
+using SpaceTraveler.GameStructures.Items;
 using UnityEngine;
 
-public class UIInventorySlot : MonoBehaviour
+namespace SpaceTraveler.GameStructures.ItemCollections.UI
 {
-    [SerializeField]
-    private UIInventoryItem _uiItem;
-
-
-    public void SetSlot(IItemSlot slot)
+    public class UIInventorySlot : MonoBehaviour
     {
-        _uiItem.SetItemSlot(slot);
+        [SerializeField]
+        private UIInventoryItem _uiItem;
+
+
+        public void SetSlot(IItemSlot slot)
+        {
+            _uiItem.SetItemSlot(slot);
+        }
     }
 }
+

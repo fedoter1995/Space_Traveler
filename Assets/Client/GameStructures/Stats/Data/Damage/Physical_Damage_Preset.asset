@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _statID: dmg01
   _statName: Physical_Damage_Preset
-  _type: 2
+  _type: 4

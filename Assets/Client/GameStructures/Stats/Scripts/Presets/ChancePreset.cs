@@ -1,8 +1,7 @@
-﻿using GameStructures.Effects;
-using UnityEngine;
+﻿using UnityEngine;
 
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats.Presets
 {
     [CreateAssetMenu(menuName = "Stats/New_Chance_Preset")]
     public class ChancePreset : StatPreset

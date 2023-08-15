@@ -1,7 +1,7 @@
+using SpaceTraveler.GameStructures.Stats.Presets;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats
 {
     [Serializable]
     public class Damage : BaseStat

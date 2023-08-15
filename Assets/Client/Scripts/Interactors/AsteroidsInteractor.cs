@@ -1,9 +1,6 @@
 using Architecture;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using CustomTools;
-using GameStructures.Meteors;
+using SpaceTraveler.GameStructures.Meteors;
 
 public class AsteroidsInteractor : Interactor
 {

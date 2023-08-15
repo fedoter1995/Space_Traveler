@@ -1,12 +1,8 @@
-﻿using Architecture;
-using GameStructures.Hits;
+﻿using SpaceTraveler.GameStructures.Hits;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
-namespace GameStructures.Player
+namespace SpaceTraveler.GameStructures.Player
 {
     [RequireComponent(typeof(Rigidbody2D),typeof(ActorCombatController))]
     public class ActorController : MonoBehaviour

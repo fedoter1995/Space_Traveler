@@ -1,20 +1,21 @@
-using GameStructures.Items;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemObject : MonoBehaviour
+namespace SpaceTraveler.GameStructures.Items
 {
-    [SerializeField]
-    protected ItemSlot _itemSlot;
-
-    public ItemSlot ItemSlot { get => _itemSlot; set => _itemSlot = value; }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class ItemObject : MonoBehaviour
     {
-        var inventory = collision.GetComponent<Inventory>();
+        [SerializeField]
+        protected ItemSlot _itemSlot;
+
+        public ItemSlot ItemSlot { get => _itemSlot; set => _itemSlot = value; }
 
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            
+
+
+        }
     }
 }
+

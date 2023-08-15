@@ -1,6 +1,6 @@
-using GameStructures.Hits;
-using GameStructures.Stats;
-using GameStructures.Zones;
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Zones;
 using System;
 using Tests;
 using UnityEngine;

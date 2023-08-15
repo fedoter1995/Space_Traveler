@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using SpaceTraveler.GameStructures.Stats.Presets;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameStructures.Stats
+namespace SpaceTraveler.GameStructures.Stats
 {
     [CreateAssetMenu(menuName = "Stats/DataBase")]
     public class StatPresetDataBase : ScriptableObject

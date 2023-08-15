@@ -1,18 +1,17 @@
 using CustomTools;
 using CustomTools.Observable;
-using GameStructures.Effects;
-using GameStructures.Gear;
-using GameStructures.Gear.Weapons;
-using GameStructures.Hits;
-using GameStructures.Stats;
-using GameStructures.Zones;
+using GameStructures.Enemys;
+using SpaceTraveler.GameStructures.Effects;
+using SpaceTraveler.GameStructures.Gear.Weapons;
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Zones;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace GameStructures.Enemys
+namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
 {
     [RequireComponent(typeof(SpaceEnemyController), typeof(LootRandomizer))]
     public class SpaceEnemy : MonoBehaviour, IEnemy

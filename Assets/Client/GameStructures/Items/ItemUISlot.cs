@@ -1,10 +1,10 @@
+using SpaceTraveler.UI;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace GameStructures.Items
+namespace SpaceTraveler.GameStructures.Items.UI
 {
     public class ItemUISlot : TooltipUIObject
     {

@@ -1,16 +1,10 @@
-﻿using Architecture;
-using GameStructures.Stats;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
-using Utils.Attributes;
 
-namespace GameStructures.Effects
+namespace SpaceTraveler.GameStructures.Effects
 {
     [Serializable]
     public class StatusEffectHandler : MonoBehaviour
@@ -27,7 +21,7 @@ namespace GameStructures.Effects
         private CancellationTokenSource cts;
         private CancellationToken cancellationToken;
 
-    /* private void Update()
+/*        private void Update()
         {
             if(Input.GetKeyDown(KeyCode.K))
             {

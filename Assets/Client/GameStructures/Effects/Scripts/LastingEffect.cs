@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace GameStructures.Effects
+namespace SpaceTraveler.GameStructures.Effects
 {
     [Serializable]
     public abstract class LastingEffect : Effect

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameStructures.Gear.Weapons
+namespace SpaceTraveler.GameStructures.Gear.Weapons
 {
     public class ShootPosition : MonoBehaviour
     {

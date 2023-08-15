@@ -1,11 +1,10 @@
-﻿using GameStructures.Stats;
+﻿using SpaceTraveler.GameStructures.Stats;
 using System;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace GameStructures.Effects
+namespace SpaceTraveler.GameStructures.Effects
 {
     [Serializable]
     public class DOTEffect : LastingEffect

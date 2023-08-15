@@ -1,7 +1,6 @@
 using Architecture;
-using System.Collections;
+using SpaceTraveler.GameStructures.ItemCollections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class InventoryInteractor : Interactor
 {

@@ -1,13 +1,15 @@
 ﻿using CustomTools;
-using GameStructures.Hits;
-using GameStructures.Stats;
-using System;
+using SpaceTraveler.GameStructures.Gear.Weapons;
+using SpaceTraveler.GameStructures.Projectiles;
+using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System.Collections.Generic;
 using UnityEngine;
-namespace GameStructures.Gear.Weapons
+
+namespace SpaceTraveler.GameStructures.Gear.Spaceship
 {
     [CreateAssetMenu(menuName = "Item/Equipment/Weapon/new_Weapon")]
-    public class SpaceshipWeapon : Equipment
+    public class SpaceshipWeapon : SpaceshipEquipment
     {
         [SerializeField]
         protected Projectile projectile;

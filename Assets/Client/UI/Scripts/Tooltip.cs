@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using TMPro;
 
 public class Tooltip : MonoBehaviour
 {
@@ -13,13 +11,13 @@ public class Tooltip : MonoBehaviour
 	public enum ProjectMode { Tooltip3D = 0, Tooltip2D = 1 };
 	public ProjectMode tooltipMode = ProjectMode.Tooltip3D;
 	public int fontSize = 14; // размер шрифта
-	public int maxWidth = 250; // максимальна€ ширина Tooltip
-	public int border = 10; // ширина обводки
+	public int maxWidth = 250; // БEБEималБEБE шириъь Tooltip
+	public int border = 10; // шириъь ь@водкБE
 	public RectTransform box;
 	public RectTransform arrow;
 	public Text boxText;
 	public Camera _camera;
-	public float speed = 10; // скорость плавного затухани€ и про€влени€
+	public float speed = 10; // скъAъBть БEавыMго затухаыG€ БEБEБEвленБE
 
 	private Image[] img;
 	private Color BGColorFade;
@@ -80,20 +78,20 @@ public class Tooltip : MonoBehaviour
 		if (boxText.preferredWidth <= maxWidth - border) width = boxText.preferredWidth + border;
 		box.sizeDelta = new Vector2(width, boxText.preferredHeight + border);
 
-		float arrowShift = width / 4; // сдвиг позиции стрелки по ’
+		float arrowShift = width / 4; // сдвиБEБEзициБEстреБEБEБE ’
 
 		if (show || isUI)
 		{
-			float arrowPositionY = -(arrow.sizeDelta.y / 2 - 1); // позици€ стрелки по умолчанию (внизу)
+			float arrowPositionY = -(arrow.sizeDelta.y / 2 - 1); // БEзици€ стреБEБEБE умьJчаыGю (внизБE
 			float arrowPositionX = arrowShift;
 
 			float curY = Input.mousePosition.y + box.sizeDelta.y / 2 + arrow.sizeDelta.y;
 			Vector3 arrowScale = new Vector3(1, 1, 1);
-			if (curY + box.sizeDelta.y / 2 > Screen.height) // если Tooltip выходит за рамки экрана, в данном случаи по высоте
+			if (curY + box.sizeDelta.y / 2 > Screen.height) // есБE Tooltip выходиБEза раБEБEэБEанБE БEдаыLьK случаи БE высоте
 			{
 				curY = Input.mousePosition.y - box.sizeDelta.y / 2 - arrow.sizeDelta.y;
 				arrowPositionY = box.sizeDelta.y + (arrow.sizeDelta.y / 2 - 1);
-				arrowScale = new Vector3(1, -1, 1); // отражение по вертикале
+				arrowScale = new Vector3(1, -1, 1); // ъCражеыGБEБE вертикалБE
 			}
 
 			float curX = Input.mousePosition.x + arrowShift;

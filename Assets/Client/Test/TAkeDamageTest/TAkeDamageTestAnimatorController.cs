@@ -1,6 +1,5 @@
-using GameStructures.Hits;
-using System.Collections;
-using System.Collections.Generic;
+
+using SpaceTraveler.GameStructures.Hits;
 using UnityEngine;
 
 public class TAkeDamageTestAnimatorController : AnimatorController

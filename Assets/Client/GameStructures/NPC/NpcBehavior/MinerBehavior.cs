@@ -1,9 +1,7 @@
-﻿using GameStructures.NPC.Miners;
-using GameStructures.Zones;
-using System;
+﻿using SpaceTraveler.GameStructures.NPC.Miners;
 using System.Collections;
 
-namespace GameStructures.NPC.NpcBehavior
+namespace SpaceTraveler.GameStructures.NPC.NpcBehavior
 {
     public class MinerBehavior : INpcBehavior
     {

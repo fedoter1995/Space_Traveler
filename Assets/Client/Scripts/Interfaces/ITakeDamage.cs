@@ -1,26 +1,28 @@
-﻿using CustomTools.Observable;
-using System;
-using GameStructures.Stats;
-using System.Collections.Generic;
+﻿using System;
+using SpaceTraveler.GameStructures.Stats;
 
-public interface ITakeDamage
+namespace SpaceTraveler.GameStructures.Hits
 {
-    event Action<object, DamageTypeValue> OnTakeDamageEvent;
-    void TakeDamage(object sender, HitDamage damage);
-}
-public struct TakeDamageMessage
-{
-    private object sender;
-    private DamageTypeValue dmg;
-
-    public TakeDamageMessage(object sender, DamageTypeValue dmg)
+    public interface ITakeDamage
     {
-        this.sender = sender;
-        this.dmg = dmg;
+        event Action<object, DamageTypeValue> OnTakeDamageEvent;
+        void TakeDamage(object sender, HitDamage damage);
     }
-
-    public override string ToString()
+    public struct TakeDamageMessage
     {
-        return $"{sender} take {dmg.Value} {dmg.Type} damage";
+        private object sender;
+        private DamageTypeValue dmg;
+
+        public TakeDamageMessage(object sender, DamageTypeValue dmg)
+        {
+            this.sender = sender;
+            this.dmg = dmg;
+        }
+
+        public override string ToString()
+        {
+            return $"{sender} take {dmg.Value} {dmg.Type} damage";
+        }
     }
 }
+

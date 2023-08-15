@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
 
 [CreateAssetMenu(menuName ="Environment/Settings")]
 public class EnvironmentSettings : ScriptableObject
