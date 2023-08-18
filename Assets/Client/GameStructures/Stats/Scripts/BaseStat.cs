@@ -49,7 +49,7 @@ namespace SpaceTraveler.GameStructures.Stats
             }
 
         }
-        public virtual void CalculateValue()
+/*        public virtual void CalculateValue()
         {
             var newValue = _baseValue;
             var modifiers = statsHandler.GetAllModifiers(Name);
@@ -76,7 +76,7 @@ namespace SpaceTraveler.GameStructures.Stats
             }
             Value = newValue;
 
-        }
+        }*/
         public virtual void SetObjectData(Dictionary<string, object> data)
         {
             var id = data["Stat_ID"].ToString();

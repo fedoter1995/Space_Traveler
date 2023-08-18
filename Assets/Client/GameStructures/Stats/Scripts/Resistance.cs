@@ -10,9 +10,9 @@ namespace SpaceTraveler.GameStructures.Stats
         [SerializeField]
         private ResistancePreset _resistancePreset;
         public DamageType Type => _resistancePreset.Type;
-        public override void Initialize(StatsHandler handler)
+        public override void Initialize()
         {
-            base.Initialize(handler);
+            base.Initialize();
             if(statPreset is null)
                 statPreset = _resistancePreset;
             else

@@ -12,9 +12,9 @@ namespace SpaceTraveler.GameStructures.Stats
 
 
 
-        public override void Initialize(StatsHandler handler)
+        public override void Initialize()
         {
-            base.Initialize(handler);
+            base.Initialize();
             if (statPreset == null)
                 statPreset = _statPreset;
             else

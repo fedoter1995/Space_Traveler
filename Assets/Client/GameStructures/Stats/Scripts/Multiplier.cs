@@ -13,9 +13,9 @@ namespace SpaceTraveler.GameStructures.Stats
         public MultiplierType MultiplierType => _multiplierPreset.MultiplierType;
         public DamageType DamageType => _multiplierPreset.DamageType;
 
-        public override void Initialize(StatsHandler handler)
+        public override void Initialize()
         {
-            base.Initialize(handler);
+            base.Initialize();
 
             if (statPreset is null)
                 statPreset = _multiplierPreset;

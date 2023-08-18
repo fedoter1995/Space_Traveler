@@ -9,9 +9,9 @@ namespace SpaceTraveler.GameStructures.Stats.Chances
     public class DotEffectChance : EffectChance
     {
         [SerializeField]
-        private DotEffectChancePreset _dotEffect;
+        private DotEffectChancePreset _dotChancePreset;
 
-        public DOTEffect Effect => _dotEffect;
+        public DotEffectChancePreset ChancePreset => _dotChancePreset;
 
         public override void GetSuitableStats(StatsHandler handler)
         {
@@ -22,12 +22,12 @@ namespace SpaceTraveler.GameStructures.Stats.Chances
         {
 
             if (statPreset is null)
-                statPreset = _actionChancePreset;
+                statPreset = _dotChancePreset;
             else
-                _actionChancePreset = statPreset as ActionChancePreset;
+                _dotChancePreset = statPreset as DotEffectChancePreset;
 
 
-            if (_actionChancePreset == null)
+            if (_dotChancePreset == null)
                 throw new Exception("StatPreset cannot be represented as a ActionChancePreset or is null");
         }
     }

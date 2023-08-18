@@ -7,7 +7,7 @@ using SpaceTraveler.GameStructures.Gear.Weapons;
 using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Gear.Spaceship;
 using SpaceTraveler.GameStructures.Stats.StatModifiers;
-using SpaceTraveler.GameStructures.Stats.Scripts;
+using SpaceTraveler.GameStructures.Stats.Chances;
 
 namespace SpaceTraveler.GameStructures.Spaceship
 {

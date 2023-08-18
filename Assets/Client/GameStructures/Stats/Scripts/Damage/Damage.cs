@@ -10,9 +10,9 @@ namespace SpaceTraveler.GameStructures.Stats
         private DamagePreset _damagePreset;
         public DamageType Type => _damagePreset.Type;
 
-        public override void Initialize(StatsHandler handler)
+        public override void Initialize()
         {
-            base.Initialize(handler);
+            base.Initialize();
             if(statPreset is null)
                 statPreset = _damagePreset;
             else

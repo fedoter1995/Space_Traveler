@@ -1,5 +1,5 @@
 using SpaceTraveler.GameStructures.Gear.Weapons;
-using SpaceTraveler.GameStructures.Stats.Scripts;
+using SpaceTraveler.GameStructures.Stats.Chances;
 using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System;
 using System.Collections.Generic;

@@ -14,9 +14,14 @@ namespace SpaceTraveler.GameStructures.Stats.Chances
 
         public ActionType ActionType => ActionChancePreset.ActionType;
 
-        public override void Initialize(StatsHandler handler)
+        public override void GetSuitableStats(StatsHandler handler)
         {
-            base.Initialize(handler);
+            throw new NotImplementedException();
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
 
             if (statPreset is null)
                 statPreset = _actionChancePreset;

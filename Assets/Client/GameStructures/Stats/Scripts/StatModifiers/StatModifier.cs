@@ -20,9 +20,9 @@ namespace SpaceTraveler.GameStructures.Stats.StatModifiers
         public List<StatPreset> ZoneOfInfluence => _preset.ZoneOfInfluence;
         public float Value => _value;
 
-        public bool HasInfluenceToStat(string statName)
+        public bool HasInfluenceToStat(string statID)
         {
-            var item = ZoneOfInfluence.Find(stat => stat.Name == statName);
+            var item = ZoneOfInfluence.Find(stat => stat.Id == statID);
 
             if (item == null)
                 return false;

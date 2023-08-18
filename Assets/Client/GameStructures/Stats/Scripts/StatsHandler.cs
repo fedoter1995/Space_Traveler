@@ -45,13 +45,13 @@ namespace SpaceTraveler.GameStructures.Stats
 
             return arrangeList;
         }
-        public virtual List<StatModifier> GetAllModifiers(string targetStatName)
+        public virtual List<StatModifier> GetAllModifiers(string targetStatId)
         {
             var modifierList = new List<StatModifier>();
             var relevantModifiers = new List<StatModifier>();
             modifierList.AddRange(CurrentEnvironment.Modifiers);
 
-            relevantModifiers = modifierList.FindAll(modifier => modifier.HasInfluenceToStat(targetStatName));
+            relevantModifiers = modifierList.FindAll(modifier => modifier.HasInfluenceToStat(targetStatId));
 
             var arrangeList = new List<StatModifier>(ArrangeModifiers(relevantModifiers));
             return arrangeList;
@@ -91,7 +91,7 @@ namespace SpaceTraveler.GameStructures.Stats
             if(stats != null)
                 for (int i = 0; i < stats.Count; i++)
                 {
-                    stats[i].Initialize(this);
+                    stats[i].Initialize();
                 }
         }
         protected void InitializeStats(List<List<BaseStat>> stats)
@@ -110,7 +110,7 @@ namespace SpaceTraveler.GameStructures.Stats
             { 
                 for (int i = 0; i < stats.Count; i++)
                 {
-                    stats[i].CalculateValue();
+                    stats[i].CalculateValue(GetAllModifiers(stats[i].Id));
                 }
             }
 

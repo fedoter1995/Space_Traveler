@@ -7,8 +7,6 @@ namespace GameStructures.MovingPlatforms
     {
         public override int GetMoveIndex(int currentPositionIndex)
         {
-            Debug.Log(positionsCount - 1);
-            Debug.Log(currentPositionIndex + 1);
 
             if (currentPositionIndex + 1 > positionsCount - 1)
                 return 0;

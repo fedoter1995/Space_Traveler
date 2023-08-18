@@ -11,7 +11,7 @@ namespace SpaceTraveler.GameStructures.Stats
         protected List<StatModifier> _statModifiers = new List<StatModifier>();
         public List<StatModifier> Modifiers => _statModifiers;
 
-        public override void CalculateValue()
+/*        public override void CalculateValue()
         {
             var newValue = _baseValue;
             var modifiers = statsHandler.GetAllModifiers();
@@ -37,7 +37,7 @@ namespace SpaceTraveler.GameStructures.Stats
                 }
             }
             value = newValue;
-        }
+        }*/
     }
 }
 

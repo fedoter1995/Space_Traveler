@@ -4,24 +4,23 @@ using UnityEngine;
 
 namespace SpaceTraveler.GameStructures.Effects
 {
-    public class DamageOverTime : LastingStatEffect
+    public class DamageOverTime : StatWithAChance
     {
         [SerializeField]
         private DamageOverTimePreset _dotPreset;
-
-        public DamageOverTimePreset Preset => _dotPreset;
+        [SerializeField]
+        private DotEffectChancePreset _dotChanceRef;
+        public DotEffectChancePreset ChanceRef => _dotChanceRef;
 
         public DamageType DamageType => _dotPreset.DamageType;
-
-        public override void Initialize(StatsHandler handler)
+        public override void Initialize()
         {
+            base.Initialize();
 
-            base.Initialize(handler);
-
-            if (lastingeffectPreset is null)
-                lastingeffectPreset = _dotPreset;
+            if (statPreset is null)
+                statPreset = _dotPreset;
             else
-                _dotPreset = lastingeffectPreset as DamageOverTimePreset;
+                _dotPreset = statPreset as DamageOverTimePreset;
         }
     }
 }

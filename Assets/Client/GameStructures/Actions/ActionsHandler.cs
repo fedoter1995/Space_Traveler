@@ -1,4 +1,5 @@
-﻿using SpaceTraveler.GameStructures.Stats.Scripts;
+﻿using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats.Chances;
 using System;
 using System.Collections;
 using UnityEngine;

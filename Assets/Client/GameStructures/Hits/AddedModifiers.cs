@@ -1,5 +1,6 @@
 ﻿using SpaceTraveler.GameStructures.Effects;
 using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats.Chances;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine;
 namespace SpaceTraveler.GameStructures.Hits
 {
     [Serializable]
-    public  class AddedModifiers
+    public class AddedModifiers
     {
         [SerializeField]
         private List<DamageAttributes> _damages = new List<DamageAttributes>();

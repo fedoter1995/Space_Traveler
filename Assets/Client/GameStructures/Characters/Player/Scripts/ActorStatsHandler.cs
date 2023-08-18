@@ -3,7 +3,7 @@ using SpaceTraveler.GameStructures.Effects;
 using SpaceTraveler.GameStructures.Gear.Weapons;
 using SpaceTraveler.GameStructures.Hits;
 using SpaceTraveler.GameStructures.Stats;
-using SpaceTraveler.GameStructures.Stats.Scripts;
+using SpaceTraveler.GameStructures.Stats.Chances;
 using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System;
 using System.Collections.Generic;
@@ -129,12 +129,11 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             return arrangeList;
         }
 
-        public override List<StatModifier> GetAllModifiers(string targetStatName , List<StatModifier> addedModifiers = null)
+        public override List<StatModifier> GetAllModifiers(string targetStatName)
         {
             var modifierList = new List<StatModifier>();
             var relevantModifiers = new List<StatModifier>();
-            if(addedModifiers!=null)
-                modifierList.AddRange(addedModifiers);
+
 
             modifierList.AddRange(CurrentEnvironment.Modifiers);
             relevantModifiers = modifierList.FindAll(modifier => modifier.HasInfluenceToStat(targetStatName));
