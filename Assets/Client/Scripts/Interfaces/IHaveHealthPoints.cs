@@ -1,5 +1,8 @@
-﻿public interface IHaveHealthPoints
+﻿using CustomTools.Observable;
+using System;
+
+public interface IHaveHealthPoints
 {
-    float HealthPoints { get; }
+    Observable<int> CurrentHealthPoints { get; }
 }
 

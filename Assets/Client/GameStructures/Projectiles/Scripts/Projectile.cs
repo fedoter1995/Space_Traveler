@@ -28,7 +28,7 @@ namespace SpaceTraveler.GameStructures.Projectiles
             if (target == null)
                 target = collision.GetComponent<ITakeHit>();
 
-            if (target != null && target.Obj != sender)
+            if (target != null && target != sender)
             {
                 Hit(target);
                 return;
@@ -47,9 +47,8 @@ namespace SpaceTraveler.GameStructures.Projectiles
         }
         public void Hit(ITakeHit target)
         {
-            var hit = new Hit(hitStats);
 
-            target.TakeHit(sender, hit);
+            target.TakeHit(sender, hitStats);
 
             if(hitStats.PenetrationsNumb > 0)
                 hitStats.OnHit();

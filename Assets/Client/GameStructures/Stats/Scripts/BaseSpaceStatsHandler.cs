@@ -6,7 +6,7 @@ using UnityEngine;
 namespace SpaceTraveler.GameStructures.Stats
 {
     [System.Serializable]
-    public class BaseSpaceStatsHandler : StatsHandler
+    public abstract class BaseSpaceStatsHandler : StatsHandler
     {
 
         #region Const
@@ -37,13 +37,11 @@ namespace SpaceTraveler.GameStructures.Stats
 
         public override event Action OnCalculateValuesEvent;
 
-
-        public override void Initialize()
+        public override void Initialize(object sender)
         {
             InitializeStats(_stats);
-            base.Initialize();
+            base.Initialize(sender);
         }
-
         public override void CalculateValues()
         {
             if (_environment == null)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceTraveler.GameStructures.Stats;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEditor;
@@ -7,7 +8,7 @@ using UnityEngine;
 namespace SpaceTraveler.GameStructures.Effects
 {
     [Serializable]
-    public class StatusEffectHandler : MonoBehaviour
+    public class LastingEffectsHandler
     {
         private const string DOT = "DOTEffect";
 
@@ -21,17 +22,9 @@ namespace SpaceTraveler.GameStructures.Effects
         private CancellationTokenSource cts;
         private CancellationToken cancellationToken;
 
-/*        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.K))
-            {
-                DurationParameters duration = new DurationParameters(6);
-                DamageTypeValue damage = new DamageTypeValue(1111, DamageType.Physical);
-                var dotStats = new DotEffectStats(duration, 2, damage);
-                var dot = new DOTEffect(dotStats);
-                AddNewStatusEffect(dot);
-            }
-        }*/
+
+        public event Action<object, DamageAttributes> OnDotTriggeredEvent;
+
         public void Initialize()
         {
             EditorApplication.playModeStateChanged += ModeChanged;
@@ -40,6 +33,7 @@ namespace SpaceTraveler.GameStructures.Effects
 
             foreach (var dot in _dots)
             {
+                dot.OnDotTriggeredEvent += OnDotEffectTriggered;
                 dot.Initialize(cancellationToken);
             }
         }
@@ -57,6 +51,10 @@ namespace SpaceTraveler.GameStructures.Effects
                         break;
                     }
             }
+        }
+        private void OnDotEffectTriggered(TriggeredDotStats dotStats)
+        {
+            OnDotTriggeredEvent?.Invoke(dotStats.Sender, dotStats.Damage);
         }
         private void ModeChanged(PlayModeStateChange playModeState)
         {

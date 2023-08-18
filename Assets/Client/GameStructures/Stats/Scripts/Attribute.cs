@@ -20,16 +20,16 @@ namespace SpaceTraveler.GameStructures.Stats
                 if (modifier.HasInfluenceToStat(Name))
                 {
 
-                    if (modifier.Type == StatModType.Flat)
+                    if (modifier.Type == StatModifierType.FlatAdd)
                     {
                         newValue += modifier.Value;
                     }
-                    if (modifier.Type == StatModType.PercentAdd)
+                    if (modifier.Type == StatModifierType.PercentAdd)
                     {
                         var valueToAdd = newValue * modifier.Value;
                         newValue += valueToAdd;
                     }
-                    if (modifier.Type == StatModType.PercentMult)
+                    if (modifier.Type == StatModifierType.Multiplier)
                     {
                         var multValue = newValue * (modifier.Value + 1);
                         newValue = multValue;

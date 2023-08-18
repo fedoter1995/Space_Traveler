@@ -26,7 +26,6 @@ namespace SpaceTraveler.GameStructures.Zones
 
         protected virtual void AddObject(ITriggerObject obj)
         {
-            Debug.Log(obj);
 
             if (inZoneObjects.Contains(obj))
                 return;

@@ -13,29 +13,30 @@ namespace Tests
         private List<Resistance> _resistances;
 
         public List<Resistance> Resistances => _resistances;
-        public override void Initialize()
-        {
-            InitializeStats(_stats);
-            InitializeStats(_resistances);
-            CalculateValues();
-            OnValuesCalculated();
-        }
         public override void CalculateValues()
         {
             CalculateValuesInList(_stats);
             CalculateValuesInList(_resistances);
+            OnValuesCalculated();
         }
-        protected override void OnValuesCalculated()
-        {
-           
-        }
-
         public override BaseStat GetStat(string statName)
         {
             var stats = new List<BaseStat>(_stats);
             stats.AddRange(_resistances);
 
             return stats.Find(stat => stat.Name == statName);
+        }
+
+        public override void Initialize(object sender)
+        {
+            InitializeStats(_stats);
+            InitializeStats(_resistances);
+            CalculateValues();
+        }
+
+        protected override void OnValuesCalculated()
+        {
+            
         }
     }
 }

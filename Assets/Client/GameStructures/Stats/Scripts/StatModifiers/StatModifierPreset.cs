@@ -12,19 +12,20 @@ namespace SpaceTraveler.GameStructures.Stats.StatModifiers
         [SerializeField]
         protected string _description;
         [SerializeField]
-        private StatModType _type;
+        private StatModifierType _type;
         [SerializeField]
         private List<StatPreset> _zoneOfInfluence = new List<StatPreset>();
 
         public string Name => _modifierName;
         public string Description => _description;
-        public StatModType Type => _type;
+        public StatModifierType Type => _type;
         public List<StatPreset> ZoneOfInfluence => _zoneOfInfluence;
     }
-    public enum StatModType
+    public enum StatModifierType
     {
-        Flat,
+        FlatAdd,
+        Multiplier,
         PercentAdd,
-        PercentMult,
+
     }
 }

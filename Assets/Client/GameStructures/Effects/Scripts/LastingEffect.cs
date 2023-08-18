@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceTraveler.GameStructures.Stats.Presets;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -8,9 +9,15 @@ namespace SpaceTraveler.GameStructures.Effects
     [Serializable]
     public abstract class LastingEffect : Effect
     {
+        [SerializeField]
+        private StatPreset _durationStatRef;
+
+
         protected int duration = 0;
         protected bool isPermanent = false;
         protected CancellationToken cancellationToken;
+
+        public StatPreset DurationStatRef => _durationStatRef;
 
         public event Action<int> EverySecondsEvent;
         public event Action OnEffectEndEvent;

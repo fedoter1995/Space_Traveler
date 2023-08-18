@@ -4,7 +4,7 @@
 
 public interface IHaveStatusHandler
 {
-    public StatusEffectHandler StatusHandler { get; }
+    
 
 }
 

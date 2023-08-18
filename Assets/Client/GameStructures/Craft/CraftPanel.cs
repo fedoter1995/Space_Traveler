@@ -1,5 +1,5 @@
 using Assets.Client.GameStructures.Workshop;
-using SpaceTraveler.GameStructures.Player;
+using SpaceTraveler.GameStructures.Characters.Player;
 using SpaceTraveler.Gear.UI;
 using SpaceTraveler.UI;
 using UnityEngine;

@@ -7,9 +7,7 @@ namespace SpaceTraveler.GameStructures.Hits
     public interface ITakeHit : ITriggerObject
     {
         event Action OnTakeHitEvent;
-        IHaveTakeHitHandler Obj { get; }
-
-        void TakeHit(object sender, Hit hit);
+        void TakeHit(object sender, HitStats hitStats);
     }
     public struct TakeHitMessage
     {

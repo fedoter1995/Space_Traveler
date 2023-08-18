@@ -1,4 +1,5 @@
 using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Zones;
 using System;
 using UnityEngine;
@@ -23,9 +24,9 @@ public class HitObject : MonoBehaviour, ITakeHit
     }
 
 
-    public void TakeHit(object sender, Hit hit)
+    public void TakeHit(object sender, HitStats hitStats)
     {
-        mainHitObject.TakeHit(sender, hit);
+        mainHitObject.TakeHit(sender, hitStats);
     }
 
 }

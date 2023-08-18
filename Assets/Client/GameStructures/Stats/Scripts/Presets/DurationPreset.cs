@@ -3,7 +3,7 @@
 namespace SpaceTraveler.GameStructures.Stats.Presets
 {
     [CreateAssetMenu(menuName = "Stats/New_Duration_Preset")]
-    public class DurationPreset : StatPreset
+    public class DurationPreset : EffectStatPreset
     {
         [SerializeField]
         private LastingEffectStatPreset _effectRef;

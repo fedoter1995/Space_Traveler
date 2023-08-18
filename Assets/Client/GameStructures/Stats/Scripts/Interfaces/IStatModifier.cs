@@ -4,7 +4,7 @@ namespace SpaceTraveler.GameStructures.Stats
 {
     public interface IStatModifier
     {
-        StatModType Type { get; }
+        StatModifierType Type { get; }
         float Value { get; }
     }
 }

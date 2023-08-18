@@ -16,7 +16,7 @@ namespace SpaceTraveler.GameStructures.Stats.StatModifiers
         public StatModifierPreset Preset => _preset;
         public string Name => _preset.Name;
         public string Description => _preset.Description;
-        public StatModType Type => _preset.Type;
+        public StatModifierType Type => _preset.Type;
         public List<StatPreset> ZoneOfInfluence => _preset.ZoneOfInfluence;
         public float Value => _value;
 

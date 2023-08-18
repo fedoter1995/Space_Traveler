@@ -17,17 +17,37 @@ namespace SpaceTraveler.GameStructures.Stats
 
         protected StatPreset statPreset;
         public string Name  => statPreset.Name;
-        [System.NonSerialized]
-        protected float value;
-        public float Value { get => value; }
+
+        public float Value { get; protected set; }
 
         public string Id => statPreset.Id;
-        protected StatsHandler statsHandler;
 
-        public virtual void Initialize(StatsHandler handler)
+        public virtual void Initialize()
         {
-            statsHandler = handler;
-            value = _baseValue;
+            Value = _baseValue;
+        }
+        public void CalculateValue(List<StatModifier> modifiers)
+        {
+            Value = _baseValue;
+
+            var flatModifiers = modifiers.FindAll(modifier => modifier.Type == StatModifierType.FlatAdd);
+            var multiplierModifiers = modifiers.FindAll(modifier => modifier.Type == StatModifierType.Multiplier);
+            var percentaddModifiers = modifiers.FindAll(modifier => modifier.Type == StatModifierType.PercentAdd);
+
+            foreach (var modifier in flatModifiers)
+            {
+                Value += modifier.Value;
+            }
+            foreach (var modifier in multiplierModifiers)
+            {
+                Value *= modifier.Value;
+            }
+            foreach (var modifier in percentaddModifiers)
+            {
+                var addedValue = Value * modifier.Value;
+                Value += addedValue;
+            }
+
         }
         public virtual void CalculateValue()
         {
@@ -39,22 +59,22 @@ namespace SpaceTraveler.GameStructures.Stats
 
                     switch (modifier.Type)
                     {
-                        case StatModType.Flat :
+                        case StatModifierType.FlatAdd :
                             newValue += modifier.Value;
                             break;
 
-                        case StatModType.PercentAdd:
+                        case StatModifierType.PercentAdd:
                             var valueToAdd = newValue * modifier.Value;
                             newValue += valueToAdd;
                             break;
 
-                        case StatModType.PercentMult:
+                        case StatModifierType.Multiplier:
                             var multValue = newValue * (modifier.Value);
                             newValue = multValue;
                             break;
                     }           
             }
-            value = newValue;
+            Value = newValue;
 
         }
         public virtual void SetObjectData(Dictionary<string, object> data)

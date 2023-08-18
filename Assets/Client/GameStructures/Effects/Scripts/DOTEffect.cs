@@ -11,8 +11,8 @@ namespace SpaceTraveler.GameStructures.Effects
     {
         [SerializeField]
         private DotEffectStats stats;
-        public DamageType DamageType => stats.DamageType;
-        public event Action<DamageType, int> OnDotTriggeredEvent;
+
+        public event Action<TriggeredDotStats> OnDotTriggeredEvent;
         public DOTEffect(DotEffectStats stats)
         {
             this.stats = stats;
@@ -31,11 +31,9 @@ namespace SpaceTraveler.GameStructures.Effects
             }
         }
         public override void OnEffectAplly()
-        {
-            Debug.Log(stats.Damage.ToString());
-            OnDotTriggeredEvent?.Invoke(stats.DamageType, stats.DamageValue);
+        {         
+            OnDotTriggeredEvent?.Invoke(new TriggeredDotStats(stats.Sender, stats.Damage));
         }
-
         public override void Initialize(CancellationToken token)
         {
             base.Initialize(token);
@@ -54,24 +52,39 @@ namespace SpaceTraveler.GameStructures.Effects
     public struct DotEffectStats
     {
         [SerializeField]
-        private DamageTypeValue damage;
+        private DamageAttributes _damage;
         [SerializeField]
-        DurationParameters durationParameters;
+        DurationParameters _durationParameters;
         [SerializeField]
-        private int frequency;
+        private int _frequency;
 
 
-        public bool IsPermanent => durationParameters.IsPermanent;
-        public int Duration => durationParameters.Duration;
-        public int Frequency => frequency;
-        public int DamageValue => damage.Value;
-        public DamageType DamageType => damage.Type;
-        public DamageTypeValue Damage => damage;
-        public DotEffectStats(DurationParameters durationParameters, int frequency, DamageTypeValue damage)
+        private object sender;
+
+
+        public bool IsPermanent => _durationParameters.IsPermanent;
+        public int Duration => _durationParameters.Duration;
+        public int Frequency => _frequency;
+        public DamageAttributes Damage => _damage;
+        public object Sender => sender;
+        public DotEffectStats(DurationParameters durationParameters, int frequency, DamageAttributes damage, object sender)
         {         
-            this.durationParameters = durationParameters;
-            this.damage = damage;
-            this.frequency = frequency;
+            _durationParameters = durationParameters;
+            _damage = damage;
+            _frequency = frequency;
+            this.sender = sender;
         }
+    }
+    public class TriggeredDotStats : TriggeredEffectStats
+    {
+        private DamageAttributes damage;
+        public DamageAttributes Damage => damage;
+
+        public TriggeredDotStats(object sender, DamageAttributes damage) : base(sender)
+        {
+            this.damage = damage;
+            this.sender = sender;
+        }
+
     }
 }

@@ -1,7 +1,10 @@
 ﻿
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.Stats;
+
 namespace SpaceTraveler.GameStructures.Enemys
 {
-    public interface IEnemy : IHaveTakeHitHandler, IHaveStatusHandler
+    public interface IEnemy : IHaveHealthPoints, ITakeHit
     {
 
     }

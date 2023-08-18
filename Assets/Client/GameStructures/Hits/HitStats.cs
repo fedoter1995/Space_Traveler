@@ -10,51 +10,54 @@ namespace SpaceTraveler.GameStructures.Stats
     {
     
         [SerializeField]
-        private List<Chance> chances;
+        private List<Chance> _chances;
         [SerializeField]
-        private List<Multiplier> multipliers;
+        private List<Multiplier> _multipliers;
         [SerializeField]
         private List<Effect> _effects;
         [SerializeField]
-        private HitDamage damage;
+        private HitDamage _damage;
+
+
         private int numbOfPenetrations = 0;
 
-        public List<Chance> Chances => chances;
-        public List<Multiplier> Multipliers => multipliers;
-        public HitDamage ShotDamage => damage;
+        public List<Chance> Chances => _chances;
+        public List<Multiplier> Multipliers => _multipliers;
+        public HitDamage HitDamage => _damage;
         public int PenetrationsNumb => numbOfPenetrations;
 
-        public HitStats(HitDamage damage, List<Chance> chances, List<Multiplier> multipliers, int numbOfPenetrations)
+        public HitStats(object sender, HitDamage damage, List<Chance> chances, List<Multiplier> multipliers, int numbOfPenetrations)
         {
+
             if(chances != null)
-                this.chances = new List<Chance>(chances);
+                this._chances = new List<Chance>(chances);
             else
-                this.chances = new List<Chance>();
+                this._chances = new List<Chance>();
             if (multipliers != null)
-                this.multipliers = new List<Multiplier>(multipliers);
+                this._multipliers = new List<Multiplier>(multipliers);
             else
-                this.multipliers = new List<Multiplier>();
-            this.damage = damage;
+                this._multipliers = new List<Multiplier>();
+            this._damage = damage;
 
             this.numbOfPenetrations = numbOfPenetrations;
         }
-        public HitStats(HitDamage damage)
+        public HitStats(object sender, HitDamage damage)
         {
-            chances = new List<Chance>();
-            multipliers = new List<Multiplier>();
-            this.damage = damage;
+            _chances = new List<Chance>();
+            _multipliers = new List<Multiplier>();
+            this._damage = damage;
         }
         public HitStats(HitStats stats)
         {
-            if (chances != null)
-                this.chances = new List<Chance>(stats.Chances);
+            if (_chances != null)
+                this._chances = new List<Chance>(stats.Chances);
             else
-                this.chances = new List<Chance>();
-            if (multipliers != null)
-                this.multipliers = new List<Multiplier>(stats.Multipliers);
+                this._chances = new List<Chance>();
+            if (_multipliers != null)
+                this._multipliers = new List<Multiplier>(stats.Multipliers);
             else
-                this.multipliers = new List<Multiplier>();
-            damage = stats.ShotDamage;
+                this._multipliers = new List<Multiplier>();
+            _damage = stats.HitDamage;
             numbOfPenetrations = stats.PenetrationsNumb;
         }
 
@@ -62,8 +65,6 @@ namespace SpaceTraveler.GameStructures.Stats
         {
             numbOfPenetrations--;
         }
-
-
     }
 
 }

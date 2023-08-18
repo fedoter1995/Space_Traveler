@@ -15,6 +15,9 @@ namespace SpaceTraveler.GameStructures.Stats
         [SerializeField]
         protected EnvironmentSettings _environment;
 
+
+        protected object mainObject;
+
         public virtual event Action OnCalculateValuesEvent;
 
         public bool IsInitialize { get; private set; } = false;
@@ -27,7 +30,7 @@ namespace SpaceTraveler.GameStructures.Stats
         }  
         public abstract void CalculateValues();
         public abstract BaseStat GetStat(string statName);
-        public virtual void Initialize()
+        public virtual void Initialize(object sender)
         {
             CalculateValues();
             IsInitialize = true;
@@ -65,13 +68,13 @@ namespace SpaceTraveler.GameStructures.Stats
             {
                 switch(modifier.Type)
                 {
-                    case StatModType.Flat:
+                    case StatModifierType.FlatAdd:
                         flatModifiers.Add(modifier);
                         break;
-                    case StatModType.PercentMult:
+                    case StatModifierType.Multiplier:
                         multModifiers.Add(modifier);
                         break;
-                    case StatModType.PercentAdd:
+                    case StatModifierType.PercentAdd:
                         percentAddModifiers.Add(modifier);
                         break;
                 }
@@ -90,6 +93,16 @@ namespace SpaceTraveler.GameStructures.Stats
                 {
                     stats[i].Initialize(this);
                 }
+        }
+        protected void InitializeStats(List<List<BaseStat>> stats)
+        {
+            if (stats != null)
+            {
+                foreach (var stat in stats)
+                {
+                    InitializeStats(stat);
+                }
+            }
         }
         protected void CalculateValuesInList<T>(List<T> stats) where T : BaseStat
         {

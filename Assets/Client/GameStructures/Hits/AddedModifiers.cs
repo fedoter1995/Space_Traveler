@@ -1,4 +1,5 @@
-﻿using SpaceTraveler.GameStructures.Stats;
+﻿using SpaceTraveler.GameStructures.Effects;
+using SpaceTraveler.GameStructures.Stats;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,17 +10,30 @@ namespace SpaceTraveler.GameStructures.Hits
     public  class AddedModifiers
     {
         [SerializeField]
-        private List<Damage> _addedDamages;
+        private List<DamageAttributes> _damages = new List<DamageAttributes>();
         [SerializeField]
-        private List<Multiplier> _addedMultipliers;
+        private List<Multiplier> _multipliers = new List<Multiplier>();
         [SerializeField]
-        private List<Chance> _addedChances;
+        private List<MultiplierChance> _multChances = new List<MultiplierChance>();
+        [SerializeField]
+        private List<Effect> _effects = new List<Effect>();
 
-        [SerializeField]
-        public List<Damage> AddedDamages => _addedDamages;
-        [SerializeField]
-        public List<Multiplier> AddedMultipliers => _addedMultipliers;
-        [SerializeField]
-        public List<Chance> AddedChances => _addedChances;
+        public List<DamageAttributes> AddedDamages => _damages;
+        public List<Multiplier> AddedMultipliers => _multipliers;
+        public List<MultiplierChance> Multiplierhances => _multChances;
+        private List<Effect> Effects => _effects;
+
+
+        public AddedModifiers(List<DamageAttributes> damages = null, List<Multiplier> multipliers = null, List<MultiplierChance> chances = null, List<Effect> effects = null)
+        {
+            if (damages != null)
+                _damages = damages;
+            if (multipliers != null)
+                _multipliers = multipliers;
+            if (chances != null)
+                _multChances = chances;
+            if (effects != null)
+                _effects = effects;
+        }
     }
 }

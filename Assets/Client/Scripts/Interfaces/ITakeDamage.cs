@@ -3,17 +3,17 @@ using SpaceTraveler.GameStructures.Stats;
 
 namespace SpaceTraveler.GameStructures.Hits
 {
-    public interface ITakeDamage
+    public interface ITakeDamage : ITakeHit
     {
-        event Action<object, DamageTypeValue> OnTakeDamageEvent;
-        void TakeDamage(object sender, HitDamage damage);
+        event Action<object, DamageAttributes> OnTakeDamageEvent;
+        void TakeDamage(object sender, DamageAttributes damage);
     }
     public struct TakeDamageMessage
     {
         private object sender;
-        private DamageTypeValue dmg;
+        private DamageAttributes dmg;
 
-        public TakeDamageMessage(object sender, DamageTypeValue dmg)
+        public TakeDamageMessage(object sender, DamageAttributes dmg)
         {
             this.sender = sender;
             this.dmg = dmg;

@@ -1,4 +1,4 @@
-﻿using SpaceTraveler.GameStructures.Player;
+﻿using SpaceTraveler.GameStructures.Characters.Player;
 using System;
 using UnityEngine;
 

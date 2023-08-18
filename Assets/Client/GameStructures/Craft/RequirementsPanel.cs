@@ -2,7 +2,7 @@ using Assets.Client.GameStructures.Workshop;
 using CustomTools;
 using SpaceTraveler.GameStructures.Gear;
 using SpaceTraveler.GameStructures.Items;
-using SpaceTraveler.GameStructures.Player;
+using SpaceTraveler.GameStructures.Characters.Player;
 using UnityEngine;
 
 namespace SpaceTraveler.GameStructures.Craft.UI
