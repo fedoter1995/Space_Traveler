@@ -15,7 +15,11 @@ namespace SpaceTraveler.GameStructures.Effects
 
         private object sender;
 
+
+
         public event Action<TriggeredDotStats> OnDotTriggeredEvent;
+
+        public DamageType DamageType => stats.Damage.Type;
         public DOTEffect(object sender, DotEffectStats stats)
         {
             this.stats = stats;
@@ -26,7 +30,10 @@ namespace SpaceTraveler.GameStructures.Effects
         {
             while (_isPermanent || duration > 0)
             {
-                if (cancellationToken.IsCancellationRequested)
+                if (sharedСancellationToken.IsCancellationRequested)
+                    return;
+
+                if (personalСancellationToken.IsCancellationRequested)
                     return;
 
                 var task = Task.Delay(1000 / stats.Frequency);
@@ -38,17 +45,19 @@ namespace SpaceTraveler.GameStructures.Effects
         {
             OnDotTriggeredEvent?.Invoke(new TriggeredDotStats(sender, stats.Damage));
         }
-        public override void Initialize(CancellationToken token)
+        public override void Initialize(CancellationToken sharedToken)
         {
-            base.Initialize(token);
+            base.Initialize(sharedToken);
             duration = stats.Duration;
 
-            if(!_isPermanent)
+            _remainingTime = duration;
+
+            if (!_isPermanent)
             {
                 DurationDecreaseAsync();
             }
 
-            EffectDurationAsync();          
+            EffectDurationAsync();
         }
     }
     [Serializable]

@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 4027105414567217549}
   - component: {fileID: -8995471901184246734}
   - component: {fileID: 24600374442289617}
+  - component: {fileID: 2717499741434397231}
   m_Layer: 0
   m_Name: SpaceShip 1
   m_TagString: Player
@@ -248,7 +249,7 @@ MonoBehaviour:
       _engine: {fileID: 11400000, guid: eb77e8d5c55f08a4ab9233d59e5d7b60, type: 2}
       _shipSkin: {fileID: 11400000, guid: e4ab1e3fa2829664897515c496340545, type: 2}
   _stats: {fileID: 11400000, guid: ab9e32148b0b49e4199dded5f3e40dd5, type: 2}
-  _takeDamageHandler: {fileID: 3836651898205377251}
+  _protectiveComponentsHandler: {fileID: 2717499741434397231}
   _workshopSettings:
     _trees:
     - {fileID: 120489521768290153, guid: 986586f8fdc70874fafe26f3b66a774c, type: 3}
@@ -291,6 +292,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraSettingsPrefab: {fileID: 6463791898594430190, guid: a5e9ec71c4667ed4392ffc5b99d165f9, type: 3}
+--- !u!114 &2717499741434397231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863650822760853121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697490e8d7adca74992009ffd89cb66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lastingEffectsHandler:
+    _dots: []
+  _takeDamageHandler: {fileID: 0}
 --- !u!1 &863650822768270607
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,7 +383,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1951144935751137410}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ce809fdeac9dc5448fca5a0c0bace7f, type: 3}
+  m_Script: {fileID: 11500000, guid: f6a166b5295f64248b94df8135579e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5798868502407038951
@@ -411,7 +427,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5798868502407038951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ce809fdeac9dc5448fca5a0c0bace7f, type: 3}
+  m_Script: {fileID: 11500000, guid: f6a166b5295f64248b94df8135579e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6068805616226617413
@@ -499,6 +515,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7664773893965954846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ce809fdeac9dc5448fca5a0c0bace7f, type: 3}
+  m_Script: {fileID: 11500000, guid: f6a166b5295f64248b94df8135579e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

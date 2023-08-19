@@ -43,6 +43,12 @@ namespace SpaceTraveler.GameStructures.Effects
         }
         public void AddDotEffect(DOTEffect effect)
         {
+            var dot = _dots.Find(dot => dot.DamageType == effect.DamageType);
+            if(dot != null)
+            {
+                _dots.Remove(dot);
+                dot.Remove();
+            }
             effect.Initialize(cancellationToken);
             effect.OnDotTriggeredEvent += OnDotEffectTriggered;
             effect.OnEffectEndEvent += OnEffectEnd;

@@ -18,7 +18,7 @@ namespace Architecture
             this.componentsMap = CreateInstances<T>(classReferences);
         }
 
-        private Dictionary<Type, T> CreateInstances<T>(string[] classReferences) where T : IArchitectureComponent
+        private Dictionary<Type,T>CreateInstances<T>(string[] classReferences) where T : IArchitectureComponent
         {
             var createdMap = new Dictionary<Type, T>();
 

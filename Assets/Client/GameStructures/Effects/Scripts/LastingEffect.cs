@@ -10,11 +10,18 @@ namespace SpaceTraveler.GameStructures.Effects
     public abstract class LastingEffect : Effect
     {
         [SerializeField]
+        protected int _remainingTime = 0;
+        [SerializeField]
         protected bool _isPermanent = false;
 
 
         protected int duration = 0;
-        protected CancellationToken cancellationToken;
+
+        protected CancellationToken sharedСancellationToken;
+
+
+        private CancellationTokenSource cts;
+        protected CancellationToken personalСancellationToken;
 
         public event Action<int> EverySecondsEvent;
         public event Action<LastingEffect> OnEffectEndEvent;
@@ -22,12 +29,17 @@ namespace SpaceTraveler.GameStructures.Effects
         {
             while (duration > 0)
             {
-                if(cancellationToken.IsCancellationRequested)
+                if(sharedСancellationToken.IsCancellationRequested)
                     return;
+
+                if (personalСancellationToken.IsCancellationRequested)
+                    return;
+
 
                 var task = Task.Delay(1000);
                 await task;
                 duration--;
+                _remainingTime = duration;
                 EverySecondsEvent?.Invoke(duration);
             }
             EndEffect();
@@ -36,10 +48,16 @@ namespace SpaceTraveler.GameStructures.Effects
         {
             OnEffectEndEvent?.Invoke(this);
         }
-
-        public virtual void Initialize(CancellationToken token)
+        public void Remove()
         {
-            this.cancellationToken = token;
+            cts.Cancel();
+        }
+        public virtual void Initialize(CancellationToken sharedToken)
+        {
+            sharedСancellationToken = sharedToken;
+
+            cts = new CancellationTokenSource();
+            personalСancellationToken = cts.Token;
         }      
     }
     [Serializable]
