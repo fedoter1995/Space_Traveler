@@ -27,9 +27,6 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         [SerializeField, Header("Resist Stats")]
         protected List<Resistance> _resistances = new List<Resistance>();
         [SerializeField, Header("Damages Stats")]
-
-
-
         private List<ShootPosition> shotPoints;
 
 
