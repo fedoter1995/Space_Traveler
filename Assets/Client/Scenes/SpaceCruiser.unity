@@ -426,7 +426,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -4494,6 +4494,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight
       objectReference: {fileID: 0}
+    - target: {fileID: 2102595431108995874, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2102595431108995877, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -4537,6 +4541,26 @@ PrefabInstance:
     - target: {fileID: 2102595431108995877, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2102595431316374386, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2102595431431106689, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2294367567166967456, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086756919211872977, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336941737770885041, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4383192490898044481, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
       propertyPath: _comboElements.Array.data[1]._addedModifiers._modifiers.Array.size
