@@ -23,7 +23,7 @@ MonoBehaviour:
     _damagePreset: {fileID: 11400000, guid: 2f7f554d65420f74794b67f889368d39, type: 2}
   _dotChances:
   - _name: Bleed Chance
-    _baseValue: 100
+    _baseValue: 0
     _dotChancePreset: {fileID: 11400000, guid: bf106b774ff93534ab6ab915e7e8ee1d, type: 2}
   _dotDamages:
   - _name: Bleed Damage
