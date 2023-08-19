@@ -8,12 +8,13 @@ using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Gear.Spaceship;
 using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using SpaceTraveler.GameStructures.Stats.Chances;
+using SpaceTraveler.GameStructures.Effects;
 
 namespace SpaceTraveler.GameStructures.Spaceship
 {
     [Serializable]
     [CreateAssetMenu(menuName = "StatsHandler/Ship_Stats")]
-    public class StarshipStatsHandler : StatsHandler, IJsonSerializable, IHaveDefenciveStats
+    public class StarshipStatsHandler : CombatStatsHandler, IJsonSerializable, IHaveDefenciveStats
     {
         #region Const
         private const string HEALTH_POINTS = "Max_Health_Points";
@@ -29,14 +30,9 @@ namespace SpaceTraveler.GameStructures.Spaceship
 
         [SerializeField, Header("Stats")]
         private List<Stat> _stats;
-        [SerializeField,Header("Damages")]
-        private List<Damage> _damages;
         [SerializeField, Header("Resistances")]
         private List<Resistance> _resistances;
-        [SerializeField, Header("Chances")]
-        private List<MultiplierChance> _multiplierChances;
-        [SerializeField, Header("Multipliers")]
-        private List<Multiplier> _multipliers;
+
 
         private List<ShootPosition> shotPoints;
 
@@ -57,11 +53,14 @@ namespace SpaceTraveler.GameStructures.Spaceship
 
         public override void Initialize(object sender)
         {
-            InitializeStats(_stats);
             InitializeStats(_resistances);
             InitializeStats(_damages);
-            InitializeStats(_multiplierChances);
+            InitializeStats(_multiplieChances);
             InitializeStats(_multipliers);
+            InitializeStats(_dotChances);
+            InitializeStats(_dotDamages);
+            InitializeStats(_durations);
+            InitializeStats(_frequencies);
 
             Spaceship = Game.GetInteractor<SpaceshipInteractor>().spaceship;
             Equipment = Spaceship.Equipment as SpaceshipModuleHandler;
@@ -79,30 +78,16 @@ namespace SpaceTraveler.GameStructures.Spaceship
             CalculateValuesInList(_stats);
             CalculateValuesInList(_resistances);
             CalculateValuesInList(_damages);
-            CalculateValuesInList(_multiplierChances);
+
+            CalculateValuesInList(_multiplieChances);
             CalculateValuesInList(_multipliers);
+
+            CalculateValuesInList(_dotChances);
+            CalculateValuesInList(_dotDamages);
+            CalculateValuesInList(_durations);
+            CalculateValuesInList(_frequencies);
+
             OnValuesCalculated();
-        }
-        public HitStats GetHitStats()
-        {
-            var DamageTypeValue = new List<DamageAttributes>();
-            var chances = new List<Chance>(_multiplierChances);
-            foreach (Damage damage in _damages)
-            {
-                try
-                {
-                    var dmg = new DamageAttributes((int)damage.Value, damage.Type);
-                    DamageTypeValue.Add(dmg);
-                }
-                catch
-                {
-                    throw new Exception($"Cant Add {damage} to {DamageTypeValue}");
-                }
-            }
-
-            HitDamage shotDamage = new HitDamage(DamageTypeValue);               
-
-            return new HitStats(mainObject, shotDamage, chances, _multipliers, (int)PenetrationsNumb);
         }
         public ShotStats GetShotStats()
         {
@@ -147,20 +132,32 @@ namespace SpaceTraveler.GameStructures.Spaceship
                 _stats = new List<Stat>();
                 _damages = new List<Damage>();
                 _resistances = new List<Resistance>();
-                _multiplierChances = new List<MultiplierChance>();
+                _multiplieChances = new List<MultiplierChance>();
                 _multipliers = new List<Multiplier>();
+                _dotChances = new List<DotChance>();
+                _dotDamages = new List<DamageOverTime>();
+                _durations = new List<Duration>();
 
                 JObject statsData = (JObject)data["Stats_Data"];
                 JObject damageData = (JObject)data["Damages_Data"];
                 JObject resistanceData = (JObject)data["Resistances_Data"];
                 JObject chancesData = (JObject)data["Chances_Data"];
                 JObject multipliersData = (JObject)data["Multipliers_Data"];
+                JObject dotChancesData = (JObject)data["DotChances_Data"];
+                JObject dotDamageData = (JObject)data["DotDamages_Data"];
+                JObject dotDurationData = (JObject)data["DotDurations_Data"];
+
+
 
                 var stats = statsData.ToObject<Dictionary<string, Dictionary<string, object>>>();
                 var damages = damageData.ToObject<Dictionary<string, Dictionary<string, object>>>();
                 var resistances = resistanceData.ToObject<Dictionary<string, Dictionary<string, object>>>();
                 var chances = chancesData.ToObject<Dictionary<string, Dictionary<string, object>>>();
                 var multipliers = multipliersData.ToObject<Dictionary<string, Dictionary<string, object>>>();
+                var dotChances = dotChancesData.ToObject<Dictionary<string, Dictionary<string, object>>>();
+                var dotDamages = dotDamageData.ToObject<Dictionary<string, Dictionary<string, object>>>();
+                var dotDurations = dotDurationData.ToObject<Dictionary<string, Dictionary<string, object>>>();
+
 
                 foreach (KeyValuePair<string, Dictionary<string, object>> entry in stats)
                 {
@@ -184,13 +181,31 @@ namespace SpaceTraveler.GameStructures.Spaceship
                 {
                     MultiplierChance newChance = new MultiplierChance();
                     newChance.SetObjectData(entry.Value);
-                    _multiplierChances.Add(newChance);
+                    _multiplieChances.Add(newChance);
                 }
                 foreach (KeyValuePair<string, Dictionary<string, object>> entry in multipliers)
                 {
                     Multiplier newMultiplier = new Multiplier();
                     newMultiplier.SetObjectData(entry.Value);
                     _multipliers.Add(newMultiplier);
+                }
+                foreach (KeyValuePair<string, Dictionary<string, object>> entry in dotChances)
+                {
+                    DotChance newDotChance= new DotChance();
+                    newDotChance.SetObjectData(entry.Value);
+                    _dotChances.Add(newDotChance);
+                }
+                foreach (KeyValuePair<string, Dictionary<string, object>> entry in dotDamages)
+                {
+                    DamageOverTime newDot = new DamageOverTime();
+                    newDot.SetObjectData(entry.Value);
+                    _dotDamages.Add(newDot);
+                }
+                foreach (KeyValuePair<string, Dictionary<string, object>> entry in dotDurations)
+                {
+                    Duration newduration = new Duration();
+                    newduration.SetObjectData(entry.Value);
+                    _durations.Add(newduration);
                 }
             }
         }
@@ -204,32 +219,44 @@ namespace SpaceTraveler.GameStructures.Spaceship
             var resistanceData = new Dictionary<string, object>();
             var chancesData = new Dictionary<string, object>();
             var multipliersData = new Dictionary<string, object>();
-            foreach (Stat stat in _stats)
-            {
+            var dotChanceData = new Dictionary<string, object>();
+            var dotDamageData = new Dictionary<string, object>();
+            var dotDurationData = new Dictionary<string, object>();
+
+
+            foreach (Stat stat in _stats)           
                 statsData.Add(stat.Name, stat.GetObjectData());
-            }
-            foreach (Damage damage in _damages)
-            {
+            
+            foreach (Damage damage in _damages)           
                 damageData.Add(damage.Name, damage.GetObjectData());
-            }
-            foreach (Resistance resistance in _resistances)
-            {
+            
+            foreach (Resistance resistance in _resistances)          
                 resistanceData.Add(resistance.Name, resistance.GetObjectData());
-            }
-            foreach (MultiplierChance chance in _multiplierChances)
-            {
+            
+            foreach (MultiplierChance chance in _multiplieChances)          
                 chancesData.Add(chance.Name, chance.GetObjectData());
-            }
-            foreach (Multiplier multiplier in _multipliers)
-            {
+            
+            foreach (Multiplier multiplier in _multipliers)           
                 multipliersData.Add(multiplier.Name, multiplier.GetObjectData());
-            }
+            
+            foreach (DotChance chance in _dotChances)
+                dotChanceData.Add(chance.Name, chance.GetObjectData());
+            
+            foreach (DamageOverTime damage in _dotDamages)
+                dotDamageData.Add(damage.Name, damage.GetObjectData());
+            
+            foreach (Duration duration in _durations)
+                dotDurationData.Add(duration.Name, duration.GetObjectData());
+            
 
             data.Add("Stats_Data", statsData);
             data.Add("Damages_Data", damageData);
             data.Add("Resistances_Data", resistanceData);
-            data.Add("Chances_Data", chancesData);
+            data.Add("MultiplieChances_Data", chancesData);
             data.Add("Multipliers_Data", multipliersData);
+            data.Add("DotChances_Data", dotChanceData);
+            data.Add("DotDamages_Data", dotDamageData);
+            data.Add("DotDurations_Data", dotDurationData);
 
             return data;
         }
@@ -239,8 +266,11 @@ namespace SpaceTraveler.GameStructures.Spaceship
 
             stats.AddRange(_damages);
             stats.AddRange(_resistances);
-            stats.AddRange(_multiplierChances);
+            stats.AddRange(_multiplieChances);
             stats.AddRange(_multipliers);
+            stats.AddRange(_dotChances);
+            stats.AddRange(_dotDamages);
+            stats.AddRange(_durations);
 
         
             return FindStatInList(stats, statName);

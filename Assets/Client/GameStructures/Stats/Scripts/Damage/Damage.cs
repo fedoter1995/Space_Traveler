@@ -26,6 +26,7 @@ namespace SpaceTraveler.GameStructures.Stats
         Cold,
         Electro,
         Enegy,
-        Physical
+        Physical,
+        All
     }
 }

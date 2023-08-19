@@ -16,11 +16,29 @@ namespace SpaceTraveler.GameStructures.Stats
 
 
         protected StatPreset statPreset;
-        public string Name  => statPreset.Name;
+        public string Name
+        {
+            get
+            {
+                if (statPreset != null)
+                    return statPreset.Name;
+                else
+                    throw new System.Exception($"StatPreset is null in {_name}");
+            }
+        }
 
         public float Value { get; protected set; }
 
-        public string Id => statPreset.Id;
+        public string Id
+        {
+            get
+            {
+                if (statPreset != null)
+                    return statPreset.Id;
+                else
+                    throw new System.Exception($"StatPreset is null in {_name}");
+            }
+        }
 
         public virtual void Initialize()
         {

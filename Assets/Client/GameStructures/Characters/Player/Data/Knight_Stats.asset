@@ -14,6 +14,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _handlerType: 0
   _environment: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}
+  _damages:
+  - _name: Physical
+    _baseValue: 10
+    _damagePreset: {fileID: 11400000, guid: 4b80589b9b9123c4791247993da4618b, type: 2}
+  - _name: Energy
+    _baseValue: 10
+    _damagePreset: {fileID: 11400000, guid: 2f7f554d65420f74794b67f889368d39, type: 2}
+  _dotChances:
+  - _name: Bleed Chance
+    _baseValue: 100
+    _dotChancePreset: {fileID: 11400000, guid: bf106b774ff93534ab6ab915e7e8ee1d, type: 2}
+  _dotDamages:
+  - _name: Bleed Damage
+    _baseValue: 10
+    _dotPreset: {fileID: 11400000, guid: 3e735eb36d922954a821dfc1d65176ef, type: 2}
+  _durations:
+  - _name: Bleed Duration
+    _baseValue: 10
+    _dotPreset: {fileID: 11400000, guid: 6a8cd4fc91610a74ba4a05075a86458b, type: 2}
+  _frequencies:
+  - _name: Bleed Frequency
+    _baseValue: 1
+    _preset: {fileID: 11400000, guid: fdbcee744abbe5d41b204537f573c34f, type: 2}
+  _multipliers:
+  - _name: Physical crit multi
+    _baseValue: 1.5
+    _multiplierPreset: {fileID: 11400000, guid: 39d0ae6a1c9cd124585fbc801da97162, type: 2}
+  _multiplieChances:
+  - _name: Physical crit chance
+    _baseValue: 10
+    _multiplierChancePreset: {fileID: 11400000, guid: 44e63b8c83634fb419ae6cad05e7dfeb, type: 2}
   _stats:
   - _name: Max_Health_Points
     _baseValue: 50
@@ -22,12 +53,4 @@ MonoBehaviour:
     _baseValue: 8
     _statPreset: {fileID: 11400000, guid: c8ebd83aeb288844f8e5d790f4586ea3, type: 2}
   _resistances: []
-  _damages:
-  - _name: Physical
-    _baseValue: 10
-    _damagePreset: {fileID: 11400000, guid: 4b80589b9b9123c4791247993da4618b, type: 2}
-  - _name: Energy
-    _baseValue: 10
-    _damagePreset: {fileID: 11400000, guid: 2f7f554d65420f74794b67f889368d39, type: 2}
-  _chances: []
-  _multipliers: []
+  shotPoints: []

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a0efb3e69210b24eb5768b6548ec0f6, type: 3}
+  m_Name: Bleed_Chance_Preset
+  m_EditorClassIdentifier: 
+  _statID: bleedchance
+  _statName: Bleeding Chance
+  _damageOverTimeRef: {fileID: 11400000, guid: 3e735eb36d922954a821dfc1d65176ef, type: 2}
+  _dotDurationRef: {fileID: 11400000, guid: 6a8cd4fc91610a74ba4a05075a86458b, type: 2}
+  _frequencyRef: {fileID: 11400000, guid: fdbcee744abbe5d41b204537f573c34f, type: 2}

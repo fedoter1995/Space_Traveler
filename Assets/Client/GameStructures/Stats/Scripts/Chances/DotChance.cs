@@ -6,17 +6,13 @@ using SpaceTraveler.GameStructures.Stats.Presets;
 namespace SpaceTraveler.GameStructures.Stats.Chances
 {
     [Serializable]
-    public class DotEffectChance : EffectChance
+    public class DotChance : EffectChance
     {
         [SerializeField]
-        private DotEffectChancePreset _dotChancePreset;
+        private DotChancePreset _dotChancePreset;
 
-        public DotEffectChancePreset ChancePreset => _dotChancePreset;
+        public DotChancePreset ChancePreset => _dotChancePreset;
 
-        public override void GetSuitableStats(StatsHandler handler)
-        {
-            throw new NotImplementedException();
-        }
 
         public override void Initialize()
         {
@@ -24,7 +20,7 @@ namespace SpaceTraveler.GameStructures.Stats.Chances
             if (statPreset is null)
                 statPreset = _dotChancePreset;
             else
-                _dotChancePreset = statPreset as DotEffectChancePreset;
+                _dotChancePreset = statPreset as DotChancePreset;
 
 
             if (_dotChancePreset == null)

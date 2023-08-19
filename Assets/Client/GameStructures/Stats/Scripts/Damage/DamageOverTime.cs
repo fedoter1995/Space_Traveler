@@ -1,24 +1,24 @@
 ﻿using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Stats.Presets;
+using System;
 using UnityEngine;
 
 namespace SpaceTraveler.GameStructures.Effects
 {
+    [Serializable]
     public class DamageOverTime : StatWithAChance
     {
         [SerializeField]
         private DamageOverTimePreset _dotPreset;
-        [SerializeField]
-        private DotEffectChancePreset _dotChanceRef;
-        public DotEffectChancePreset ChanceRef => _dotChanceRef;
+        public DamageOverTimePreset DamageOverTimeRef => _dotPreset;
 
-        public DamageType DamageType => _dotPreset.DamageType;
+        public DamageType DamageType => DamageOverTimeRef.DamageType;
         public override void Initialize()
         {
             base.Initialize();
 
             if (statPreset is null)
-                statPreset = _dotPreset;
+                statPreset = DamageOverTimeRef;
             else
                 _dotPreset = statPreset as DamageOverTimePreset;
         }

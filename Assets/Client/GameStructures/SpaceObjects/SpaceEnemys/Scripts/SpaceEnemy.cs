@@ -6,6 +6,7 @@ using SpaceTraveler.GameStructures.Gear.Weapons;
 using SpaceTraveler.GameStructures.Hits;
 using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Zones;
+using SpaceTraveler.Scripts;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -22,9 +23,7 @@ namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
         [SerializeField]
         private SpaceEnemyStatsHandler _stats;
         [SerializeField]
-        private TakeDamageHandler _takeDamageHandler;
-        [SerializeField]
-        public LastingEffectsHandler _statusHandler;
+        private ProtectiveComponentsHandler _protectiveComponents;
         [SerializeField]
         private SpaceEnemyAnimatorController _enemyAnimatorController;
         [SerializeField]
@@ -40,9 +39,7 @@ namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
         public NavMeshAgent Agent { get; private set; }
         public SpaceEnemyController Controller => controller;
         public SpaceEnemyStatsHandler StatsHandler => _stats;
-        public LastingEffectsHandler StatusHandler => _statusHandler;
         public Vector3 Position => transform.position;
-        public TakeDamageHandler TakeDamageHandler => _takeDamageHandler;
         public Observable<int> CurrentHealthPoints { get; private set; }
 
         public TriggerObjectType Type => _type;
@@ -63,8 +60,8 @@ namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
 
             controller.Initialize(this);
 
-            _takeDamageHandler.Initialize(StatsHandler);
-            _takeDamageHandler.OnTakeDamageEvent += TakeDamage;
+            _protectiveComponents.Initialize(StatsHandler);
+            _protectiveComponents.OnTakeDamageEvent += TakeDamage;
 
             if (CurrentHealthPoints == null)
                 CurrentHealthPoints = new Observable<int>((int)_stats.HealthPoints);
@@ -76,11 +73,11 @@ namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
 
             controller = GetComponent<SpaceEnemyController>();
 
-            if (_takeDamageHandler is null)
+            if (_protectiveComponents is null)
                 throw new Exception("TakeDamageHandler is not installed");
 
         }
-        public void TakeDamage(DamageAttributes damage)
+        public void TakeDamage(object sender, DamageAttributes damage)
         {
 
             CurrentHealthPoints.Value -= damage.Value;
@@ -89,10 +86,14 @@ namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
                 DestroyEnemy();
 
         }
-        private void DestroyEnemy()
+        public void TakeHit(object sender, HitStats hitStats)
         {
-            controller.OnDestroyObject();
-            _enemyAnimatorController.PlayDestroyAnimation();
+            _protectiveComponents.TakeHit(sender, hitStats);
+
+            var triggerObj = sender as ITriggerObject;
+
+            if (triggerObj != null)
+                Controller.OnTakeDamage(triggerObj);
         }
         public void Hit(ITakeHit target)
         {
@@ -122,16 +123,12 @@ namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
         {
             gameObject.SetActive(activity);
         }
-
-        public void TakeHit(object sender, HitStats hitStats)
+        private void DestroyEnemy()
         {
-            TakeDamageHandler.TakeHit(hitStats);
-
-            var triggerObj = sender as ITriggerObject;
-
-            if (triggerObj != null)
-                Controller.OnTakeDamage(triggerObj);
+            controller.OnDestroyObject();
+            _enemyAnimatorController.PlayDestroyAnimation();
         }
+
     }
 }
 

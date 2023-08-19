@@ -30,16 +30,20 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
 
         public event Action<int> HeathPointsChangedEvent;
         public event Action OnTakeHitEvent;
+        public event Action<object, DamageAttributes> OnTakeDamageEvent;
+
         public void TakeHit(object sender, HitStats hitStats)
         {
             _protectiveComponentsHandler.TakeHit(sender, hitStats);
         }
-        private void OnTakeDamage(object sender, DamageAttributes damage)
+        public void TakeDamage(object sender, DamageAttributes damage)
         {
             if (damage.Value <= 0)
                 return;
 
             CurrentHealthPoints.Value -= damage.Value;
+
+            OnTakeDamageEvent?.Invoke(sender, damage);
 
             if (CurrentHealthPoints.Value <= 0 )
             {
@@ -59,6 +63,7 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
         }
         private void OnDeath()
         {
+            _protectiveComponentsHandler.OnDeath();
             _animatorController.DeathAnimation();
         }
 
@@ -70,7 +75,7 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
             CurrentHealthPoints = new Observable<int>((int)_statsHandler.MaxHealthPoints);
 
             _protectiveComponentsHandler.OnTakeHitEvent += _animatorController.TakeHitAnimation;
-            _protectiveComponentsHandler.OnTakeDamageEvent += OnTakeDamage;
+            _protectiveComponentsHandler.OnTakeDamageEvent += TakeDamage;
         }
 
     }

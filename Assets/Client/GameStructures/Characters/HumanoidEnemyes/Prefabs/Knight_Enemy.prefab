@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2499833873020745789}
   - component: {fileID: 7076826128683997652}
   - component: {fileID: 8922949189362254587}
+  - component: {fileID: 6305639768092987550}
   - component: {fileID: 3437854872926067361}
   m_Layer: 0
   m_Name: Knight_Enemy
@@ -113,6 +114,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lastingEffectsHandler:
     _dots: []
+  _takeDamageHandler: {fileID: 6305639768092987550}
+--- !u!114 &6305639768092987550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2499833873020745786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0a2d9af255bf5498c17a02d8fad0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3437854872926067361
 MonoBehaviour:
   m_ObjectHideFlags: 0

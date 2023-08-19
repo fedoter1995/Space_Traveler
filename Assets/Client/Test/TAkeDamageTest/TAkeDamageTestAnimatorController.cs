@@ -1,5 +1,6 @@
 
 using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.Stats;
 using UnityEngine;
 
 public class TAkeDamageTestAnimatorController : AnimatorController
@@ -14,7 +15,7 @@ public class TAkeDamageTestAnimatorController : AnimatorController
         handler.OnTakeHitEvent += OnTakeHit;
     }
 
-    private void OnTakeHit()
+    private void OnTakeHit(HitStats stats)
     {
         SetTrigger(IntHurt);
     }

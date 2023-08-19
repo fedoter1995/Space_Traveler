@@ -1,29 +1,20 @@
-using Assets.Client.GameStructures.Stats.PackedStats;
+﻿using Assets.Client.GameStructures.Stats.PackedStats;
 using SpaceTraveler.GameStructures.Effects;
-using SpaceTraveler.GameStructures.Gear.Weapons;
 using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Stats.Chances;
 using SpaceTraveler.GameStructures.Stats.PackedStats;
-using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SpaceTraveler.GameStructures.Stats
 {
-    [Serializable]
-    public abstract class SpaceCombatStatsHandler : BaseSpaceStatsHandler, IHaveDefenciveStats
+    public abstract class CombatStatsHandler : StatsHandler
     {
-
-        #region Const
-        private const string RATE_OF_FIRE = "Rate_Of_Fire";
-        private const string PROJECTILE_SPEED = "Projectile_Speed";
-        private const string PENETRATIONS_NUMB = "Penetration_Numb";
-        #endregion
-
-        [SerializeField, Header("Resist Stats")]
-        protected List<Resistance> _resistances;
         [SerializeField, Header("Damages Stats")]
         protected List<Damage> _damages = new List<Damage>();
 
@@ -33,6 +24,7 @@ namespace SpaceTraveler.GameStructures.Stats
         protected List<DotChance> _dotChances = new List<DotChance>();
         [SerializeField]
         protected List<DamageOverTime> _dotDamages = new List<DamageOverTime>();
+
 
         [Header("======================================= Lasting Stats =======================================")]
         [SerializeField]
@@ -47,46 +39,7 @@ namespace SpaceTraveler.GameStructures.Stats
         [SerializeField]
         protected List<MultiplierChance> _multiplieChances = new List<MultiplierChance>();
 
-        protected List<ShootPosition> shotPoints;
 
-        public float ProjectileSpeed { get; private set; }
-        public float RateOfFire { get; private set; }
-        public int PenetrationsNumb { get; private set; }
-
-
-        public override event Action OnCalculateValuesEvent;
-        
-        public override void Initialize(object sender)
-        {
-            InitializeStats(_resistances);
-            InitializeStats(_damages);
-            InitializeStats(_multiplieChances);
-            InitializeStats(_multipliers);
-            InitializeStats(_dotChances);
-            InitializeStats(_dotDamages);
-            InitializeStats(_durations);
-
-            base.Initialize(sender);
-
-        }
-        public override void CalculateValues()
-        {
-            CalculateValuesInList(_stats);
-            CalculateValuesInList(_resistances);
-            CalculateValuesInList(_damages);
-
-            CalculateValuesInList(_multiplieChances);
-            CalculateValuesInList(_multipliers);
-
-            CalculateValuesInList(_dotChances);
-            CalculateValuesInList(_dotDamages);
-            CalculateValuesInList(_durations);
-            base.CalculateValues();
-        }
-        public virtual void SetShootPoints(List<ShootPosition> points)
-        {
-            shotPoints = points;
-        }
         public HitStats GetHitStats(AddedModifiers addedModifiers = null)
         {
             var damageAttributes = new List<DamageAttributes>();
@@ -115,54 +68,6 @@ namespace SpaceTraveler.GameStructures.Stats
             return new HitStats(mainObject, hitDamage, dotStats, packedMultStats, 0);
 
         }
-        public ShotStats GetShotStats(Vector3 dirrection)
-        {
-            Debug.Log(ProjectileSpeed);
-            ShotStats shotStats = new ShotStats(dirrection, shotPoints, ProjectileSpeed);
-
-            return shotStats;
-        }
-        public override List<StatModifier> GetAllModifiers()
-        {
-            var modifierList = new List<StatModifier>();
-
-            modifierList.AddRange(CurrentEnvironment.Modifiers);
-
-            var arrangeList = new List<StatModifier>(ArrangeModifiers(modifierList));
-
-            return arrangeList;
-        }
-        public override List<StatModifier> GetAllModifiers(string targetStatName)
-        {
-            var modifierList = new List<StatModifier>();
-            var relevantModifiers = new List<StatModifier>();
-            modifierList.AddRange(CurrentEnvironment.Modifiers);
-            relevantModifiers = modifierList.FindAll(modifier => modifier.HasInfluenceToStat(targetStatName));
-
-            var arrangeList = new List<StatModifier>(ArrangeModifiers(relevantModifiers));
-            return arrangeList;
-        }
-        public override BaseStat GetStat(string statName)
-        {
-            var allStats = new List<BaseStat>(_stats);
-
-            allStats.AddRange(_damages);
-            allStats.AddRange(_resistances);
-            allStats.AddRange(_multiplieChances);
-            allStats.AddRange(_multipliers);
-            allStats.AddRange(_dotChances);
-            allStats.AddRange(_dotDamages);
-            allStats.AddRange(_durations);
-
-            return allStats.Find(stat => stat.Name == statName);
-        }
-        protected override void OnValuesCalculated()
-        {
-            ProjectileSpeed = GetStat(PROJECTILE_SPEED).Value;
-            RateOfFire = GetStat(RATE_OF_FIRE).Value;
-            PenetrationsNumb = (int)GetStat(PENETRATIONS_NUMB).Value;
-            base.OnValuesCalculated();
-        }
         private List<PackedDotStats> PackDotStats()
         {
             var damages = new List<DamageOverTime>(_dotDamages);
@@ -174,7 +79,6 @@ namespace SpaceTraveler.GameStructures.Stats
                 Duration duration;
                 DamageOverTime damage;
                 Frequency frequency;
-
                 try
                 {
                     damage = damages.Find(dmg => dmg.DamageOverTimeRef == chance.ChancePreset.DamageOverTimeRef);
@@ -205,7 +109,7 @@ namespace SpaceTraveler.GameStructures.Stats
 
                 var damageAttributes = new DamageAttributes((int)damage.Value, damage.DamageType);
 
-                dotStats.Add(new PackedDotStats(damageAttributes, chance.Value, (int)frequency.Value, (int)duration.Value));
+                dotStats.Add(new PackedDotStats(damageAttributes, chance.Value, 1, (int)duration.Value));
             }
 
             return dotStats;
@@ -235,16 +139,5 @@ namespace SpaceTraveler.GameStructures.Stats
 
             return packedMultStats;
         }
-        public List<Resistance> GetResistances()
-        {
-            return _resistances;
-        }
-
-        public List<ActionChance> GetDefenciveActionStats()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
-
-

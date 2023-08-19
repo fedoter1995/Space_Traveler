@@ -7,11 +7,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using SpaceTraveler.GameStructures.Stats.Chances;
+using Assets.Client.GameStructures.Stats.PackedStats;
+using SpaceTraveler.GameStructures.Effects;
+using SpaceTraveler.GameStructures.Stats.PackedStats;
 
 namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
 {
     [CreateAssetMenu(menuName = "StatsHandler/MeleHumanoidEnemyStatsHandler")]
-    public class MeleHumanoidEnemyStatsHandler : StatsHandler, IHaveDefenciveStats
+    public class MeleHumanoidEnemyStatsHandler : CombatStatsHandler, IHaveDefenciveStats
     {
         private const string HEALTH_POINTS = "Max_Health_Points";
         private const string MOVE_SPEED = "Max_Movement_Speed";
@@ -20,12 +23,7 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
         protected List<Stat> _stats = new List<Stat>();
         [SerializeField, Header("Resist Stats")]
         protected List<Resistance> _resistances = new List<Resistance>();
-        [SerializeField, Header("Damages Stats")]
-        protected List<Damage> _damages = new List<Damage>();
-        [SerializeField, Header("Chances Stats")]
-        protected List<MultiplierChance> _multiplierChances = new List<MultiplierChance>();
-        [SerializeField, Header("Multipliers Stats")]
-        protected List<Multiplier> _multipliers = new List<Multiplier>();
+
 
 
         public float MaxHealthPoints { get; private set; }
@@ -37,8 +35,12 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
         {
             InitializeStats(_resistances);
             InitializeStats(_damages);
-            InitializeStats(_multiplierChances);
+            InitializeStats(_multiplieChances);
             InitializeStats(_multipliers);
+            InitializeStats(_dotChances);
+            InitializeStats(_dotDamages);
+            InitializeStats(_durations);
+
             InitializeStats(_stats);
             base.Initialize(sender);
         }
@@ -52,64 +54,17 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
             CalculateValuesInList(_stats);
             CalculateValuesInList(_resistances);
             CalculateValuesInList(_damages);
-            CalculateValuesInList(_multiplierChances);
+
+            CalculateValuesInList(_multiplieChances);
             CalculateValuesInList(_multipliers);
+
+            CalculateValuesInList(_dotChances);
+            CalculateValuesInList(_dotDamages);
+            CalculateValuesInList(_durations);
 
             OnValuesCalculated();
         }
 
-        public HitStats GetHitStats()
-        {
-            var chances = new List<Chance>(_multiplierChances);
-            var DamageAttributes = new List<DamageAttributes>();
-            foreach (Damage damage in _damages)
-            {
-                try
-                {
-                    var dmg = new DamageAttributes((int)damage.Value, damage.Type);
-                    DamageAttributes.Add(dmg);
-                }
-                catch
-                {
-                    throw new Exception($"Cant Add {damage} to {DamageAttributes}");
-                }
-            }
-
-            HitDamage hitDamage = new HitDamage(DamageAttributes);
-
-            return new HitStats(mainObject, hitDamage, chances, _multipliers, 0);
-        }
-        public HitStats GetHitStats(AddedModifiers addedModifiers = null)
-        {
-            var DamageTypeValues = new List<DamageAttributes>();
-            var damages = new List<Damage>(_damages);
-            var chances = new List<Chance>(_multiplierChances);
-            var multipliers = new List<Multiplier>(_multipliers);
-
-            if (addedModifiers != null)
-            {
-                
-            }
-
-
-            foreach (Damage damage in damages)
-            {
-                try
-                {
-                    var dmg = new DamageAttributes((int)damage.Value, damage.Type);
-                    DamageTypeValues.Add(dmg);
-                }
-                catch
-                {
-                    throw new Exception($"Cant Add {damage} to {DamageTypeValues}");
-                }
-            }
-
-            HitDamage hitDamage = new HitDamage(DamageTypeValues);
-
-            return new HitStats(mainObject, hitDamage, chances, multipliers, 0);
-
-        }
         public override List<StatModifier> GetAllModifiers()
         {
             var modifierList = new List<StatModifier>();
@@ -135,8 +90,11 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
             var allStats = new List<BaseStat>(_stats);
             allStats.AddRange(_damages);
             allStats.AddRange(_resistances);
-            allStats.AddRange(_multiplierChances);
+            allStats.AddRange(_multiplieChances);
             allStats.AddRange(_multipliers);
+            allStats.AddRange(_dotChances);
+            allStats.AddRange(_dotDamages);
+            allStats.AddRange(_durations);
 
             return allStats.Find(stat => stat.Name == statName);
         }

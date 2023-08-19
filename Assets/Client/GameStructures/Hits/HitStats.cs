@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using SpaceTraveler.GameStructures.Effects;
 using SpaceTraveler.GameStructures.Stats.Chances;
+using SpaceTraveler.GameStructures.Stats.PackedStats;
+using Assets.Client.GameStructures.Stats.PackedStats;
 
 namespace SpaceTraveler.GameStructures.Stats
 {
@@ -11,9 +13,9 @@ namespace SpaceTraveler.GameStructures.Stats
     {
     
         [SerializeField]
-        private List<Chance> _chances;
+        private List<PackedDotStats> _dotStats;
         [SerializeField]
-        private List<Multiplier> _multipliers;
+        private List<PackedMultStats> _packedMultStats;
         [SerializeField]
         private List<Effect> _effects;
         [SerializeField]
@@ -22,42 +24,46 @@ namespace SpaceTraveler.GameStructures.Stats
 
         private int numbOfPenetrations = 0;
 
-        public List<Chance> Chances => _chances;
-        public List<Multiplier> Multipliers => _multipliers;
+        public List<PackedDotStats> DotStats => _dotStats;
+        public List<PackedMultStats> MultStats => _packedMultStats;
         public HitDamage HitDamage => _damage;
         public int PenetrationsNumb => numbOfPenetrations;
 
-        public HitStats(object sender, HitDamage damage, List<Chance> chances, List<Multiplier> multipliers, int numbOfPenetrations)
+        public HitStats(object sender, HitDamage damage, List<PackedDotStats> dotStats, List<PackedMultStats> packedMultStats, int numbOfPenetrations)
         {
 
-            if(chances != null)
-                this._chances = new List<Chance>(chances);
+            if(dotStats != null)
+                this._dotStats = dotStats;
             else
-                this._chances = new List<Chance>();
-            if (multipliers != null)
-                this._multipliers = new List<Multiplier>(multipliers);
+                this._dotStats = new List<PackedDotStats>();
+
+
+            if (packedMultStats != null)
+                this._packedMultStats = new List<PackedMultStats>(packedMultStats);
             else
-                this._multipliers = new List<Multiplier>();
+                this._packedMultStats = new List<PackedMultStats>();
             this._damage = damage;
 
             this.numbOfPenetrations = numbOfPenetrations;
         }
         public HitStats(object sender, HitDamage damage)
         {
-            _chances = new List<Chance>();
-            _multipliers = new List<Multiplier>();
+            _dotStats = new List<PackedDotStats>();
+            _packedMultStats = new List<PackedMultStats>();
             this._damage = damage;
         }
         public HitStats(HitStats stats)
         {
-            if (_chances != null)
-                this._chances = new List<Chance>(stats.Chances);
+            if (_dotStats != null)
+                this._dotStats = new List<PackedDotStats>(stats.DotStats);
             else
-                this._chances = new List<Chance>();
-            if (_multipliers != null)
-                this._multipliers = new List<Multiplier>(stats.Multipliers);
+                this._dotStats = new List<PackedDotStats>();
+
+            if (_packedMultStats != null)
+                this._packedMultStats = new List<PackedMultStats>(stats.MultStats);
             else
-                this._multipliers = new List<Multiplier>();
+                this._packedMultStats = new List<PackedMultStats>();
+            
             _damage = stats.HitDamage;
             numbOfPenetrations = stats.PenetrationsNumb;
         }

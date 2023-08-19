@@ -5,6 +5,9 @@ using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Stats.Chances;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using Unity.VisualScripting;
+using Assets.Client.GameStructures.Stats.PackedStats;
+using SpaceTraveler.GameStructures.Effects;
+using SpaceTraveler.GameStructures.Stats.PackedStats;
 
 namespace SpaceTraveler.GameStructures.Hits
 {
@@ -12,7 +15,7 @@ namespace SpaceTraveler.GameStructures.Hits
     {
 
         public event Action<DamageAttributes> OnTakeDamageEvent;
-        public override event Action OnTakeHitEvent;
+        public override event Action<HitStats> OnTakeHitEvent;
 
         private IHaveDefenciveStats handler;
 
@@ -25,7 +28,7 @@ namespace SpaceTraveler.GameStructures.Hits
         }
 
 
-        public void TakeDamage(HitDamage damage)
+        public void TakeDamage(object sender, HitDamage damage)
         {
 
             HitDamage currentDamage = ApplyResistances(damage);
@@ -34,7 +37,8 @@ namespace SpaceTraveler.GameStructures.Hits
             {
                 if(dmg.Value > 0)
                 {
-                    TakeDamageMessage damageMessage = new TakeDamageMessage(this, dmg);
+
+                    TakeDamageMessage damageMessage = new TakeDamageMessage(sender, gameObject, dmg);
 
                     Debug.Log(damageMessage);
 
@@ -49,7 +53,7 @@ namespace SpaceTraveler.GameStructures.Hits
 
             if (currentDamage.Value > 0)
             {
-                TakeDamageMessage damageMessage = new TakeDamageMessage(this, currentDamage);
+                TakeDamageMessage damageMessage = new TakeDamageMessage(sender, gameObject, currentDamage);
 
                 OnTakeDamageEvent?.Invoke(currentDamage);
 
@@ -57,17 +61,15 @@ namespace SpaceTraveler.GameStructures.Hits
             }
 
         }
-        public override void TakeHit(HitStats hitStats)
+        public override void TakeHit(object sender, HitStats hitStats)
         {
-
-
             var takenDamage = CalculateDamage(hitStats);
 
-            OnTakeHitEvent?.Invoke();
+            OnTakeHitEvent?.Invoke(hitStats);
 
             if(!takenDamage.IsZeroValue())
             {
-                TakeDamage(takenDamage);
+                TakeDamage(sender, takenDamage);
             }
 
         }
@@ -139,25 +141,11 @@ namespace SpaceTraveler.GameStructures.Hits
         }
         private HitDamage CalculateDamage(HitStats stats)
         {
-
-            var multipliers = stats.Multipliers.FindAll(multiplier => multiplier.MultiplierType == MultiplierType.DamageMultiplier);
-            var currentChances = stats.Chances.FindAll(chance => chance.GetType() == typeof(MultiplierChance));
-
-            var multChances = new List<MultiplierChance>();
-
-            foreach ( var chance in currentChances)
-            {
-                var multChance = chance as MultiplierChance;
-
-                multChances.Add(multChance);
-            }
-
-
-            var resultDamage = CalculateCritDamage(stats.HitDamage, multipliers, multChances);
+            var resultDamage = CalculateCritDamage(stats.HitDamage, stats.MultStats);
 
             return resultDamage;
         }
-        private HitDamage CalculateCritDamage(HitDamage damage, List<Multiplier> multipliers, List<MultiplierChance> chances)
+        private HitDamage CalculateCritDamage(HitDamage damage, List<PackedMultStats> multStats)
         {
             var resultDamage = new List<DamageAttributes>();
 
@@ -166,16 +154,20 @@ namespace SpaceTraveler.GameStructures.Hits
                 var randomValue = UnityEngine.Random.Range(0, 100.1f);
 
 
-                var multiplier = multipliers.Find(item => item.DamageType == dmg.Type);
-                var chance = chances.Find(item => item.MultiplierRef == multiplier.Preset);
+                var stats = multStats.Find(stat => stat.DamageType == dmg.Type);
+
                 float mult = 1f;
                 float ch = 0f;
 
-                if (multiplier != null)
-                    mult = multiplier.Value;
+                if (stats != null)
+                {
+                    var multiplier = stats.Multiplier;
+                    var chance = stats.Chance;
 
-                if (chance != null)
-                    ch = chance.Value;
+                    mult = multiplier;
+                    ch = chance;
+                }
+
 
                 if (ch >= randomValue)
                 {

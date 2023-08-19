@@ -1,4 +1,5 @@
 ﻿using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats.PackedStats;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,15 +13,18 @@ namespace SpaceTraveler.GameStructures.Effects
         [SerializeField]
         private DotEffectStats stats;
 
+        private object sender;
+
         public event Action<TriggeredDotStats> OnDotTriggeredEvent;
-        public DOTEffect(DotEffectStats stats)
+        public DOTEffect(object sender, DotEffectStats stats)
         {
             this.stats = stats;
+            this.sender = sender;
         }
 
         private async void EffectDurationAsync()
         {
-            while (isPermanent || duration > 0)
+            while (_isPermanent || duration > 0)
             {
                 if (cancellationToken.IsCancellationRequested)
                     return;
@@ -31,16 +35,15 @@ namespace SpaceTraveler.GameStructures.Effects
             }
         }
         public override void OnEffectAplly()
-        {         
-            OnDotTriggeredEvent?.Invoke(new TriggeredDotStats(stats.Sender, stats.Damage));
+        {
+            OnDotTriggeredEvent?.Invoke(new TriggeredDotStats(sender, stats.Damage));
         }
         public override void Initialize(CancellationToken token)
         {
             base.Initialize(token);
             duration = stats.Duration;
-            isPermanent = stats.IsPermanent;
 
-            if(!isPermanent)
+            if(!_isPermanent)
             {
                 DurationDecreaseAsync();
             }
@@ -49,30 +52,25 @@ namespace SpaceTraveler.GameStructures.Effects
         }
     }
     [Serializable]
-    public struct DotEffectStats
+    public class DotEffectStats
     {
         [SerializeField]
         private DamageAttributes _damage;
         [SerializeField]
         DurationParameters _durationParameters;
-        [SerializeField]
-        private int _frequency;
 
 
-        private object sender;
 
-
-        public bool IsPermanent => _durationParameters.IsPermanent;
         public int Duration => _durationParameters.Duration;
-        public int Frequency => _frequency;
+        public int Frequency => _durationParameters.Frequency;
+        public bool IsPermanent => _durationParameters.IsPermanent;
         public DamageAttributes Damage => _damage;
-        public object Sender => sender;
-        public DotEffectStats(DurationParameters durationParameters, int frequency, DamageAttributes damage, object sender)
+
+
+        public DotEffectStats(DurationParameters durationParameters, DamageAttributes damage)
         {         
             _durationParameters = durationParameters;
             _damage = damage;
-            _frequency = frequency;
-            this.sender = sender;
         }
     }
     public class TriggeredDotStats : TriggeredEffectStats

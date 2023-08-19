@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2102595431108995877}
   - component: {fileID: 2102595431108995876}
   - component: {fileID: 4480202684551250519}
+  - component: {fileID: 9041264895663388149}
   - component: {fileID: 2102595431108995879}
   - component: {fileID: 4383192490898044481}
   - component: {fileID: 2102595431108995872}
@@ -75,6 +76,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lastingEffectsHandler:
     _dots: []
+  _takeDamageHandler: {fileID: 9041264895663388149}
+--- !u!114 &9041264895663388149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102595431108995874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0a2d9af255bf5498c17a02d8fad0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2102595431108995879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,20 +117,24 @@ MonoBehaviour:
   _comboElements:
   - _animationId: 0
     _addedModifiers:
-      _addedDamages: []
-      _addedMultipliers: []
+      _damages: []
+      _multipliers: []
+      _multChances: []
   - _animationId: 1
     _addedModifiers:
-      _addedDamages: []
-      _addedMultipliers: []
+      _damages: []
+      _multipliers: []
+      _multChances: []
   - _animationId: 2
     _addedModifiers:
-      _addedDamages: []
-      _addedMultipliers: []
+      _damages: []
+      _multipliers: []
+      _multChances: []
   - _animationId: 3
     _addedModifiers:
-      _addedDamages: []
-      _addedMultipliers: []
+      _damages: []
+      _multipliers: []
+      _multChances: []
   _attackZones:
   - {fileID: 1933417179314866750}
   - {fileID: 6361105087584922543}

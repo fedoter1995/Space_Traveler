@@ -10,17 +10,14 @@ namespace SpaceTraveler.GameStructures.Effects
     public abstract class LastingEffect : Effect
     {
         [SerializeField]
-        private StatPreset _durationStatRef;
+        protected bool _isPermanent = false;
 
 
         protected int duration = 0;
-        protected bool isPermanent = false;
         protected CancellationToken cancellationToken;
 
-        public StatPreset DurationStatRef => _durationStatRef;
-
         public event Action<int> EverySecondsEvent;
-        public event Action OnEffectEndEvent;
+        public event Action<LastingEffect> OnEffectEndEvent;
         protected async void DurationDecreaseAsync()
         {
             while (duration > 0)
@@ -37,7 +34,7 @@ namespace SpaceTraveler.GameStructures.Effects
         }
         public void EndEffect()
         {
-            OnEffectEndEvent?.Invoke();
+            OnEffectEndEvent?.Invoke(this);
         }
 
         public virtual void Initialize(CancellationToken token)
@@ -46,20 +43,22 @@ namespace SpaceTraveler.GameStructures.Effects
         }      
     }
     [Serializable]
-    public struct DurationParameters
+    public class DurationParameters
     {
         [SerializeField]
-        private bool isPermanent;
+        private bool _isPermanent = false;
         [SerializeField]
-        private int duration;
+        private int _duration;
+        [SerializeField]
+        private int _frequency;
 
-        public bool IsPermanent => isPermanent;
-        public int Duration => duration;
-
-        public DurationParameters(int duration, bool isPermanent = false)
+        public int Duration => _duration;
+        public int Frequency => _frequency;
+        public bool IsPermanent => _isPermanent;
+        public DurationParameters(int duration, int frequency)
         {
-            this.isPermanent = isPermanent;
-            this.duration = duration;
+            _duration = duration;
+            _frequency = frequency;
         }
     }
 }

@@ -11,17 +11,19 @@ namespace SpaceTraveler.GameStructures.Hits
     public struct TakeDamageMessage
     {
         private object sender;
+        private object recipient;
         private DamageAttributes dmg;
 
-        public TakeDamageMessage(object sender, DamageAttributes dmg)
+        public TakeDamageMessage(object sender, object recipient, DamageAttributes dmg)
         {
             this.sender = sender;
+            this.recipient = recipient;
             this.dmg = dmg;
         }
 
         public override string ToString()
         {
-            return $"{sender} take {dmg.Value} {dmg.Type} damage";
+            return $"{recipient} take {dmg.Value} {dmg.Type} damage from {sender}";
         }
     }
 }

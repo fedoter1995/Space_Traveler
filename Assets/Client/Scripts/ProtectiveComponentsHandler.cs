@@ -1,7 +1,9 @@
 ﻿using SpaceTraveler.GameStructures.Effects;
 using SpaceTraveler.GameStructures.Hits;
 using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.GameStructures.Stats.PackedStats;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SpaceTraveler.Scripts
@@ -10,10 +12,11 @@ namespace SpaceTraveler.Scripts
     {
 
         [SerializeField]
-        private LastingEffectsHandler _lastingEffectsHandler;
-       
-        private TakeDamageHandler takeDamageHandler;
+        private LastingEffectsHandler _lastingEffectsHandler = new LastingEffectsHandler();
+        [SerializeField]
+        private TakeDamageHandler _takeDamageHandler;
 
+        private bool isEnamled = false;
         private object sender = null;
 
         #region Events
@@ -26,32 +29,63 @@ namespace SpaceTraveler.Scripts
         {
             this.handler = handler;
 
-            takeDamageHandler = new TakeDamageHandler();
-            takeDamageHandler.Initialize(handler);
+            _takeDamageHandler.Initialize(handler);
 
             _lastingEffectsHandler.Initialize();
 
-            takeDamageHandler.OnTakeDamageEvent += OnTakeDamage;
-            takeDamageHandler.OnTakeHitEvent += OnTakeHitEvent;
-            _lastingEffectsHandler.OnDotTriggeredEvent += takeDamageHandler.TakeDamage;
+            _takeDamageHandler.OnTakeDamageEvent += OnTakeDamage;
+            _takeDamageHandler.OnTakeHitEvent += OnTakeHit;
+            _lastingEffectsHandler.OnDotTriggeredEvent += _takeDamageHandler.TakeDamage;
+
+            isEnamled = true;
         }
         public void TakeHit(object sender, HitStats hitStats)
         {
-            this.sender = sender;
-            OnTakeHitEvent?.Invoke();
-            takeDamageHandler.TakeHit(hitStats);
-            sender = null;
+            if(isEnamled)
+            {
+                this.sender = sender;
+                OnTakeHitEvent?.Invoke();
+                _takeDamageHandler.TakeHit(sender, hitStats);
+                this.sender = null;
+            }
         }
         public void ApplyLastingEffect(LastingEffect lastingEffect)
         {
 
         }
-
+        public void OnDeath()
+        {
+            isEnamled = false;
+            _lastingEffectsHandler.OnDeath();
+        }
         private void OnTakeDamage(DamageAttributes damageStats)
         {
-            Debug.Log("take damage");
             OnTakeDamageEvent?.Invoke(sender, damageStats);
         }
+        private void OnTakeHit(HitStats hitStats)
+        {
+            CalculateDotEffects(hitStats.DotStats);
+
+            OnTakeHitEvent?.Invoke();
+        }
+        private void CalculateDotEffects(List<PackedDotStats> dotStatsList)
+        {
+            foreach(var dotStats in dotStatsList)
+            {
+                var randomValue = UnityEngine.Random.Range(0, 100.1f);
+
+                if (randomValue <= dotStats.Chance)
+                {
+                    var durationParameters = new DurationParameters(dotStats.Duration, dotStats.Frequency);
+
+                    var dotEffectStats = new DotEffectStats(durationParameters, dotStats.Damage);
+                    Debug.Log("add");
+                    DOTEffect dot = new DOTEffect(sender, dotEffectStats);
+                    _lastingEffectsHandler.AddDotEffect(dot);
+                }
+            }
+        }
+
 
     }
 }

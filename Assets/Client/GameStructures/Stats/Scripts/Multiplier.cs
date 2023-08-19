@@ -10,7 +10,6 @@ namespace SpaceTraveler.GameStructures.Stats
         private MultiplierPreset _multiplierPreset;
          
         public MultiplierPreset Preset => _multiplierPreset;
-        public MultiplierType MultiplierType => _multiplierPreset.MultiplierType;
         public DamageType DamageType => _multiplierPreset.DamageType;
 
         public override void Initialize()
@@ -23,9 +22,5 @@ namespace SpaceTraveler.GameStructures.Stats
                 _multiplierPreset = statPreset as MultiplierPreset;
         }
     }
-    public enum MultiplierType
-    {
-        DamageMultiplier,
-        DotMultiplier,
-    }
+
 }

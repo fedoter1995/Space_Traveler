@@ -9,6 +9,5 @@ namespace SpaceTraveler.GameStructures.Stats.Chances
 {
     public abstract class Chance : BaseStat
     {
-        public abstract void GetSuitableStats(StatsHandler handler);
     }
 }

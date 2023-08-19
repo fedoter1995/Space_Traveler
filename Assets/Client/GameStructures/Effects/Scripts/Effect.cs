@@ -8,10 +8,6 @@ namespace SpaceTraveler.GameStructures.Effects
     [Serializable]
     public abstract class Effect 
     {
-        [SerializeField]
-        private EffectChancePreset _effectChanceRef;
-
-        public EffectChancePreset ChanceRef => _effectChanceRef;
         public abstract void OnEffectAplly();
     }
     public abstract class TriggeredEffectStats

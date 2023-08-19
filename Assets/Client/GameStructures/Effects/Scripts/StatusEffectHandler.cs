@@ -37,23 +37,34 @@ namespace SpaceTraveler.GameStructures.Effects
                 dot.Initialize(cancellationToken);
             }
         }
-        public void AddNewStatusEffect(LastingEffect effect)
+        public void OnDeath()
         {
-            var effectTypeName = effect.GetType().Name;
-            Debug.Log(effectTypeName);
-            switch (effectTypeName)
+            cts.Cancel();
+        }
+        public void AddDotEffect(DOTEffect effect)
+        {
+            effect.Initialize(cancellationToken);
+            effect.OnDotTriggeredEvent += OnDotEffectTriggered;
+            effect.OnEffectEndEvent += OnEffectEnd;
+            _dots.Add(effect);
+        }
+        private void OnEffectEnd(LastingEffect effect)
+        {
+            effect.OnEffectEndEvent -= OnEffectEnd;
+
+            var dot = effect as DOTEffect;
+
+            if (dot != null)
             {
-                case DOT:
-                    {
-                        var dot = effect as DOTEffect;
-                        dot.Initialize(cancellationToken);
-                        _dots.Add(dot);
-                        break;
-                    }
+                dot.OnDotTriggeredEvent -= OnDotEffectTriggered;
+                _dots.Remove(dot);
             }
+
+
         }
         private void OnDotEffectTriggered(TriggeredDotStats dotStats)
         {
+
             OnDotTriggeredEvent?.Invoke(dotStats.Sender, dotStats.Damage);
         }
         private void ModeChanged(PlayModeStateChange playModeState)

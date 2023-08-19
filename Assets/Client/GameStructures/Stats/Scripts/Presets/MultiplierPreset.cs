@@ -3,13 +3,10 @@
 namespace SpaceTraveler.GameStructures.Stats.Presets
 {
     [CreateAssetMenu(menuName = "Stats/New_Multiplier_Preset")]
-    public class MultiplierPreset : EffectStatPreset
+    public class MultiplierPreset : StatPreset
     {
         [SerializeField]
-        private MultiplierType _multiplierType = MultiplierType.DamageMultiplier;
-        [SerializeField]
         private DamageType _damageType = DamageType.Physical;
-        public MultiplierType MultiplierType => _multiplierType;
         public DamageType DamageType => _damageType;
     }
 }

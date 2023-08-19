@@ -4,7 +4,7 @@ using SpaceTraveler.GameStructures.Stats;
 
 namespace SpaceTraveler.GameStructures.Enemys
 {
-    public interface IEnemy : IHaveHealthPoints, ITakeHit
+    public interface IEnemy : IHaveHealthPoints, ITakeDamage
     {
 
     }

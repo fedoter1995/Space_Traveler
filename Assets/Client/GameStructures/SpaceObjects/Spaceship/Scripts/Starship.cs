@@ -12,6 +12,7 @@ using SpaceTraveler.GameStructures.Gear;
 using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Items;
 using SpaceTraveler.GameStructures.Zones;
+using SpaceTraveler.Scripts;
 
 namespace SpaceTraveler.GameStructures.Spaceship
 {
@@ -27,7 +28,7 @@ namespace SpaceTraveler.GameStructures.Spaceship
         [SerializeField]
         private StarshipStatsHandler _stats;
         [SerializeField]
-        private TakeDamageHandler _takeDamageHandler;
+        private ProtectiveComponentsHandler _protectiveComponentsHandler;
         [SerializeField]
         private WorkshopSettings _workshopSettings;
         
@@ -40,7 +41,7 @@ namespace SpaceTraveler.GameStructures.Spaceship
     
         #region Events
         public event Action ShootEvent;
-        public event Action<HitStats> OnTakeHitEvent;
+        public event Action OnTakeHitEvent;
         public event Action<object,DamageAttributes> OnTakeDamageEvent;
         #endregion
 
@@ -54,8 +55,7 @@ namespace SpaceTraveler.GameStructures.Spaceship
         public Vector3 Position => transform.position;
         public TriggerObjectType Type => TriggerObjectType.Player;
 
-        public TakeHitHandler TakeHitHandler => _takeDamageHandler;
-        public TakeDamageHandler TakeDamageHandler => _takeDamageHandler;
+
 
         public void Initialize()
         {
@@ -68,15 +68,15 @@ namespace SpaceTraveler.GameStructures.Spaceship
             shootController.Initialize(manager, this);
             shipController.Initialize(manager, this);
 
-            _takeDamageHandler.Initialize(StatsHandler);
+            _protectiveComponentsHandler.Initialize(StatsHandler);
 
-            _takeDamageHandler.OnTakeDamageEvent += TakeDamage;
+            _protectiveComponentsHandler.OnTakeDamageEvent += TakeDamage;
 
             HealthPoints = new Observable<int>((int)_stats.HealthPoints);
         }
-        public void TakeDamage(DamageAttributes damage)
+        public void TakeDamage(object sender, DamageAttributes damage)
         {
-            TakeDamageMessage damageMessage = new TakeDamageMessage(this, damage);
+            TakeDamageMessage damageMessage = new TakeDamageMessage(sender, gameObject, damage);
 
             HealthPoints.Value -= damage.Value;
             OnTakeDamageEvent?.Invoke(this, damage);
@@ -139,6 +139,10 @@ namespace SpaceTraveler.GameStructures.Spaceship
 
         }
 
+        public void TakeHit(object sender, HitStats hitStats)
+        {
+            _protectiveComponentsHandler.TakeHit(sender, hitStats);
+        }
     }
 }
 
