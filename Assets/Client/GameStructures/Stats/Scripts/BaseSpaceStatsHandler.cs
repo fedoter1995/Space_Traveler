@@ -1,4 +1,5 @@
 ﻿using Architecture;
+using SpaceTraveler.GameStructures.Hits;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,7 +43,7 @@ namespace SpaceTraveler.GameStructures.Stats
             InitializeStats(_stats);
             base.Initialize(sender);
         }
-        public override void CalculateValues()
+        public override void CalculateValues(AddedModifiers addedModifiers = null)
         {
             if (_environment == null)
             {

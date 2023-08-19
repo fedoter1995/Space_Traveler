@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SpaceTraveler.GameStructures.Hits;
 using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Stats.Chances;
 using SpaceTraveler.GameStructures.Stats.StatModifiers;
@@ -32,7 +33,7 @@ namespace SpaceTraveler.GameStructures.Meteors
             InitializeStats(_damages);
             base.Initialize(sender);
         }
-        public override void CalculateValues()
+        public override void CalculateValues(AddedModifiers addedModifiers = null)
         {
             CalculateValuesInList(_stats);
             CalculateValuesInList(_resistances);
@@ -59,7 +60,7 @@ namespace SpaceTraveler.GameStructures.Meteors
 
             return shotDamage;
         }
-        public override List<StatModifier> GetAllModifiers(string targetStatName)
+        public override List<StatModifier> GetAllModifiers(string targetStatName, AddedModifiers addedModifiers = null)
         {
             var modifierList = new List<StatModifier>();
             var relevantModifiers = new List<StatModifier>();

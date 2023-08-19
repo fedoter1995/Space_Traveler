@@ -1,3 +1,4 @@
+using SpaceTraveler.GameStructures.Hits;
 using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace SpaceTraveler.GameStructures.Stats
             _environment = environment;
             CalculateValues();
         }  
-        public abstract void CalculateValues();
+        public abstract void CalculateValues(AddedModifiers addedModifiers = null);
         public abstract BaseStat GetStat(string statName);
         public virtual void Initialize(object sender)
         {
@@ -45,11 +46,15 @@ namespace SpaceTraveler.GameStructures.Stats
 
             return arrangeList;
         }
-        public virtual List<StatModifier> GetAllModifiers(string targetStatId)
+        public virtual List<StatModifier> GetAllModifiers(string targetStatId, AddedModifiers addedModifiers = null)
         {
             var modifierList = new List<StatModifier>();
             var relevantModifiers = new List<StatModifier>();
+
             modifierList.AddRange(CurrentEnvironment.Modifiers);
+
+            if (addedModifiers != null)
+                modifierList.AddRange(addedModifiers.Modifiers);
 
             relevantModifiers = modifierList.FindAll(modifier => modifier.HasInfluenceToStat(targetStatId));
 
@@ -104,16 +109,17 @@ namespace SpaceTraveler.GameStructures.Stats
                 }
             }
         }
-        protected void CalculateValuesInList<T>(List<T> stats) where T : BaseStat
+        protected List<T> CalculateValuesInList<T>(List<T> stats, AddedModifiers addedmodifiers = null) where T : BaseStat
         {
             if(stats != null)
             { 
                 for (int i = 0; i < stats.Count; i++)
                 {
-                    stats[i].CalculateValue(GetAllModifiers(stats[i].Id));
+                    stats[i].CalculateValue(GetAllModifiers(stats[i].Id, addedmodifiers));
                 }
             }
-
+            var newStats = new List<T>(stats);
+            return newStats;
         }
         protected T FindStatInList<T>(List<T> stats, string name) where T : BaseStat
         {

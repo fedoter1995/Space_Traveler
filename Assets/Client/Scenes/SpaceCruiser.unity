@@ -4538,6 +4538,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4383192490898044481, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: _comboElements.Array.data[1]._addedModifiers._modifiers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383192490898044481, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: _comboElements.Array.data[2]._addedModifiers._modifiers.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383192490898044481, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: _comboElements.Array.data[1]._addedModifiers._modifiers.Array.data[0]._value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383192490898044481, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: _comboElements.Array.data[1]._addedModifiers._modifiers.Array.data[0]._preset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ec912f2f070a094bb2600bdaf85d517, type: 2}
+    - target: {fileID: 4383192490898044481, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: _comboElements.Array.data[1]._addedModifiers._modifiers.Array.data[0]._affects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383192490898044481, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: _comboElements.Array.data[1]._addedModifiers._modifiers.Array.data[0]._affects.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
 --- !u!1001 &6618373880382356651

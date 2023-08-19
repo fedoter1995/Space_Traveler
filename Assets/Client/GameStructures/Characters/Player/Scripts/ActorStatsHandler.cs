@@ -52,22 +52,22 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
             base.Initialize(mainObject);
         }
-        public override void CalculateValues()
+        public override void CalculateValues(AddedModifiers addedModifiers = null)
         {
             if (_environment == null)
             {
                 _environment = Game.DefaultEnvironment;
             }
-            CalculateValuesInList(_stats);
-            CalculateValuesInList(_resistances);
-            CalculateValuesInList(_damages);
+            CalculateValuesInList(_stats, addedModifiers);
+            CalculateValuesInList(_resistances, addedModifiers);
+            CalculateValuesInList(_damages, addedModifiers);
 
-            CalculateValuesInList(_multiplieChances);
-            CalculateValuesInList(_multipliers);
+            CalculateValuesInList(_multiplieChances, addedModifiers);
+            CalculateValuesInList(_multipliers, addedModifiers);
 
-            CalculateValuesInList(_dotChances);
-            CalculateValuesInList(_dotDamages);
-            CalculateValuesInList(_durations);
+            CalculateValuesInList(_dotChances, addedModifiers);
+            CalculateValuesInList(_dotDamages, addedModifiers);
+            CalculateValuesInList(_durations, addedModifiers);
 
             OnValuesCalculated();
         }
@@ -106,14 +106,18 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             return arrangeList;
         }
 
-        public override List<StatModifier> GetAllModifiers(string targetStatName)
+        public override List<StatModifier> GetAllModifiers(string targetStatId, AddedModifiers addedModifiers = null)
         {
             var modifierList = new List<StatModifier>();
             var relevantModifiers = new List<StatModifier>();
 
 
             modifierList.AddRange(CurrentEnvironment.Modifiers);
-            relevantModifiers = modifierList.FindAll(modifier => modifier.HasInfluenceToStat(targetStatName));
+
+            if(addedModifiers != null)
+                modifierList.AddRange(addedModifiers.Modifiers);
+
+            relevantModifiers = modifierList.FindAll(modifier => modifier.HasInfluenceToStat(targetStatId));
 
             var arrangeList = new List<StatModifier>(ArrangeModifiers(relevantModifiers));
             return arrangeList;

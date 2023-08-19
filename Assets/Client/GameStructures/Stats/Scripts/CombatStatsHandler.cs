@@ -4,6 +4,7 @@ using SpaceTraveler.GameStructures.Hits;
 using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Stats.Chances;
 using SpaceTraveler.GameStructures.Stats.PackedStats;
+using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,9 +43,15 @@ namespace SpaceTraveler.GameStructures.Stats
 
         public HitStats GetHitStats(AddedModifiers addedModifiers = null)
         {
+            
+            if(addedModifiers != null)
+            {
+                CalculateValues(addedModifiers);
+            }
+
+
             var damageAttributes = new List<DamageAttributes>();
             var damages = new List<Damage>(_damages);
-
 
             var packedMultStats = PackMultStats();
             var dotStats = PackDotStats();
@@ -65,7 +72,11 @@ namespace SpaceTraveler.GameStructures.Stats
 
             HitDamage hitDamage = new HitDamage(damageAttributes);
 
-            return new HitStats(mainObject, hitDamage, dotStats, packedMultStats, 0);
+            var hitStats = new HitStats(mainObject, hitDamage, dotStats, packedMultStats, 0);
+
+            CalculateValues();
+
+            return hitStats;
 
         }
         private List<PackedDotStats> PackDotStats()
