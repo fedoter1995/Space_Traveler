@@ -1,5 +1,3 @@
-using GameStructures.Hits;
-using GameStructures.Zones;
 using SpaceTraveler.GameStructures.Hits;
 using SpaceTraveler.GameStructures.Zones;
 using System.Collections.Generic;
@@ -22,7 +20,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             this.actor = actor; 
             this.statsHandler = statsHandler;
         }
-        public void OnAttackTrigger(int attackId)
+        public void OnEndAttackTrigger(int attackId)
         {
             var comboElement = _comboElements.Find(element => element.AnimationId == attackId);
             var currentZone = _attackZones.Find(zone => zone.AttacksId.Contains(attackId));
@@ -30,6 +28,12 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             {
                 DealHit(currentZone, comboElement);
             }
+        }
+        public AudioClip GetAudioClip(int attackId)
+        {
+            var comboElement = _comboElements.Find(element => element.AnimationId == attackId);
+
+            return comboElement.SlashAudio;
         }
 
         private void DealHit(AttackTriggerZone zone, ComboElement comboElement)

@@ -7,12 +7,16 @@ using UnityEngine;
 
 namespace SpaceTraveler.GameStructures.Characters.Player
 {
-    [RequireComponent(typeof(CharactersAudioController),typeof(AttackAnimationTriggerHandler))]
     public class ActorAnimatorController : AnimatorController
     {
+        [SerializeField]
+        private CharactersAudioController _characterAudioController;
+        [SerializeField]
+        private CharacterAnimationEventsHandler _triggerHandler;
+        
+        private ActorController controller;
 
-        private AttackAnimationTriggerHandler triggerHandler;
-        private CharactersAudioController characterAudioController;
+
         #region Hash Animator Var
         private int IntStance = Animator.StringToHash("Stance");
         private int IntJump = Animator.StringToHash("Jump");
@@ -28,8 +32,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         public event Action<int> AttackTriggerEvent;
         public void Initialize(ActorController controller)
         {
-            triggerHandler = GetComponent<AttackAnimationTriggerHandler>();
-            characterAudioController = GetComponent<CharactersAudioController>();
+            this.controller = controller;
 
             controller.GroundTypeChangeEvent += GroundTypeChange;
             controller.OnGroundStateChangeEvent += ChangeOnGroundState;
@@ -40,21 +43,21 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             controller.Attack2Event += OnAttack2;
             controller.BlockStateChangeEvent += BlockStateChange;
             controller.OnMoveStateChangeEvent += WalkAnimation;
-            triggerHandler.OnAttackTriggerEvent += controller.OnAttackTriggered;
+            _triggerHandler.EndAttackTriggerEvent += controller.OnEndAttackTriggered;
+            _triggerHandler.BeginAttackTriggerEvent += SlashSound;
+            _triggerHandler.StepEvent += _characterAudioController.OnStep;
         }
-
-        private void GroundTypeChange(GroundSettings settings)
-        {
-            characterAudioController.ChangeGroundSettings(settings.AudioSettings);
-        }
-
         public void TakeDamageAnimation(DamageAttributes stats)
         {
             SetTrigger(IntHurt);
         }
+        private void GroundTypeChange(GroundSettings settings)
+        {
+            _characterAudioController.ChangeGroundSettings(settings.AudioSettings);
+        }
         private void TriggerLandingAnimation()
         {
-            characterAudioController.OnLanding();
+            _characterAudioController.OnLanding();
             SetTrigger(IntLanding);
         }
         private void WalkAnimation(bool isMove)
@@ -96,6 +99,9 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         {
             SetTrigger(IntAttack2);
         }
-
+        private void SlashSound(int slashId)
+        {
+            _characterAudioController.SlashAudio(controller.GetSlashAudioClip(slashId));
+        }
     }
 }

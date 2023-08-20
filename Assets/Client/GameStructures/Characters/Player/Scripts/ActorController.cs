@@ -105,9 +105,13 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             isInitialize = true;
 
         }
-        public void OnAttackTriggered(int attackId)
+        public void OnEndAttackTriggered(int attackId)
         {
-            combatController.OnAttackTrigger(attackId);
+            combatController.OnEndAttackTrigger(attackId);
+        }
+        public AudioClip GetSlashAudioClip(int attackId)
+        {
+            return combatController.GetAudioClip(attackId);
         }
         private void ActorMovement()
         {

@@ -12,10 +12,12 @@ namespace SpaceTraveler.GameStructures.Characters
     [Serializable]
     public class CharactersAudioController : MonoBehaviour
     {
+
         [SerializeField] 
         private AudioSource _footStepsAudioSource;
+        [SerializeField]
+        private AudioSource _slashAudioSource;
 
-        
         private GroundAudioSettings groundSettings;
 
         private Queue<AudioClip> stepClips;
@@ -25,7 +27,6 @@ namespace SpaceTraveler.GameStructures.Characters
             this.groundSettings = groundSettings;
             stepClips = new Queue<AudioClip>(groundSettings.FootStepsClips);
         }
-
         public void OnStep()
         {
             var clip = stepClips.Dequeue();
@@ -38,9 +39,13 @@ namespace SpaceTraveler.GameStructures.Characters
         }
         public void OnLanding()
         {
-            Debug.Log(groundSettings.LandingSound);
             _footStepsAudioSource.clip = groundSettings.LandingSound;
             _footStepsAudioSource.Play();
+        }
+        public void SlashAudio(AudioClip clip)
+        {
+            _slashAudioSource.clip = clip;
+            _slashAudioSource.Play();
         }
 
     }

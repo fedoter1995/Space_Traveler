@@ -32,7 +32,8 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
         [SerializeField]
         private WorkshopSettings _workshopSettings;
-
+        [SerializeField]
+        private List<ComboElement> _comboElements = new List<ComboElement>();
 
 
         private ActorController actorController;

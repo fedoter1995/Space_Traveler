@@ -9,10 +9,13 @@ namespace SpaceTraveler.GameStructures.Hits
         [SerializeField]
         private int _animationId;
         [SerializeField]
+        private AudioClip _slashAudio;
+        [SerializeField]
         private AddedModifiers _addedModifiers;
 
-
+        
         public int AnimationId => _animationId;
         public AddedModifiers AddedModifiers => _addedModifiers;
+        public AudioClip SlashAudio => _slashAudio;
     }
 }
