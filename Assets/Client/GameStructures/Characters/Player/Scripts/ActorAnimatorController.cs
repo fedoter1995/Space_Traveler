@@ -1,14 +1,18 @@
-﻿using SpaceTraveler.GameStructures.Stats;
+﻿using SpaceTraveler.GameStructures.Characters;
+using SpaceTraveler.Audio;
+using SpaceTraveler.GameStructures.Stats;
+using SpaceTraveler.Scripts;
 using System;
 using UnityEngine;
 
 namespace SpaceTraveler.GameStructures.Characters.Player
 {
-    [RequireComponent(typeof(AttackAnimationTriggerHandler))]
+    [RequireComponent(typeof(CharactersAudioController),typeof(AttackAnimationTriggerHandler))]
     public class ActorAnimatorController : AnimatorController
-    {   
-        private AttackAnimationTriggerHandler triggerHandler;
+    {
 
+        private AttackAnimationTriggerHandler triggerHandler;
+        private CharactersAudioController characterAudioController;
         #region Hash Animator Var
         private int IntStance = Animator.StringToHash("Stance");
         private int IntJump = Animator.StringToHash("Jump");
@@ -25,25 +29,32 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         public void Initialize(ActorController controller)
         {
             triggerHandler = GetComponent<AttackAnimationTriggerHandler>();
+            characterAudioController = GetComponent<CharactersAudioController>();
 
-
-
+            controller.GroundTypeChangeEvent += GroundTypeChange;
             controller.OnGroundStateChangeEvent += ChangeOnGroundState;
-            controller.OnJumpEvent += Jump;
-            controller.OnLandingEvent += TriggerLandingAnimation;
-            controller.OnChangeStanceEvent += ChangeStance;
-            controller.OnAttack1Event += OnAttack1;
-            controller.OnAttack2Event += OnAttack2;
-            controller.OnBlockStateChangeEvent += BlockStateChange;
+            controller.JumpEvent += Jump;
+            controller.LandingEvent += TriggerLandingAnimation;
+            controller.ChangeStanceEvent += ChangeStance;
+            controller.Attack1Event += OnAttack1;
+            controller.Attack2Event += OnAttack2;
+            controller.BlockStateChangeEvent += BlockStateChange;
             controller.OnMoveStateChangeEvent += WalkAnimation;
             triggerHandler.OnAttackTriggerEvent += controller.OnAttackTriggered;
         }
+
+        private void GroundTypeChange(GroundSettings settings)
+        {
+            characterAudioController.ChangeGroundSettings(settings.AudioSettings);
+        }
+
         public void TakeDamageAnimation(DamageAttributes stats)
         {
             SetTrigger(IntHurt);
         }
         private void TriggerLandingAnimation()
-        {        
+        {
+            characterAudioController.OnLanding();
             SetTrigger(IntLanding);
         }
         private void WalkAnimation(bool isMove)

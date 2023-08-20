@@ -545,6 +545,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1216326928}
+  - {fileID: 1092999087}
   - {fileID: 1421037128}
   - {fileID: 1713349433}
   m_Father: {fileID: 0}
@@ -592,11 +593,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 84544598197863842, guid: 7a6bd7c1e8e71e8429ac7b107e8637f4, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1207660797376449240, guid: 7a6bd7c1e8e71e8429ac7b107e8637f4, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2885669998042858612, guid: 7a6bd7c1e8e71e8429ac7b107e8637f4, type: 3}
       propertyPath: _moveSpeed
@@ -676,7 +677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9212105316464993197, guid: 7a6bd7c1e8e71e8429ac7b107e8637f4, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a6bd7c1e8e71e8429ac7b107e8637f4, type: 3}
@@ -870,7 +871,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.8
+  m_fontSize: 16
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -936,6 +937,126 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8718882892955766874, guid: 7a6bd7c1e8e71e8429ac7b107e8637f4, type: 3}
   m_PrefabInstance: {fileID: 686193576}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1092999086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1092999087}
+  - component: {fileID: 1092999089}
+  - component: {fileID: 1092999088}
+  m_Layer: 0
+  m_Name: Wood_Ground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1092999087
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092999086}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 468110512}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!483693784 &1092999088
+TilemapRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092999086}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_ChunkSize: {x: 32, y: 32, z: 32}
+  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_MaxChunkCount: 16
+  m_MaxFrameAge: 16
+  m_SortOrder: 0
+  m_Mode: 0
+  m_DetectChunkCullingBounds: 0
+  m_MaskInteraction: 0
+--- !u!1839735485 &1092999089
+Tilemap:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092999086}
+  m_Enabled: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
+  m_TileAssetArray: []
+  m_TileSpriteArray: []
+  m_TileMatrixArray: []
+  m_TileColorArray: []
+  m_TileObjectToInstantiateArray: []
+  m_AnimationFrameRate: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Origin: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0, y: 0, z: 1}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileOrientation: 0
+  m_TileOrientationMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
 --- !u!1 &1101021483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,7 +1142,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.8
+  m_fontSize: 16
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1071,6 +1192,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101021483}
   m_CullTransparentMesh: 1
+--- !u!82 &1172476716 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 196860578469868627, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+  m_PrefabInstance: {fileID: 2102595432501078306}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1190722264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,7 +1282,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.8
+  m_fontSize: 16
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1218,8 +1344,9 @@ GameObject:
   - component: {fileID: 1216326930}
   - component: {fileID: 1216326929}
   - component: {fileID: 1216326931}
-  m_Layer: 3
-  m_Name: Ground
+  - component: {fileID: 1216326932}
+  m_Layer: 7
+  m_Name: Metal_Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1743,6 +1870,30 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
+--- !u!114 &1216326932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216326927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823740be3915be0498cef9a2dc429ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 0
+  _audioSettings:
+    _footStepsSounds:
+    - {fileID: 8300000, guid: 02b83641785c20d4abad189889ba61d0, type: 3}
+    - {fileID: 8300000, guid: c1851c14c421d5a458d109cca3ac69bf, type: 3}
+    - {fileID: 8300000, guid: 61b94c13f3492d241b4e3ac44c3095e4, type: 3}
+    - {fileID: 8300000, guid: 4d79f345407ed9a4a9923f8ed60d94b9, type: 3}
+    - {fileID: 8300000, guid: 72e44fb98f12e454fa1fc2cc82591d5e, type: 3}
+    - {fileID: 8300000, guid: c6d600d9a7231a7419a5e400522288e0, type: 3}
+    - {fileID: 8300000, guid: cc82feca7bdc88f42a1380950f7831ef, type: 3}
+    - {fileID: 8300000, guid: 803ebbe99185ac944a5b8ec56dd96392, type: 3}
+    _landingSound: {fileID: 8300000, guid: 72e44fb98f12e454fa1fc2cc82591d5e, type: 3}
 --- !u!1 &1421037127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,7 +1926,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 468110512}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &1421037129
 TilemapRenderer:
@@ -2695,7 +2846,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 468110512}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &1713349434
 TilemapRenderer:
@@ -4618,6 +4769,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 196860578469868627, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2102595431108995874, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
       propertyPath: m_Name
       value: Knight
@@ -4686,6 +4841,10 @@ PrefabInstance:
       propertyPath: clipList.Array.size
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 3564855237748681320, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: _footStepsAudioSource
+      value: 
+      objectReference: {fileID: 1172476716}
     - target: {fileID: 3564855237748681320, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
       propertyPath: clipList.Array.data[0]
       value: 

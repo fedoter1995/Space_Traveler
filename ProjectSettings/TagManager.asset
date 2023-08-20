@@ -15,8 +15,8 @@ TagManager:
   - Water
   - UI
   - Characters
-  - 
-  - 
+  - Metal_Ground
+  - Wood_Ground
   - 
   - 
   - 
@@ -43,4 +43,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 4287346865
+    locked: 0
+  - name: Midleground
+    uniqueID: 2158291029
+    locked: 0
+  - name: Foreignground
+    uniqueID: 2956557527
     locked: 0

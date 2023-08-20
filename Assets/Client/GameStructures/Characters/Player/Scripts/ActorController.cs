@@ -1,4 +1,6 @@
-﻿using SpaceTraveler.GameStructures.Hits;
+﻿using SpaceTraveler.Audio;
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.Scripts;
 using System;
 using System.Drawing.Text;
 using UnityEngine;
@@ -13,7 +15,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
         private bool isInitialize = false;
         private IActorInputManager inputManager;
-        private float rayDistance = 0.1f;
+        private float rayDistance = 0.07f;
         private Rigidbody2D rb;
         private ActorCombatController combatController => actor.CombatController; 
         private ActorStatsHandler Stats => actor.StatsHandler;
@@ -27,17 +29,20 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         private ActorStance stance = ActorStance.Unarmed;
         private BlockState blockState = BlockState.BlockDisable;
         private Vector2 moveVector = Vector2.zero;
+        private int currentGroundLayer;
+
 
         #region Events
-        public event Action OnJumpEvent;
+        public event Action<GroundSettings> GroundTypeChangeEvent;
         public event Action<bool> OnGroundStateChangeEvent;
-        public event Action OnLandingEvent;
-        public event Action<AddedModifiers> OnDealDamageEvent;
-        public event Action OnAttack1Event;
-        public event Action OnAttack2Event;
-        public event Action<BlockState> OnBlockStateChangeEvent;
-        public event Action<ActorStance> OnChangeStanceEvent;
         public event Action<bool> OnMoveStateChangeEvent;
+        public event Action JumpEvent;
+        public event Action LandingEvent;
+        public event Action<AddedModifiers> DealDamageEvent;
+        public event Action Attack1Event;
+        public event Action Attack2Event;
+        public event Action<BlockState> BlockStateChangeEvent;
+        public event Action<ActorStance> ChangeStanceEvent;
         #endregion
 
         public bool IsMove
@@ -95,7 +100,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         {
             this.actor = actor;
             inputManager = manager;
-            layer = LayerMask.GetMask("Ground");
+            layer = LayerMask.GetMask("Wood_Ground","Metal_Ground");
             rb = GetComponent<Rigidbody2D>();
             isInitialize = true;
 
@@ -119,13 +124,13 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             if (!OnGround)
                 return;
 
-            OnJumpEvent?.Invoke();
+            JumpEvent?.Invoke();
             var jumpVector = Vector2.up * 300f + inputManager.MoveVector * 150f;
             rb.AddForce(jumpVector);
         }
         private void ActorLanding ()
         {
-            OnLandingEvent?.Invoke();
+            LandingEvent?.Invoke();
             StopAllCoroutines();
             CheckGroundEnumerator = null;
         }
@@ -176,14 +181,14 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             if (stance == ActorStance.Unarmed)
                 ChancgeStance();
 
-            OnAttack1Event?.Invoke();
+            Attack1Event?.Invoke();
         }
         private void OnAttack2Button()
         {
             if (stance == ActorStance.Unarmed)
                 ChancgeStance();
 
-            OnAttack2Event?.Invoke();
+            Attack2Event?.Invoke();
         }
         private void OnBlockStateChange(BlockState blockState)
         {
@@ -195,7 +200,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
 
             this.blockState = blockState;
-            OnBlockStateChangeEvent?.Invoke(this.blockState);
+            BlockStateChangeEvent?.Invoke(this.blockState);
         }
         private void ChancgeStance()
         {
@@ -204,13 +209,24 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             else if (stance == ActorStance.Armed)
                 stance = ActorStance.Unarmed;
 
-            OnChangeStanceEvent.Invoke(stance);
+            ChangeStanceEvent.Invoke(stance);
         }
 
         private void CheckGround()
         {
             //var hit = Physics2D.Raycast(rb.position, Vector2.down, rayDistance, layer);
             var hit = Physics2D.OverlapCircle(_groundCheckObj.position, rayDistance, layer);
+            
+            if(hit)
+            {
+                if(currentGroundLayer != hit.gameObject.layer)
+                {
+                    currentGroundLayer = hit.gameObject.layer;
+                    GroundTypeChangeEvent?.Invoke(hit.GetComponent<GroundSettings>());
+                }
+            }
+
+
             if (hit != onGround)
             {
                 OnGround = hit;

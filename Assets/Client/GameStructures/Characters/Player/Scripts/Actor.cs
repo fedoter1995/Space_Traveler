@@ -12,6 +12,7 @@ using UnityEngine;
 
 namespace SpaceTraveler.GameStructures.Characters.Player
 {
+    [RequireComponent(typeof(ActorController), typeof(ActorCombatController))]
     public class Actor : MonoBehaviour, IPlayerObject
     {
 
@@ -25,6 +26,8 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         private ActorStatsHandler _stats;
         [SerializeField]
         private ProtectiveComponentsHandler _protectiveComponentsHandler;
+        [SerializeField]
+        private ActorAnimatorController _animatorController;
 
 
         [SerializeField]
@@ -34,7 +37,6 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
         private ActorController actorController;
         private ActorCombatController combatController;
-        private ActorAnimatorController animatorController;
 
         private List<IJsonSerializable> serializableObjects;
 
@@ -58,21 +60,21 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         private void Awake()
         {
             actorController = GetComponent<ActorController>();
-            animatorController = GetComponentInChildren<ActorAnimatorController>();
             combatController = GetComponentInChildren<ActorCombatController>();
             
             StatsHandler.Initialize(this);
 
             actorController.Initialize(new KeyboardActorInputManager(), this);
-            animatorController.Initialize(Controller);
+            _animatorController.Initialize(Controller);
             combatController.Initialize(this, _stats);
+
 
             _protectiveComponentsHandler.Initialize(StatsHandler);
             _protectiveComponentsHandler.OnTakeDamageEvent += OnTakeDamage;
         }
         private void OnTakeDamage(object sender, DamageAttributes damageStats)
         {
-            animatorController.TakeDamageAnimation(damageStats);
+            _animatorController.TakeDamageAnimation(damageStats);
         }
 
 
