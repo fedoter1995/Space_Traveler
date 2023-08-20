@@ -71,6 +71,7 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
         {                     
             _statsHandler.Initialize(this);
             _protectiveComponentsHandler.Initialize(_statsHandler);
+            _animatorController.Initialize();
 
             CurrentHealthPoints = new Observable<int>((int)_statsHandler.MaxHealthPoints);
 

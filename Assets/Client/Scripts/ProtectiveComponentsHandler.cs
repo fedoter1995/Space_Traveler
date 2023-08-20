@@ -16,7 +16,7 @@ namespace SpaceTraveler.Scripts
         [SerializeField]
         private TakeDamageHandler _takeDamageHandler;
 
-        private bool isEnamled = false;
+        private bool isEnabled = false;
         private object sender = null;
 
         #region Events
@@ -37,14 +37,13 @@ namespace SpaceTraveler.Scripts
             _takeDamageHandler.OnTakeHitEvent += OnTakeHit;
             _lastingEffectsHandler.OnDotTriggeredEvent += _takeDamageHandler.TakeDamage;
 
-            isEnamled = true;
+            isEnabled = true;
         }
         public void TakeHit(object sender, HitStats hitStats)
         {
-            if(isEnamled)
+            if(isEnabled)
             {
                 this.sender = sender;
-                OnTakeHitEvent?.Invoke();
                 _takeDamageHandler.TakeHit(sender, hitStats);
                 this.sender = null;
             }
@@ -55,7 +54,7 @@ namespace SpaceTraveler.Scripts
         }
         public void OnDeath()
         {
-            isEnamled = false;
+            isEnabled = false;
             _lastingEffectsHandler.OnDeath();
         }
         private void OnTakeDamage(DamageAttributes damageStats)

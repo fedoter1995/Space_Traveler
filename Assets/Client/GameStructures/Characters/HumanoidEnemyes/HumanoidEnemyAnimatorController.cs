@@ -1,4 +1,8 @@
-﻿using SpaceTraveler.GameStructures.Hits;
+﻿using CustomTools;
+using DG.Tweening;
+using SpaceTraveler.GameStructures.Hits;
+using SpaceTraveler.VFX;
+using System.Collections;
 using UnityEngine;
 
 namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
@@ -6,20 +10,25 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
     public class HumanoidEnemyAnimatorController : AnimatorController
     {
         [SerializeField]
-        private ParticleSystem _bloodParticles;
-
+        private PoolsParticles _bloodParticles;
+        [SerializeField]
+        private Transform _vfxParent;
 
         private int IntHurt = Animator.StringToHash("Hurt");
         private int IntDeath = Animator.StringToHash("Death");
 
 
+        private Pool<PoolsParticles> bloodSplashes;
+
+
         public void Initialize()
         {
+            bloodSplashes = new Pool<PoolsParticles>(_bloodParticles,5,transform, true);
         }
 
         public void TakeHitAnimation()
         {
-            _bloodParticles.Play();
+            BloodAnimation();
             SetTrigger(IntHurt);
 
         }
@@ -27,9 +36,12 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
         {
             SetTrigger(IntDeath);
         }
-        public void OnParticleSystemStopped()
+        private void BloodAnimation()
         {
-            _bloodParticles.Stop();
+            var particles = bloodSplashes.GetFreeObject();
+            particles.transform.position = _vfxParent.position;
         }
+
+
     }
 }
