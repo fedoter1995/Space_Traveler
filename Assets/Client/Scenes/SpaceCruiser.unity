@@ -870,7 +870,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
+  m_fontSize: 26.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1021,7 +1021,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
+  m_fontSize: 26.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1156,7 +1156,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
+  m_fontSize: 26.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4682,6 +4682,42 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3564855237748681320, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: clipList.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3564855237748681320, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: clipList.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 02b83641785c20d4abad189889ba61d0, type: 3}
+    - target: {fileID: 3564855237748681320, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: clipList.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: c1851c14c421d5a458d109cca3ac69bf, type: 3}
+    - target: {fileID: 3564855237748681320, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: clipList.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 61b94c13f3492d241b4e3ac44c3095e4, type: 3}
+    - target: {fileID: 3564855237748681320, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: clipList.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4d79f345407ed9a4a9923f8ed60d94b9, type: 3}
+    - target: {fileID: 3564855237748681320, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: clipList.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 72e44fb98f12e454fa1fc2cc82591d5e, type: 3}
+    - target: {fileID: 3564855237748681320, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: clipList.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: c6d600d9a7231a7419a5e400522288e0, type: 3}
+    - target: {fileID: 3564855237748681320, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: clipList.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: cc82feca7bdc88f42a1380950f7831ef, type: 3}
+    - target: {fileID: 3564855237748681320, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: clipList.Array.data[7]
+      value: 
+      objectReference: {fileID: 8300000, guid: 803ebbe99185ac944a5b8ec56dd96392, type: 3}
     - target: {fileID: 4086756919211872977, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
       propertyPath: m_Layer
       value: 6
