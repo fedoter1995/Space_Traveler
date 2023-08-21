@@ -11,33 +11,35 @@ namespace SpaceTraveler.GameStructures.Characters.Player
     public class ActorController : MonoBehaviour
     {
         [SerializeField]
-        private Transform _groundCheckObj;
+        private ActorCombatController _actorCombatController;
+        [SerializeField]
+        private CharacteGroundCheckHandler _groundCheckHandler;
+
+
 
         private bool isInitialize = false;
-        private IActorInputManager inputManager;
-        private float rayDistance = 0.07f;
-        private Rigidbody2D rb;
-        private ActorCombatController combatController => actor.CombatController; 
-        private ActorStatsHandler Stats => actor.StatsHandler;
-        private Actor actor; 
-        private Coroutine CheckGroundEnumerator = null;
-        private int layer;
 
-        private bool onGround = true;
+        private Rigidbody2D rb;
+
+        Actor actor;
+        private IActorInputManager inputManager;
+        private ActorStatsHandler stats => actor.StatsHandler;
+
         private bool isMove = false;
-        private bool isFall = false;
         private ActorStance stance = ActorStance.Unarmed;
         private BlockState blockState = BlockState.BlockDisable;
         private Vector2 moveVector = Vector2.zero;
-        private int currentGroundLayer;
 
+
+
+        public ActorCombatController CombatController => _actorCombatController;
+        public CharacteGroundCheckHandler GroundCheckHandler => _groundCheckHandler;
 
         #region Events
-        public event Action<GroundSettings> GroundTypeChangeEvent;
-        public event Action<bool> OnGroundStateChangeEvent;
+        //Movement events
         public event Action<bool> OnMoveStateChangeEvent;
         public event Action JumpEvent;
-        public event Action LandingEvent;
+        //Combat events
         public event Action<AddedModifiers> DealDamageEvent;
         public event Action Attack1Event;
         public event Action Attack2Event;
@@ -65,27 +67,12 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             }
         }
         public bool IsAttack { get; set; } = false;
-        public bool OnGround
-        {
-            get { return onGround; }
-            set 
-            {
-                if(onGround != value && value)
-                {
-                    ActorLanding();
-                }
-                
-                onGround = value;
-                OnGroundStateChangeEvent.Invoke(onGround);
-            }
-        }
+        public bool OnGround => _groundCheckHandler.OnGround;
 
         private void Update()
         {
             if(isInitialize)
             {
-                CheckGround();
-
                 CheckInputs();
             }
 
@@ -99,12 +86,15 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         public void Initialize(IActorInputManager manager, Actor actor)
         {
             this.actor = actor;
+            _actorCombatController.Initialize(actor);
+
+
             inputManager = manager;
-            layer = LayerMask.GetMask("Wood_Ground","Metal_Ground");
             rb = GetComponent<Rigidbody2D>();
             isInitialize = true;
 
         }
+
         public void OnEndAttackTriggered(int attackId)
         {
             combatController.OnEndAttackTrigger(attackId);
@@ -132,13 +122,6 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             var jumpVector = Vector2.up * 300f + inputManager.MoveVector * 150f;
             rb.AddForce(jumpVector);
         }
-        private void ActorLanding ()
-        {
-            LandingEvent?.Invoke();
-            StopAllCoroutines();
-            CheckGroundEnumerator = null;
-        }
-
         private void CheckInputs()
         {
 
@@ -169,7 +152,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
                 {
                     if (IsMove)
                     {
-                        moveVector = inputManager.MoveVector * Stats.MoveSpeed;
+                        moveVector = inputManager.MoveVector * stats.MoveSpeed;
                         return;
                     }
                 }
@@ -179,7 +162,6 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
             moveVector = Vector2.zero;
         }
-
         private void OnAttack1Button()
         {
             if (stance == ActorStance.Unarmed)
@@ -214,27 +196,6 @@ namespace SpaceTraveler.GameStructures.Characters.Player
                 stance = ActorStance.Unarmed;
 
             ChangeStanceEvent.Invoke(stance);
-        }
-
-        private void CheckGround()
-        {
-            //var hit = Physics2D.Raycast(rb.position, Vector2.down, rayDistance, layer);
-            var hit = Physics2D.OverlapCircle(_groundCheckObj.position, rayDistance, layer);
-            
-            if(hit)
-            {
-                if(currentGroundLayer != hit.gameObject.layer)
-                {
-                    currentGroundLayer = hit.gameObject.layer;
-                    GroundTypeChangeEvent?.Invoke(hit.GetComponent<GroundSettings>());
-                }
-            }
-
-
-            if (hit != onGround)
-            {
-                OnGround = hit;
-            }
         }
         
     }

@@ -15,10 +15,10 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         private Actor actor;
         private ActorStatsHandler statsHandler;
 
-        public void Initialize(Actor actor, ActorStatsHandler statsHandler)
+        public void Initialize(Actor actor)
         {
             this.actor = actor; 
-            this.statsHandler = statsHandler;
+            this.statsHandler = actor.StatsHandler;
         }
         public void OnEndAttackTrigger(int attackId)
         {
@@ -35,7 +35,6 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
             return comboElement.SlashAudio;
         }
-
         private void DealHit(AttackTriggerZone zone, ComboElement comboElement)
         {
             foreach (ITriggerObject element in zone.InZoneObjects)

@@ -34,15 +34,19 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         {
             this.controller = controller;
 
-            controller.GroundTypeChangeEvent += GroundTypeChange;
-            controller.OnGroundStateChangeEvent += ChangeOnGroundState;
+            controller.GroundCheckHandler.GroundTypeChangeEvent += GroundTypeChange;
+            controller.GroundCheckHandler.OnGroundStateChangeEvent += ChangeOnGroundState;
+            controller.GroundCheckHandler.LandingEvent += TriggerLandingAnimation;
+
+            _triggerHandler.EndAttackTriggerEvent += controller.CombatController.OnEndAttackTrigger;
+
             controller.JumpEvent += Jump;
-            controller.LandingEvent += TriggerLandingAnimation;
             controller.ChangeStanceEvent += ChangeStance;
             controller.Attack1Event += OnAttack1;
             controller.Attack2Event += OnAttack2;
             controller.BlockStateChangeEvent += BlockStateChange;
             controller.OnMoveStateChangeEvent += WalkAnimation;
+            _triggerHandler.EndAttackTriggerEvent += controller.OnEndAttackTriggered;
             _triggerHandler.EndAttackTriggerEvent += controller.OnEndAttackTriggered;
             _triggerHandler.BeginAttackTriggerEvent += SlashSound;
             _triggerHandler.StepEvent += _characterAudioController.OnStep;

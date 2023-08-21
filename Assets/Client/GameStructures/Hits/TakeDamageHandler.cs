@@ -83,27 +83,7 @@ namespace SpaceTraveler.GameStructures.Hits
 
             foreach (DamageAttributes dmg in damage.DamageTypeValues)
             {
-                if(dmg.Value > 0)
-                {
-                    Resistance res = null;
-
-                    if (resistances != null)
-                        res = resistances.Find(res => res.Type == dmg.Type);
-                    else
-                        Debug.Log("Resistances is not installed");
-
-
-                    if (res != null)
-                    {
-                        var resultIntDamage = (int)(dmg.Value - dmg.Value * (res.Value / 100));
-                        var newDamageValue = new DamageAttributes(resultIntDamage, dmg.Type, dmg.IsCrit);
-
-                        resultDictionary.Add(newDamageValue);
-                    }
-                    else
-                        resultDictionary.Add(dmg);
-                }
-                
+                resultDictionary.Add(ApplyResistances(dmg));        
             }
             var newHitDamage = new HitDamage(resultDictionary);
 
@@ -112,8 +92,6 @@ namespace SpaceTraveler.GameStructures.Hits
         }
         private DamageAttributes ApplyResistances(DamageAttributes damage)
         {
-            if (resistances == null)
-                Debug.LogError("Resistances Handler is not installed");
 
             DamageAttributes currentDamage = damage;
 

@@ -37,7 +37,6 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
 
         private ActorController actorController;
-        private ActorCombatController combatController;
 
         private List<IJsonSerializable> serializableObjects;
 
@@ -49,7 +48,6 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
         public Observable<int> HealthPoints { get; private set; }
         public ActorController Controller => actorController;
-        public ActorCombatController CombatController => combatController;
         public IEqupmentHandler Equipment => _equipment;
         public Inventory Inventory => _inventory;
         public ActorStatsHandler StatsHandler => _stats;
@@ -61,13 +59,11 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         private void Awake()
         {
             actorController = GetComponent<ActorController>();
-            combatController = GetComponentInChildren<ActorCombatController>();
             
             StatsHandler.Initialize(this);
 
             actorController.Initialize(new KeyboardActorInputManager(), this);
             _animatorController.Initialize(Controller);
-            combatController.Initialize(this, _stats);
 
 
             _protectiveComponentsHandler.Initialize(StatsHandler);

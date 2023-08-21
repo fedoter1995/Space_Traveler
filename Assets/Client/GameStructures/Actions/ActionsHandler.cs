@@ -8,7 +8,6 @@ namespace SpaceTraveler.GameStructures.Actions
 {
     public static class ActionsHandler
     {
-
         public static bool TryToEvadeHit(ActionChance chance , ActionLuck isLuck = ActionLuck.None)
         {
             var randomValue1 = UnityEngine.Random.Range(0, 100.1f);
