@@ -97,11 +97,11 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
         public void OnEndAttackTriggered(int attackId)
         {
-            combatController.OnEndAttackTrigger(attackId);
+            _actorCombatController.OnEndAttackTrigger(attackId);
         }
         public AudioClip GetSlashAudioClip(int attackId)
         {
-            return combatController.GetAudioClip(attackId);
+            return _actorCombatController.GetAudioClip(attackId);
         }
         private void ActorMovement()
         {

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SpaceTraveler.GameStructures.Hits;
+using System;
 using UnityEngine;
 
-namespace SpaceTraveler.GameStructures.Hits
+namespace SpaceTraveler.GameStructures.Characters
 {
-    [Serializable]
-    public class ComboElement
+    [CreateAssetMenu(menuName = "ComboElement")]
+    public class ComboElement : ScriptableObject
     {
         [SerializeField]
         private int _animationId;

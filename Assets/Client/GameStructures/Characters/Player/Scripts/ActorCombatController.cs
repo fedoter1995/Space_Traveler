@@ -23,11 +23,19 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         public void OnEndAttackTrigger(int attackId)
         {
             var comboElement = _comboElements.Find(element => element.AnimationId == attackId);
-            var currentZone = _attackZones.Find(zone => zone.AttacksId.Contains(attackId));
-            if(currentZone != null)
+            if (comboElement == null)
+                Debug.LogError($"No element with id ({attackId}) found");
+            else
             {
-                DealHit(currentZone, comboElement);
+                var currentZone = _attackZones.Find(zone => zone.AttacksId.Contains(attackId));
+
+                if (currentZone == null)
+                    Debug.LogError($"There is no suitable zone for {comboElement}");
+                else
+                    DealHit(currentZone, comboElement);
+
             }
+
         }
         public AudioClip GetAudioClip(int attackId)
         {

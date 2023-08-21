@@ -1,7 +1,6 @@
 ﻿using SpaceTraveler.Scripts;
 using CustomTools.Observable;
 using SpaceTraveler.GameStructures.Gear;
-using SpaceTraveler.GameStructures.Hits;
 using SpaceTraveler.GameStructures.ItemCollections;
 using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Workshop;

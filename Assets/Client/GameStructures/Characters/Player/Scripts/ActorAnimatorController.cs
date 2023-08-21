@@ -46,8 +46,6 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             controller.Attack2Event += OnAttack2;
             controller.BlockStateChangeEvent += BlockStateChange;
             controller.OnMoveStateChangeEvent += WalkAnimation;
-            _triggerHandler.EndAttackTriggerEvent += controller.OnEndAttackTriggered;
-            _triggerHandler.EndAttackTriggerEvent += controller.OnEndAttackTriggered;
             _triggerHandler.BeginAttackTriggerEvent += SlashSound;
             _triggerHandler.StepEvent += _characterAudioController.OnStep;
         }
