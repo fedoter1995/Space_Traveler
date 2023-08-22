@@ -32,13 +32,14 @@ namespace SpaceTraveler.GameStructures.Craft
                 if (!availableEquipment.Contains(equipment))
                     return false;
 
-
             foreach (ElementSlot slot in requirements.Elements)
                 if (!inventory.HaveItemAmount(slot.CurrentItem, slot.Amount))
                     return false;
 
             foreach (ElementSlot slot in requirements.Elements)
-                inventory.TryToRemove(slot.CurrentItem, slot.Amount);
+            {
+                if (inventory.TryToRemoveFromCollection(slot.CurrentItem, slot.Amount)) ;
+            }
 
             return true;
         }

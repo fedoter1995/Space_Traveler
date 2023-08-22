@@ -899,7 +899,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.5
+  m_fontSize: 15.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1417,7 +1417,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.5
+  m_fontSize: 15.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1552,7 +1552,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.5
+  m_fontSize: 15.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4947,6 +4947,10 @@ PrefabInstance:
       propertyPath: _comboElements.Array.data[3]
       value: 
       objectReference: {fileID: 11400000, guid: 44ee5ae99b19c5846bd191dd1078b728, type: 2}
+    - target: {fileID: 2102595431108995876, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
+      propertyPath: _inventory._elements.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2102595431108995877, guid: 51dd947de199d5b49b5cb782ed3d26b8, type: 3}
       propertyPath: m_RootOrder
       value: 5

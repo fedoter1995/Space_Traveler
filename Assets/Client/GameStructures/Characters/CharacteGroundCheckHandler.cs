@@ -37,7 +37,6 @@ namespace SpaceTraveler.GameStructures.Characters
             {
                 if (onGround != value && value)
                 {
-                    Debug.Log("landing");
                     LandingEvent?.Invoke();
                 }
 
@@ -54,31 +53,23 @@ namespace SpaceTraveler.GameStructures.Characters
         private void CheckGround()
         {
 
-            var hit1 = Physics2D.OverlapCircle(_leftObject.position, rayDistance, _layerMask);
-            var hit2 = Physics2D.OverlapCircle(_rightObject.position, rayDistance, _layerMask);
+            var hitLeft = Physics2D.OverlapCircle(_leftObject.position, rayDistance, _layerMask);
+            var hitRight = Physics2D.OverlapCircle(_rightObject.position, rayDistance, _layerMask);
 
 
-            if (hit1)
+            if (hitRight)
             {
-                if (currentGroundLayer != hit1.gameObject.layer)
+                if (currentGroundLayer != hitLeft.gameObject.layer)
                 {
-                    currentGroundLayer = hit1.gameObject.layer;
-                    GroundTypeChangeEvent?.Invoke(hit1.GetComponent<GroundSettings>());
-                }
-            }
-            else if (hit2)
-            {
-                if (currentGroundLayer != hit2.gameObject.layer)
-                {
-                    currentGroundLayer = hit2.gameObject.layer;
-                    GroundTypeChangeEvent?.Invoke(hit2.GetComponent<GroundSettings>());
+                    currentGroundLayer = hitLeft.gameObject.layer;
+                    GroundTypeChangeEvent?.Invoke(hitLeft.GetComponent<GroundSettings>());
                 }
             }
 
 
-            if (hit1 != onGround && hit2 != onGround)
+            if (hitLeft != onGround && hitRight != onGround)
             {
-                OnGround = hit1;
+                OnGround = hitRight;
             }
         }
     }

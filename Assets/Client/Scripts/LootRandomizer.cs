@@ -14,8 +14,8 @@ namespace CustomTools
         public void DropLoot(object sender, Inventory target)
         {
             var droppedItems = GiveLoot(_loot);
-
-            target.TryToAddToCollection(sender, droppedItems);
+            var notIncludedSlots = new List<ItemSlot>();
+            target.TryToAddToCollection(sender, droppedItems,out notIncludedSlots);
         }
         private  List<ItemSlot> GiveLoot(List<LootSlot> slots)
         {

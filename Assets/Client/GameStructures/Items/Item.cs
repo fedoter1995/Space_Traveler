@@ -11,9 +11,11 @@ namespace SpaceTraveler.GameStructures.Items
         [SerializeField] private string _id;
         [SerializeField] private string _name;
         [SerializeField] private string _description;
+        [SerializeField] private int _maxItemsInSlot;
         [SerializeField] private Sprite _icon;
         [SerializeField] private ItemObject _prefab;
         [SerializeField] private SlotType _slotType;
+        [SerializeField] private int _inSlotCapacity;
         [SerializeField] private CraftRequirements _craftRequirements;
 
 
@@ -23,7 +25,7 @@ namespace SpaceTraveler.GameStructures.Items
         public Sprite Icon => _icon;
         public ItemObject Prefab => _prefab;
         public SlotType SlotType => _slotType;
-
+        public int MaxItemsInSlot => _maxItemsInSlot;
         public CraftRequirements Requirements => _craftRequirements;
 
         public virtual DescriptionData GetDescriptionData()

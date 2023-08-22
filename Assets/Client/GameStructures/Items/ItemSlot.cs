@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace SpaceTraveler.GameStructures.Items
 {
@@ -13,9 +14,21 @@ namespace SpaceTraveler.GameStructures.Items
 
 
         public Item CurrentItem => _item;
+        public string ItemName => _item == null ? "Empty_Slot" : _item.Name;
         public bool IsEmpty => _item == null;
+        public bool IsFull => _amount == MaxCapacity;
         public string ItemID => _item == null ? "Empty_Slot" : _item.Id;
         public int Amount { get => IsEmpty ? 0 : _amount; set => _amount = value; }
+        public int MaxCapacity => _item == null ? 999 : _item.MaxItemsInSlot;
+
+        public ItemSlot(Item item, int amount)
+        {
+            _item = item;
+            Amount = amount;
+        }
+        public ItemSlot()
+        {
+        }
 
         public void SetItem(Item item)
         {
@@ -50,7 +63,6 @@ namespace SpaceTraveler.GameStructures.Items
                 _amount = amount;
             }
         }
-
         public Dictionary<string, object> GetObjectData()
         {
             var dict = new Dictionary<string, object>();
@@ -63,9 +75,10 @@ namespace SpaceTraveler.GameStructures.Items
             return dict;
         }
     }
+    [System.FlagsAttribute]
     public enum SlotType
     {
-        Equipment,
-        Container,
+        Item = 1,
+        Equipment = 2
     }
 }

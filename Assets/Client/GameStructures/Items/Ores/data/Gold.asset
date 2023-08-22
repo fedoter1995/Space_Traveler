@@ -15,12 +15,11 @@ MonoBehaviour:
   _id: ORE001
   _name: Gold
   _description: 
+  _maxItemsInSlot: 0
   _icon: {fileID: 21300000, guid: 0bbbfbbf5dc2d7342a4acaf6df9f4213, type: 3}
   _prefab: {fileID: 1873083684769616702, guid: 3ea82fd7cb67bed469fb5a1c57c5a912, type: 3}
-  _slotType: 1
-  craftRequirements:
-    _elements: []
-    _equipments: []
-  Requirements:
+  _slotType: -1
+  _inSlotCapacity: 0
+  _craftRequirements:
     _elements: []
     _equipments: []

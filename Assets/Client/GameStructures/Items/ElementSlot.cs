@@ -17,6 +17,10 @@ namespace SpaceTraveler.GameStructures.Items
         public string ItemID => _element == null ? "Empty_Slot" : _element.Id;
         public int Amount { get => IsEmpty ? 0 : _amount; set => _amount = value; }
 
+        public int MaxCapacity => throw new NotImplementedException();
+
+        public string ItemName => throw new NotImplementedException();
+
         public void SetItem(Item item)
         {
             if (item == null)

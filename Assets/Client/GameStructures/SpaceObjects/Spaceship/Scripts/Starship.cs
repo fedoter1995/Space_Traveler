@@ -124,7 +124,15 @@ namespace SpaceTraveler.GameStructures.Spaceship
         {
             var obj = collision.GetComponent<ItemObject>();
             if (obj != null)
-                _inventory.TryToAddToCollection(obj, obj.ItemSlot.CurrentItem, obj.ItemSlot.Amount);
+            {
+                var notIncludedAmount = 0;
+                
+                if (_inventory.TryToAddToCollection(obj, obj.ItemSlot.CurrentItem, obj.ItemSlot.Amount,out notIncludedAmount))
+                {
+                    Debug.LogError("Not implemented");
+                }
+
+            }
         }
         private void GetComponents()
         {
