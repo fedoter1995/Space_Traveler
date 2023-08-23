@@ -10,6 +10,5 @@ namespace SpaceTraveler.GameStructures.Characters.ControllerStates
     public interface ICharacterControllerState
     {
         void Move();
-
     }
 }
