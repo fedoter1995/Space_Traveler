@@ -32,7 +32,6 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         [SerializeField]
         private WorkshopSettings _workshopSettings;
 
-
         private ActorController actorController;
 
         private List<IJsonSerializable> serializableObjects;
@@ -53,7 +52,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
         public WorkshopSettings WorkshopSettings => _workshopSettings;
 
-        private void Awake()
+        public void Awake()
         {
             actorController = GetComponent<ActorController>();
             
@@ -70,7 +69,19 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         {
             _animatorController.TakeDamageAnimation(damageStats);
         }
+        public void SetActive(bool activity)
+        {
+            Controller.SetActive(activity);
+        }
 
+        public void SetObjectData(Dictionary<string, object> data)
+        {
+            throw new NotImplementedException();
+        }
 
+        public Dictionary<string, object> GetObjectData()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

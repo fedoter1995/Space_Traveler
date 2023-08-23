@@ -2,6 +2,8 @@
 using TMPro;
 using UnityEngine;
 using SpaceTraveler.GameStructures.InterractiveObjects;
+using SpaceTraveler.GameStructures.Characters.Player;
+using System.Collections.Generic;
 
 namespace SpaceTraveler.UI.InterractiveObjectsUI
 {
@@ -15,48 +17,25 @@ namespace SpaceTraveler.UI.InterractiveObjectsUI
         [SerializeField]
         private TextMeshProUGUI _keyCodeField;
 
-
-        public Interractive2DObject currentObject { get; private set; }
+        private Actor sender;
+        private List<Interractive2DObject> currentObject;
+        private Interractive2DObject activeObject;
 
         private void Update()
         {
-            if(Input.GetKeyDown(currentObject.Info.KeyCode)) 
-            {
-                currentObject.Interract();
-            }
+
         }
-        public void SetObject(Interractive2DObject obj)
+        public void SetObjects(Interractive2DObject obj, Actor sender)
         {
-            currentObject = obj;
+
         }
         public  void HideContent()
         {
-            _nameField.gameObject.SetActive(false);
-            _titleField.gameObject.SetActive(false);
-            _keyCodeField.gameObject.SetActive(false);
 
-            HideWidget();
         }
-        public void ShowContent(Interractive2DObject obj)
+        public void ShowContent(Interractive2DObject obj, Actor sender)
         {
-            SetObject(obj);
 
-            if (currentObject.Info.Name != null)
-            {
-                _nameField.text = currentObject.Info.Name;
-                _nameField.gameObject.SetActive(true);
-            }
-            if (currentObject.Info.Title != null)
-            {
-                _titleField.text = currentObject.Info.Title;
-                _titleField.gameObject.SetActive(true);
-            }
-
-            _keyCodeField.text = currentObject.Info.KeyCode.ToString();
-
-            _keyCodeField.gameObject.SetActive(true);
-
-            ShowWidget();
 
         }
     }

@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using SpaceTraveler.GameStructures.ItemCollections;
+using SpaceTraveler.GameStructures.ItemCollections.UI;
 
 namespace SpaceTraveler.GameStructures.Items
 {
@@ -11,7 +13,8 @@ namespace SpaceTraveler.GameStructures.Items
         private Item _item;
         [SerializeField]
         protected int _amount = 0;
-
+        [SerializeField]
+        private SlotType _type;
 
         public Item CurrentItem => _item;
         public string ItemName => _item == null ? "Empty_Slot" : _item.Name;
@@ -20,16 +23,19 @@ namespace SpaceTraveler.GameStructures.Items
         public string ItemID => _item == null ? "Empty_Slot" : _item.Id;
         public int Amount { get => IsEmpty ? 0 : _amount; set => _amount = value; }
         public int MaxCapacity => _item == null ? 999 : _item.MaxItemsInSlot;
+        public ItemCollection CurrentCollection { get; }
+        public SlotType Type => _type;
 
         public ItemSlot(Item item, int amount)
         {
             _item = item;
             Amount = amount;
         }
-        public ItemSlot()
+        public ItemSlot() { }
+        public void Init(ItemCollection collection)
         {
-        }
 
+        }
         public void SetItem(Item item)
         {
             if (item == null)

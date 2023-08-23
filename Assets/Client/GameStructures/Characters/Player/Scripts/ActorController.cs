@@ -17,7 +17,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
 
 
-        private bool isInitialize = false;
+        private bool isActive = false;
 
         private Rigidbody2D rb;
 
@@ -71,7 +71,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
         private void Update()
         {
-            if(isInitialize)
+            if(isActive)
             {
                 CheckInputs();
             }
@@ -80,7 +80,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
            
         private void FixedUpdate()
         {
-            if (isInitialize && inputManager.IsMove && !IsAttack)
+            if (isActive && inputManager.IsMove && !IsAttack)
                 ActorMovement();
         }
         public void Initialize(IActorInputManager manager, Actor actor)
@@ -91,7 +91,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
             inputManager = manager;
             rb = GetComponent<Rigidbody2D>();
-            isInitialize = true;
+            isActive = true;
 
         }
 
@@ -102,6 +102,10 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         public AudioClip GetSlashAudioClip(int attackId)
         {
             return _actorCombatController.GetAudioClip(attackId);
+        }
+        public void SetActive(bool activity)
+        {
+            isActive = activity;
         }
         private void ActorMovement()
         {

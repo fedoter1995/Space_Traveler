@@ -18,10 +18,7 @@ public class SpaceshipInteractor : Interactor
     public override void OnInitialize()
     {
         spaceship.Initialize();
-
-
     }
-
     public void ChangePlayerPosition(Vector3 position)
     {
         spaceship.transform.position = position;

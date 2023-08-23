@@ -11,7 +11,7 @@ namespace SpaceTraveler.GameStructures.ItemCollections
         #region Events
         public abstract event Action<object, Item, int> OnAddedEvent;    
         public abstract event Action<Item, int> OnRemovedEvent;
-        public abstract event Action OnItemStateChangedEvent;
+        public abstract event Action OnInventoryStateChangedEvent;
 
         #endregion
         public abstract List<IItemSlot> GetSlots();
@@ -23,6 +23,7 @@ namespace SpaceTraveler.GameStructures.ItemCollections
         public abstract bool TryToAddToCollection(object sender, List<ItemSlot> slots, out List<ItemSlot> outputSlots);
         public abstract bool TryToRemoveFromCollection(Item item, int amount, out List<ItemSlot> outputSlots);
         public abstract bool TryToRemoveFromCollection(Item item, int amount);
+        public abstract void TransitFromSlotToSlot(object sender, ItemSlot fromSlot, ItemSlot toSlot);
         public abstract bool HaveItemAmount(Item item, int amount);
         #region SerializationJSON
         public abstract void SetObjectData(Dictionary<string, object> data);

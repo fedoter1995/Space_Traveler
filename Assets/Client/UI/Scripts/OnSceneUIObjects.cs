@@ -14,15 +14,7 @@ namespace UI
         private void Awake()
         {
             
-            _interactiveObjectInfoPanel.HideContent();
 
-            var interractiveObjects = FindObjectsOfType<Interractive2DObject>();
-
-            foreach(Interractive2DObject obj in interractiveObjects)
-            {
-                obj.OnTriggerExitEvent += _interactiveObjectInfoPanel.HideContent;
-                obj.OnTriggerEnterEvent += _interactiveObjectInfoPanel.ShowContent;
-            }
 
         }
     }

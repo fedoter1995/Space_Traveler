@@ -2,7 +2,7 @@
 
 namespace SpaceTraveler.GameStructures.Characters.Player
 {
-    public interface IPlayerObject : IInteractingWithWorkshop
+    public interface IPlayerObject : IInteractingWithWorkshop, IJsonSerializable
     {
     }
 }

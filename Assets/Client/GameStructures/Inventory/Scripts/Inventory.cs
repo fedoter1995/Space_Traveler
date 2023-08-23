@@ -11,12 +11,10 @@ namespace SpaceTraveler.GameStructures.ItemCollections
 
         [SerializeField]
         private List<ItemSlot> _itemSlots = new List<ItemSlot>();
-
-
         
         public override event Action<object, Item, int> OnAddedEvent;
         public override event Action<Item, int> OnRemovedEvent;
-        public override event Action OnItemStateChangedEvent;
+        public override event Action OnInventoryStateChangedEvent;
 
         public override int GetItemAmount(string itemID)
         {
@@ -134,6 +132,14 @@ namespace SpaceTraveler.GameStructures.ItemCollections
             }
             return false;
         }
+        public override void TransitFromSlotToSlot(object sender, ItemSlot fromSlot, ItemSlot toSlot)
+        {
+           
+        }
+        public void OnStateChange()
+        {
+            OnInventoryStateChangedEvent?.Invoke();
+        }
         public override Dictionary<string, object> GetObjectData()
         {
             var items = new Dictionary<string, object>();
@@ -167,7 +173,6 @@ namespace SpaceTraveler.GameStructures.ItemCollections
                 _itemSlots = new List<ItemSlot>(slots);
             }
         }
-
         public override void AddNewEmptySlots(int amount)
         {
             for (int i = 0; i < amount; i++)
@@ -176,7 +181,6 @@ namespace SpaceTraveler.GameStructures.ItemCollections
                 _itemSlots.Add(newSlot);
             }
         }
-
         public override bool TryRemoveEmptySlots(int amount)
         {
             var emptySlots = _itemSlots.FindAll(slot => slot.IsEmpty);
@@ -188,12 +192,11 @@ namespace SpaceTraveler.GameStructures.ItemCollections
                     _itemSlots.Remove(emptySlots[i]);
                 }
                 return true;
+                
             }
             else
                 return false;
         }
-
-
         private int TryToAddToSlot(object sender, IItemSlot slot, Item item, int amount)
         {
             var maxAmountToAdd = slot.MaxCapacity - slot.Amount;
@@ -220,7 +223,7 @@ namespace SpaceTraveler.GameStructures.ItemCollections
             slot.Amount += amount;
 
             OnAddedEvent?.Invoke(sender, item, amount);
-            OnItemStateChangedEvent?.Invoke();
+            OnInventoryStateChangedEvent?.Invoke();
         }
         private List<ItemSlot> RemoveFromCollection(Item item, int amount)
         {
@@ -264,6 +267,5 @@ namespace SpaceTraveler.GameStructures.ItemCollections
             return amount;
 
         }
-
     }
 }
