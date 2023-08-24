@@ -9,8 +9,6 @@ namespace SpaceTraveler.Characters.Actor
     {
 
         protected ActorStatsHandler actorStatsHandler;
-        private Rigidbody2D rb;
-        private Vector2 workspace;
 
 
         public Vector2 CurrentVelocity {  get; private set; }   
@@ -18,20 +16,19 @@ namespace SpaceTraveler.Characters.Actor
         public void Initialize(ActorStatsHandler actorStatsHandler)
         {
             this.actorStatsHandler = actorStatsHandler;
-            rb = GetComponent<Rigidbody2D>();
         }
-        private void Update()
+
+        public void Move(int dirrection)
         {
-            CurrentVelocity = rb.velocity;
+            Debug.Log(actorStatsHandler.MoveSpeed);
+            var moveVector = new Vector2(dirrection * actorStatsHandler.MoveSpeed, 0);
+            Debug.Log(moveVector);
+            transform.Translate(moveVector * Time.fixedDeltaTime, Space.World);
         }
-        public void Move(float dirrection)
+        public void Flip(int dirrection)
         {
             if (dirrection != 0 && dirrection != transform.localScale.x)
                 transform.localScale = new Vector3(dirrection, 1, 1);
-
-            workspace.Set(dirrection * actorStatsHandler.MoveSpeed, CurrentVelocity.y);
-            rb.velocity = workspace;
-            CurrentVelocity = rb.velocity;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
     public abstract class PlayerGroundedState : PlayerState
     {
         protected int groundedInHash = Animator.StringToHash("OnGround");
-        protected Vector2 moveVector;
+        protected int moveX;
         protected PlayerGroundedState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
         {
         }
@@ -17,7 +17,7 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         public override void UpdateLogick()
         {
             base.UpdateLogick();
-            moveVector = player.InputHandler.MoveVector;
+            moveX = player.InputHandler.MoveX;
         }
 
         public override void UpdatePhysics()

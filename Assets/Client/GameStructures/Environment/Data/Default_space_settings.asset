@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _modifiers:
   - _preset: {fileID: 11400000, guid: 681f095cfd874c14aa60ec6c71fd7fda, type: 2}
-    _value: 0.7
+    _value: 0
+    _affects: 
   - _preset: {fileID: 11400000, guid: fc1e4544ea8d03b45aa9ea30610f1fbc, type: 2}
     _value: 0.7
+    _affects: 
   - _preset: {fileID: 11400000, guid: 128b5bfbd5d728c4ca27c2c0954480cd, type: 2}
     _value: 0.01
+    _affects: 
   - _preset: {fileID: 11400000, guid: 28db7d8f429bed44f87ea0a3f35e9496, type: 2}
     _value: 0.1
+    _affects: 

@@ -31,7 +31,7 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         public override void UpdateLogick()
         {
             base.UpdateLogick();
-            if(moveVector.x != 0)
+            if(moveX != 0)
             {
                 stateMachine.ChangeState(player.UnarmedMoveState);
             }

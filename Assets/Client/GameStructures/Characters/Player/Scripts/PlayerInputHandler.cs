@@ -12,7 +12,9 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         private PlayerActions _palyerActions;
 
         private Vector2 moveInput;
-        public Vector2 MoveVector { get; private set; }
+
+        public int MoveX { get; private set; }
+        public int MoveY { get; private set; }
 
         private void Awake()
         {
@@ -36,7 +38,8 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         public void OnMoveInput(InputAction.CallbackContext context)
         {
             moveInput = context.ReadValue<Vector2>();
-            MoveVector = new Vector2(moveInput.normalized.x, 0);
+            MoveX = (int)moveInput.x;
+            MoveY = (int)moveInput.y;
         }
 
         public void OnJump(InputAction.CallbackContext context)

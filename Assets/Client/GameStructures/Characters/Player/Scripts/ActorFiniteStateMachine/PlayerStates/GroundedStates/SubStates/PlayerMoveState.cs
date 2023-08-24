@@ -30,11 +30,12 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         {
             base.UpdateLogick();
 
-            if(moveVector.x == 0)
+            if(moveX == 0)
             {
                 stateMachine.ChangeState(player.UnarmedIdleState);
             }
-            player.Controller.Move(moveVector.x);
+            player.Controller.Flip(moveX);
+            player.Controller.Move(moveX);
         }
 
         public override void UpdatePhysics()
