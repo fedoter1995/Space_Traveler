@@ -7,7 +7,7 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
     public class PlayerIdleState : PlayerGroundedState
     {
         protected int idleInt = Animator.StringToHash("Idle");
-        public PlayerIdleState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
+        public PlayerIdleState(Player player) : base(player)
         {
         }
 
@@ -19,6 +19,7 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         public override void Enter()
         {
             base.Enter();
+            player.LadgeClimbState.CanGrab = true;
             player.AnimatorController.SetBool(idleInt, true);
 
         }
@@ -31,9 +32,9 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         public override void UpdateLogick()
         {
             base.UpdateLogick();
-            if(moveX != 0)
+            if(player.Controller.MoveX != 0)
             {
-                stateMachine.ChangeState(player.UnarmedMoveState);
+                stateMachine.ChangeState(player.MoveState);
             }
         }
 

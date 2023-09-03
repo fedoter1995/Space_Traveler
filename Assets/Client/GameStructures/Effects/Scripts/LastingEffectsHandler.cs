@@ -27,7 +27,7 @@ namespace SpaceTraveler.GameStructures.Effects
 
         public void Initialize()
         {
-            EditorApplication.playModeStateChanged += ModeChanged;
+            //EditorApplication.playModeStateChanged += ModeChanged;
             cts = new CancellationTokenSource();
             cancellationToken = cts.Token;
 
@@ -73,12 +73,12 @@ namespace SpaceTraveler.GameStructures.Effects
 
             OnDotTriggeredEvent?.Invoke(dotStats.Sender, dotStats.Damage);
         }
-        private void ModeChanged(PlayModeStateChange playModeState)
+/*        private void ModeChanged(PlayModeStateChange playModeState)
         {
             if (playModeState == PlayModeStateChange.EnteredEditMode && cts != null)
             {
                 cts.Cancel();
             }
-        }
+        }*/
     }
 }

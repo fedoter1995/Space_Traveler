@@ -1,3 +1,4 @@
+using Assets.Client.Characters.Player;
 using SpaceTraveler.Characters.Actor.ActorFiniteStateMachine;
 using SpaceTraveler.GameStructures.Characters.Player;
 using SpaceTraveler.GameStructures.Stats;
@@ -13,36 +14,46 @@ namespace SpaceTraveler.Characters.Actor
         [SerializeField]
         private ActorStatsHandler _statsHandler;
         [SerializeField]
-        private Animator _animatorController;
+        private PlayerAnimatorController _animatorController;
         [SerializeField]
         private PlayerController _controller;
 
+        private List<PlayerState> groundCheckExceptions;
 
-        public Animator AnimatorController => _animatorController;
+        public PlayerAnimatorController AnimatorController => _animatorController;
         public PlayerStateMachine StateMachine { get; private set; }
         public ActorStatsHandler StatsHandler => _statsHandler;
         public PlayerInputHandler InputHandler {  get; private set; }
         public PlayerController Controller => _controller;
 
-        public Vector2 CurrentVelocity { get; private set; }
+        private void GroundStateChange(bool onGround)
+        {
+            if(!groundCheckExceptions.Contains(StateMachine.CurrentState))
+            {
+                if(onGround)
+                {
+                    StateMachine.ChangeState(LandingState);
+                }
+                else
+                    StateMachine.ChangeState(InAirState);
+                
+            }
+        }
 
         #region Player states
-        public PlayerMoveState UnarmedMoveState { get; private set; }
-        public PlayerIdleState UnarmedIdleState { get; private set; }
+        public PlayerArmedState ArmedState { get; private set; }
+        public PlayerUnarmedState UnarmedState { get; private set; }
+        public PlayerMoveState MoveState { get; private set; }
+        public PlayerIdleState IdleState { get; private set; }
+        public PlayerJumpState JumpState { get; private set; }
+        public PlayerInAirState InAirState { get; private set; }
+        public PlayerLandingState LandingState { get; private set; }
+        public PlayerLedgeClimbState LadgeClimbState { get; private set; }
         #endregion
+        #region Unity Methods
         private void Awake()
         {
             Initialize();
-        }
-        public void Initialize()
-        {
-            InputHandler = GetComponent<PlayerInputHandler>();
-            StateMachine = new PlayerStateMachine();
-            _statsHandler.Initialize(this);
-            _controller.Initialize(_statsHandler);
-            InitStates();
-            StateMachine.Initialize(UnarmedIdleState);
-
         }
 
         private void Update()
@@ -53,19 +64,39 @@ namespace SpaceTraveler.Characters.Actor
         {
             StateMachine.CurrentState.UpdatePhysics();
         }
+        #endregion
+
+        #region Init Methods
+        public void Initialize()
+        {
+            _animatorController.Initialize();
+            _statsHandler.Initialize(this);
+            InputHandler = GetComponent<PlayerInputHandler>();
+            _controller.Initialize(_statsHandler, InputHandler);
+            StateMachine = new PlayerStateMachine();
+            InitStates();
+            Controller.SurfaceCheckHandler.OnGroundStateChangeEvent += GroundStateChange;
+            StateMachine.Initialize(UnarmedState,IdleState);
+            
+
+        }
         private void InitStates()
         {
-            UnarmedIdleState = new PlayerIdleState(this, StateMachine);
-            UnarmedMoveState = new PlayerMoveState(this, StateMachine);
-        }
-        public void Move(float moveFloat)
-        {
-            var moveVector = new Vector2(moveFloat, 0);
-            if (moveFloat != 0 && moveFloat != transform.localScale.x)
-                transform.localScale = new Vector3(moveFloat, 1, 1);
+            UnarmedState = new PlayerUnarmedState(this);
+            ArmedState = new PlayerArmedState(this);
+            IdleState = new PlayerIdleState(this);
+            MoveState = new PlayerMoveState(this);
+            JumpState = new PlayerJumpState(this);
+            InAirState = new PlayerInAirState(this);
+            LandingState = new PlayerLandingState(this);
+            LadgeClimbState = new PlayerLedgeClimbState(this);
 
-            transform.Translate(moveVector * Time.fixedDeltaTime, Space.World);
+
+            groundCheckExceptions = new List<PlayerState> { JumpState, InAirState, LadgeClimbState };
+
+
         }
+        #endregion
     }
 
 }

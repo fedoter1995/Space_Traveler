@@ -1,4 +1,5 @@
-﻿using SpaceTraveler.GameStructures.Characters.Player;
+﻿using Assets.Client.Characters.Player;
+using SpaceTraveler.GameStructures.Characters.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,24 +12,30 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
     public abstract class PlayerState
     {
         protected Player player;
-        protected PlayerStateMachine stateMachine;
-        protected ActorStatsHandler actorStatsHandler;
 
+        protected bool isActive = false;
         protected float startTime;
-        public PlayerState(Player player, PlayerStateMachine stateMachine)
+        protected PlayerStateMachine stateMachine => player.StateMachine;
+        protected ActorStatsHandler actorStatsHandler => player.StatsHandler;
+        protected PlayerAnimatorController animatorController => player.AnimatorController;
+        protected PlayerController playerController => player.Controller;
+        public PlayerState(Player player)
         {
             this.player = player;
-            this.stateMachine = stateMachine;
-            actorStatsHandler = player.StatsHandler;
         }
 
         public virtual void Enter()
         {
             DoChecks();
+            Debug.Log($"Enter in {this}");
+            isActive = true;
             startTime = Time.time;
         }
 
-        public abstract void Exit();
+        public virtual void Exit()
+        {
+            isActive = false;
+        }
 
         public virtual void UpdateLogick()
         {
@@ -40,7 +47,6 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         }
         public virtual void DoChecks()
         {
-
         }
     }
 }

@@ -7,22 +7,31 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
     public abstract class PlayerGroundedState : PlayerState
     {
         protected int groundedInHash = Animator.StringToHash("OnGround");
-        protected int moveX;
-        protected PlayerGroundedState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
+        protected PlayerGroundedState(Player player) : base(player)
         {
+            player.Controller.InputHandler.JumpEvent += Jump;
+            player.Controller.InputHandler.ChangeStanceEvent += ChangeStance;
         }
 
-
-
+        private void Jump()
+        {
+           if(isActive)
+            stateMachine.ChangeState(player.JumpState);
+        }
         public override void UpdateLogick()
         {
             base.UpdateLogick();
-            moveX = player.InputHandler.MoveX;
         }
-
-        public override void UpdatePhysics()
+        private void ChangeStance()
         {
-            base.UpdatePhysics();
+            if(isActive)
+            {
+                if (stateMachine.CurrentSuperState == player.ArmedState)
+                    stateMachine.ChangeSuperState(player.UnarmedState);
+                else
+                    stateMachine.ChangeSuperState(player.ArmedState);
+            }
+
         }
     }
 }

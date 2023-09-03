@@ -25,21 +25,30 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     ""maps"": [
         {
             ""name"": ""Gameplay"",
-            ""id"": ""807b527f-8bb8-4001-b38b-5d2ef041ad73"",
+            ""id"": ""c1144fca-4654-48ca-a230-5fa70209d64d"",
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""Value"",
-                    ""id"": ""7aed0f92-f8e2-40f4-886c-abfabcf3c313"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""441d0bc5-9320-4f32-b34a-2fd69e593b5d"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""8a774a86-66bc-49f6-8020-0625d33cec14"",
+                    ""id"": ""3f16dfb0-e5b9-46b5-b511-7e21f4d1bcb6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeStance"",
+                    ""type"": ""Button"",
+                    ""id"": ""89056eb3-4027-426d-b5a4-30ce91d93703"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -48,20 +57,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""df0515c9-73ed-488e-9222-a6aafeca34a0"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": ""StickDeadzone"",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""WASD"",
-                    ""id"": ""ced0b24e-873f-4364-a5f4-a9ea8706dde7"",
-                    ""path"": ""2DVector"",
+                    ""name"": ""2D Vector"",
+                    ""id"": ""8bf26b28-a84d-4dec-b08b-64e6422f4d99"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -71,7 +69,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""468bb83e-80ce-490c-91fd-7bbc8283944a"",
+                    ""id"": ""5a4f0a77-ac8d-40a9-9a42-dc7ea54c65e9"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -82,7 +80,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""460603e5-876b-4356-b714-ae5f3f1b8b05"",
+                    ""id"": ""7f307632-20f8-4979-a9ca-e56776541806"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -93,7 +91,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""870b7a6f-b0c3-4eba-b20a-7b3bf419d481"",
+                    ""id"": ""357b869a-3b66-4c07-a22f-62244cdcb5c4"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -104,7 +102,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""6dad87eb-dec9-4c14-a86f-dd517a61da81"",
+                    ""id"": ""79e27f2a-7b24-44a0-99ac-d320f15b11d1"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -115,7 +113,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""28d77248-4908-4249-90c5-e06f64181b1a"",
+                    ""id"": ""1cabc499-3639-443d-80c6-fe80b5805b48"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -126,12 +124,12 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1aecab36-8ab6-4fcf-a9e8-2dd4ab4878cf"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""id"": ""12ccedd3-7544-4194-ae89-89a0c713aa70"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Jump"",
+                    ""groups"": """",
+                    ""action"": ""ChangeStance"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -172,6 +170,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+        m_Gameplay_ChangeStance = m_Gameplay.FindAction("ChangeStance", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -233,12 +232,14 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_Jump;
+    private readonly InputAction m_Gameplay_ChangeStance;
     public struct GameplayActions
     {
         private @PlayerActions m_Wrapper;
         public GameplayActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+        public InputAction @ChangeStance => m_Wrapper.m_Gameplay_ChangeStance;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -254,6 +255,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                @ChangeStance.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChangeStance;
+                @ChangeStance.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChangeStance;
+                @ChangeStance.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChangeStance;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -264,6 +268,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @ChangeStance.started += instance.OnChangeStance;
+                @ChangeStance.performed += instance.OnChangeStance;
+                @ChangeStance.canceled += instance.OnChangeStance;
             }
         }
     }
@@ -290,5 +297,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnChangeStance(InputAction.CallbackContext context);
     }
 }

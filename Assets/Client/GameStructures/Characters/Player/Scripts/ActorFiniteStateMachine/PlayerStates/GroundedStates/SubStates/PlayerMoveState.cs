@@ -6,7 +6,7 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
     public class PlayerMoveState : PlayerGroundedState
     {
         protected int moveInt = Animator.StringToHash("Move");
-        public PlayerMoveState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
+        public PlayerMoveState(Player player) : base(player)
         {
         }
 
@@ -23,6 +23,7 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
 
         public override void Exit()
         {
+            base.Exit();
             player.AnimatorController.SetBool(moveInt, false);
         }
 
@@ -30,16 +31,17 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         {
             base.UpdateLogick();
 
-            if(moveX == 0)
+            if(player.Controller.MoveX == 0)
             {
-                stateMachine.ChangeState(player.UnarmedIdleState);
+                stateMachine.ChangeState(player.IdleState);
             }
-            player.Controller.Flip(moveX);
-            player.Controller.Move(moveX);
+            player.Controller.Flip();
         }
 
         public override void UpdatePhysics()
         {
+            base.UpdatePhysics();
+            player.Controller.Move();
         }
     }
 }

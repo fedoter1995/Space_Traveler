@@ -13,7 +13,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         [SerializeField]
         private ActorCombatController _actorCombatController;
         [SerializeField]
-        private CharacteGroundCheckHandler _groundCheckHandler;
+        private CharacterSurfaceCheckHandler _groundCheckHandler;
 
 
 
@@ -33,7 +33,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
 
         public ActorCombatController CombatController => _actorCombatController;
-        public CharacteGroundCheckHandler GroundCheckHandler => _groundCheckHandler;
+        public CharacterSurfaceCheckHandler GroundCheckHandler => _groundCheckHandler;
 
         #region Events
         //Movement events

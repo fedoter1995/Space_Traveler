@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Client/Scenes/Asteroids/Asteroids.unity
-    guid: a1c1bed1ec08e974e9cb87bcfacb5b8e
+    path: Assets/Client/Scenes/SpaceCruiser.unity
+    guid: 8237a8d72d860004f971ce47b2b53d55
   m_configObjects: {}

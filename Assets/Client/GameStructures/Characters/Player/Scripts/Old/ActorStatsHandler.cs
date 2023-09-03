@@ -20,6 +20,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
     {
         private const string HEALTH_POINTS = "Max_Health_Points";
         private const string MOVE_SPEED = "Max_Movement_Speed";
+        private const string JUMP_POWER = "Jump Power";
 
 
         [SerializeField, Header("Standart Stats")]
@@ -32,6 +33,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
         public float HealthPoints { get; private set; }
         public float MoveSpeed { get; private set; } = 2f;
+        public float JumpPower { get; private set; }
 
         public override event Action OnCalculateValuesEvent;
 
@@ -137,7 +139,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         {
             HealthPoints = GetStat(HEALTH_POINTS).Value;
             MoveSpeed = GetStat(MOVE_SPEED).Value;
-
+            JumpPower = GetStat(JUMP_POWER).Value;
             OnCalculateValuesEvent?.Invoke();
         }
         public List<Resistance> GetResistances()
