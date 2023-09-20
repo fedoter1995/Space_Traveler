@@ -6,40 +6,35 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
 {
     public class PlayerInAirState : PlayerState
     {
-        protected int fallInt = Animator.StringToHash("Fall");
+        private int yVelocityHash = Animator.StringToHash("YVelocity");
+        private int dirrection => playerController.Dirrection;
+
+
         public PlayerInAirState(Player player) : base(player)
         {
-            
-        }
+            stateName = "In_Air";
+        } 
 
         public override void Enter()
         {
             base.Enter();
-            animatorController.SetBool(fallInt, true);
-        }
-        public override void Exit()
-        {
-            base.Exit();
-            animatorController.SetBool(fallInt, false);
+            animatorController.Play(currentStateHash);
         }
         public override void UpdateLogick()
         {
-            base.UpdateLogick();
+            float yVelocity = playerController.CurrentVelocityY;
 
-
-            if (playerController.OnGround)
+            if (onGround && yVelocity < 0.01f)
             {
-                if (playerController.MoveX != 0)
-                    stateMachine.ChangeState(player.MoveState);
-                else
-                    stateMachine.ChangeState(player.LandingState);
+                stateMachine.ChangeState(player.LandingState);
             }
-            else if (playerController.SurfaceCheckHandler.CheckLedge(playerController.Dirrection))
+
+            animatorController.SetFloat(yVelocityHash, yVelocity);
+
+            if(surfaceCheckHandler.CheckLedge(dirrection))
             {
                 stateMachine.ChangeState(player.LadgeClimbState);
             }
-            player.Controller.Flip();
-
         }
     }
 }

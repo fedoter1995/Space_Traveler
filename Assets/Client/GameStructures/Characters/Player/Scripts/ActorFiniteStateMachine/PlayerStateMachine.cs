@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
@@ -8,26 +6,54 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
     public class PlayerStateMachine
     {
         public PlayerState CurrentState { get; private set; }
-        public SuperState CurrentSuperState { get; private set; }
-        public void Initialize(SuperState initialSuperState, PlayerState initialState)
+        public PlayerArmedUnarmedState CurrentArmamentState { get; private set; }
+        public SuperState SuperState { get; private set; }
+
+        public void Initialize(PlayerArmedUnarmedState initialSuperState, PlayerState initialState)
         {
-            CurrentSuperState = initialSuperState;
+            CurrentArmamentState = initialSuperState;
             CurrentState = initialState;
-            CurrentSuperState.Enter();
+            CurrentArmamentState.Enter();
             CurrentState.Enter();
         }
-
         public void ChangeState(PlayerState newState)
         {
             CurrentState.Exit();
             CurrentState = newState;
             CurrentState.Enter();
         }
-        public void ChangeSuperState(SuperState newState)
+        public void ChangeArmamentState(PlayerArmedUnarmedState newState)
         {
-            CurrentSuperState.Exit();
-            CurrentSuperState = newState;
-            CurrentSuperState.Enter();
+            CurrentArmamentState.Exit();
+            CurrentArmamentState = newState;
+            CurrentArmamentState.Enter();
+            CurrentState.Enter();
+        }
+        public void SetSuperState(SuperState newState)
+        {
+            if (SuperState != null)
+                ClearSuperState();
+
+            SuperState = newState;
+            SuperState.Enter();
+
+        }
+        public void ClearSuperState()
+        {
+            if (SuperState != null)
+            {
+                SuperState.Exit();
+
+                SuperState = null;
+            }
+
+        }
+        public string GetMainStateName()
+        {
+            if (SuperState != null)
+                return SuperState.Name;
+
+            return CurrentArmamentState.Name;
         }
     }
 }

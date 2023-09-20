@@ -32,9 +32,6 @@ namespace Architecture
 
             return createdMap;
         }
-
-
-
         #region MESSAGES
 
         public void SendMessageOnCreate()
@@ -59,9 +56,6 @@ namespace Architecture
         }
 
         #endregion
-
-
-
         #region INITIALIZING
 
         public Coroutine InitializeAllComponents()
@@ -80,7 +74,6 @@ namespace Architecture
         }
 
         #endregion
-
         public List<T> GetComponents()
         {
             var allComponents = new List<T>(this.componentsMap.Values);

@@ -117,7 +117,6 @@ namespace SpaceTraveler.GameStructures.Stats
         }
         public ShotStats GetShotStats(Vector3 dirrection)
         {
-            Debug.Log(ProjectileSpeed);
             ShotStats shotStats = new ShotStats(dirrection, shotPoints, ProjectileSpeed);
 
             return shotStats;
@@ -135,15 +134,18 @@ namespace SpaceTraveler.GameStructures.Stats
         public override List<StatModifier> GetAllModifiers(string targetStatName, AddedModifiers addedModifiers = null)
         {
             var modifierList = new List<StatModifier>();
+
             var relevantModifiers = new List<StatModifier>();
 
             modifierList.AddRange(CurrentEnvironment.Modifiers);
+
             if(addedModifiers != null)
                 modifierList.AddRange(addedModifiers.Modifiers);
 
             relevantModifiers = modifierList.FindAll(modifier => modifier.HasInfluenceToStat(targetStatName));
 
             var arrangeList = new List<StatModifier>(ArrangeModifiers(relevantModifiers));
+
             return arrangeList;
         }
         public override BaseStat GetStat(string statName)
@@ -186,7 +188,7 @@ namespace SpaceTraveler.GameStructures.Stats
                 }
                 catch (NullReferenceException ex)
                 {
-                    throw new ArgumentNullException("Cant find current DamageOverTime");
+                    throw ex;
                 }
                 try
                 {

@@ -8,11 +8,11 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
     {
         public PlayerUnarmedState(Player player) : base(player)
         {
+            stateName = "Unarmed_States";
         }
         public override void Enter()
         {
             base.Enter();
-            animatorController.SetBool(intArmed, false);
         }
     }
 }

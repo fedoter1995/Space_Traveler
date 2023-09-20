@@ -7,11 +7,11 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
     {
         public PlayerArmedState(Player player) : base(player)
         {
+            stateName = "Armed_States";
         }
         public override void Enter()
         {
             base.Enter();
-            animatorController.SetBool(intArmed, true);
         }
     }
 }

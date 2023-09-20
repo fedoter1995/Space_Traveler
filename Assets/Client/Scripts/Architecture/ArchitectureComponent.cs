@@ -10,12 +10,8 @@ namespace Architecture
 	{
 
 		#region EVENTS
-
 		public event Action OnInitializedEvent;
-
 		#endregion
-
-
 		public ArchitectureComponentState state { get; private set; }
 		public bool isInitialized => this.state == ArchitectureComponentState.Initialized;
 		public bool isLoggingEnabled { get; set; }
@@ -27,9 +23,6 @@ namespace Architecture
 		}
 
 		public virtual void OnCreate() { }
-
-
-
 		#region INITIALIZATION
 
 		public Coroutine InitializeWithRoutine()
@@ -59,7 +52,6 @@ namespace Architecture
 		/// AFTER initialization with routine.
 		/// </summary>
 		protected virtual void Initialize() { }
-
 		/// <summary>
 		/// Initialization contains two parts: with routine and without routine. This method (with routine) runs
 		/// BEFORE initialization without routine.
@@ -72,8 +64,6 @@ namespace Architecture
 		public virtual void OnInitialize() { }
 
 		#endregion
-
-
 		public virtual void OnStart() { }
 
 		protected void Log(string text)

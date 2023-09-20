@@ -5,6 +5,14 @@ public abstract class AnimatorController : MonoBehaviour
 {
     protected Animator animator;
 
+    public void Play(int stateHashName)
+    {
+        animator.Play(stateHashName);
+    }
+    public void Play(string stateName)
+    {
+        animator.Play(stateName);
+    }
     public virtual void Initialize()
     {
         animator = GetComponent<Animator>();

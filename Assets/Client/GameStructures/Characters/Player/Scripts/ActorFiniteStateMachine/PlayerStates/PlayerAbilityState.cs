@@ -18,18 +18,11 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         public override void UpdateLogick()
         {
             base.UpdateLogick();
-
-            if (isAbilityDone)
+            if (!onGround)
             {
-                if (playerController.OnGround && playerController.YVelocity < 0.01f)
-                {
-                    stateMachine.ChangeState(player.IdleState);
-                }
-                else
-                {
-                    stateMachine.ChangeState(player.InAirState);
-                }
+                stateMachine.ChangeState(player.InAirState);
             }
+
         }
     }
 }

@@ -13,9 +13,6 @@ namespace SpaceTraveler.Audio
         [SerializeField]
         private GroundAudioSettings _audioSettings;
 
-
-
-
         public GroundType type => _type;
 
         public GroundAudioSettings AudioSettings => _audioSettings;

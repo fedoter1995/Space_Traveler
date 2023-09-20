@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
 {
-    public class PlayerArmedUnarmedState : SuperState
+    public class PlayerArmedUnarmedState : PlayerState
     {
-        protected int intArmed = Animator.StringToHash("Armed");
         public PlayerArmedUnarmedState(Player player) : base(player)
         {
         }

@@ -53,7 +53,7 @@ MonoBehaviour:
     _baseValue: 5
     _statPreset: {fileID: 11400000, guid: c8ebd83aeb288844f8e5d790f4586ea3, type: 2}
   - _name: Jump Power
-    _baseValue: 300
+    _baseValue: 7
     _statPreset: {fileID: 11400000, guid: ffc2e50745bd41d48bdae260780ddfa2, type: 2}
   _resistances: []
   shotPoints: []

@@ -1,12 +1,6 @@
 ﻿using SpaceTraveler.Audio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 namespace SpaceTraveler.GameStructures.Characters
 {
@@ -30,7 +24,7 @@ namespace SpaceTraveler.GameStructures.Characters
         private float rayDistance = 0.5f;
         private float circleRadius = 0.07f;
         private int currentGroundLayer;
-        private bool onGround = false;
+        private bool onGround = true;
         private float wallLedgeDelta => _ledgeCheckObj.position.y - _wallCheckObj.position.y;
 
 
@@ -50,33 +44,6 @@ namespace SpaceTraveler.GameStructures.Characters
 
                 onGround = value;
                 OnGroundStateChangeEvent?.Invoke(onGround);
-            }
-        }
-
-        private void Update()
-        {
-            CheckGround();
-        }
-        private void CheckGround()
-        {
-
-            var hitLeft = Physics2D.OverlapCircle(_leftFootObject.position, circleRadius, _groundLayers);
-            var hitRight = Physics2D.OverlapCircle(_rightFootObject.position, circleRadius, _groundLayers);
-
-
-            if (hitRight != null)
-            {
-                if (currentGroundLayer != hitRight.gameObject.layer)
-                {
-                    currentGroundLayer = hitRight.gameObject.layer;
-                    GroundTypeChangeEvent?.Invoke(hitRight.GetComponent<GroundSettings>());
-                }
-            }
-
-
-            if (hitLeft != onGround && hitRight != onGround)
-            {
-                OnGround = hitRight;
             }
         }
         public Vector2 DetermineCornerPosition(int dirrection)
@@ -108,9 +75,32 @@ namespace SpaceTraveler.GameStructures.Characters
 
             return false;
         }
+        private void Update()
+        {
+            CheckGround();
+        }
+        private void CheckGround()
+        {
+            var hitLeft = Physics2D.OverlapCircle(_leftFootObject.position, circleRadius, _groundLayers);
+            var hitRight = Physics2D.OverlapCircle(_rightFootObject.position, circleRadius, _groundLayers);
+
+            if (hitRight != null)
+            {
+                if (currentGroundLayer != hitRight.gameObject.layer)
+                {
+                    currentGroundLayer = hitRight.gameObject.layer;
+                    GroundTypeChangeEvent?.Invoke(hitRight.GetComponent<GroundSettings>());
+                }
+            }
+
+            if (hitLeft != onGround && hitRight != onGround)
+            {
+                OnGround = hitRight;
+            }
+        }
         private RaycastHit2D CheckWall(int dirrection)
         {
-            return Physics2D.Raycast(_wallCheckObj.position, new Vector2(dirrection, 0), rayDistance, _wallLayers);             
+            return Physics2D.Raycast(_wallCheckObj.position, new Vector2(dirrection, 0), rayDistance, _wallLayers);           
         }
     }
 }

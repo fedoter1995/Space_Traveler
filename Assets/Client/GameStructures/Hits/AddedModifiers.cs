@@ -1,7 +1,4 @@
-﻿using SpaceTraveler.GameStructures.Effects;
-using SpaceTraveler.GameStructures.Stats;
-using SpaceTraveler.GameStructures.Stats.Chances;
-using SpaceTraveler.GameStructures.Stats.StatModifiers;
+﻿using SpaceTraveler.GameStructures.Stats.StatModifiers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

@@ -26,20 +26,6 @@ namespace SpaceTraveler.Characters.Actor
         public PlayerInputHandler InputHandler {  get; private set; }
         public PlayerController Controller => _controller;
 
-        private void GroundStateChange(bool onGround)
-        {
-            if(!groundCheckExceptions.Contains(StateMachine.CurrentState))
-            {
-                if(onGround)
-                {
-                    StateMachine.ChangeState(LandingState);
-                }
-                else
-                    StateMachine.ChangeState(InAirState);
-                
-            }
-        }
-
         #region Player states
         public PlayerArmedState ArmedState { get; private set; }
         public PlayerUnarmedState UnarmedState { get; private set; }
@@ -48,7 +34,7 @@ namespace SpaceTraveler.Characters.Actor
         public PlayerJumpState JumpState { get; private set; }
         public PlayerInAirState InAirState { get; private set; }
         public PlayerLandingState LandingState { get; private set; }
-        public PlayerLedgeClimbState LadgeClimbState { get; private set; }
+        public PlayerOnLedgeState LadgeClimbState { get; private set; }
         #endregion
         #region Unity Methods
         private void Awake()
@@ -75,25 +61,23 @@ namespace SpaceTraveler.Characters.Actor
             _controller.Initialize(_statsHandler, InputHandler);
             StateMachine = new PlayerStateMachine();
             InitStates();
-            Controller.SurfaceCheckHandler.OnGroundStateChangeEvent += GroundStateChange;
             StateMachine.Initialize(UnarmedState,IdleState);
             
-
         }
         private void InitStates()
         {
             UnarmedState = new PlayerUnarmedState(this);
             ArmedState = new PlayerArmedState(this);
+
             IdleState = new PlayerIdleState(this);
             MoveState = new PlayerMoveState(this);
             JumpState = new PlayerJumpState(this);
             InAirState = new PlayerInAirState(this);
             LandingState = new PlayerLandingState(this);
-            LadgeClimbState = new PlayerLedgeClimbState(this);
+            LadgeClimbState = new PlayerOnLedgeState(this);
 
 
             groundCheckExceptions = new List<PlayerState> { JumpState, InAirState, LadgeClimbState };
-
 
         }
         #endregion

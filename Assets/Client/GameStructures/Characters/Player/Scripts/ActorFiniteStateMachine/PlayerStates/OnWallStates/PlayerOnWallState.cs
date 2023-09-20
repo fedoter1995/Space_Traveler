@@ -11,7 +11,7 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         public override void Enter()
         {
             base.Enter();
-            stateMachine.ChangeSuperState(player.UnarmedState);
+            stateMachine.ChangeArmamentState(player.UnarmedState);
         }
     }
 }

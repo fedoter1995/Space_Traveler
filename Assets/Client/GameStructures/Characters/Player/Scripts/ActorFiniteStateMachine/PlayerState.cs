@@ -1,24 +1,27 @@
 ﻿using Assets.Client.Characters.Player;
+using SpaceTraveler.GameStructures.Characters;
 using SpaceTraveler.GameStructures.Characters.Player;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
 {
     public abstract class PlayerState
     {
+        protected string stateName;
+        public string Name => stateName;
+
         protected Player player;
 
         protected bool isActive = false;
         protected float startTime;
+        protected int currentStateHash;
+
+        protected bool onGround => player.Controller.OnGround;
         protected PlayerStateMachine stateMachine => player.StateMachine;
         protected ActorStatsHandler actorStatsHandler => player.StatsHandler;
         protected PlayerAnimatorController animatorController => player.AnimatorController;
         protected PlayerController playerController => player.Controller;
+        protected CharacterSurfaceCheckHandler surfaceCheckHandler => playerController.SurfaceCheckHandler;
         public PlayerState(Player player)
         {
             this.player = player;
@@ -26,9 +29,9 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
 
         public virtual void Enter()
         {
-            DoChecks();
             Debug.Log($"Enter in {this}");
             isActive = true;
+            currentStateHash = SetStateNameHansh();
             startTime = Time.time;
         }
 
@@ -43,10 +46,10 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         }
         public virtual void UpdatePhysics()
         {
-            DoChecks();
         }
-        public virtual void DoChecks()
+        private int SetStateNameHansh()
         {
+            return Animator.StringToHash(stateMachine.GetMainStateName() + "." + stateName);
         }
     }
 }
