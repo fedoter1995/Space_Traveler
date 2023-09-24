@@ -22,8 +22,6 @@ namespace SpaceTraveler.Characters.Controllers
         }
         public void Move(float velocity)
         {
-            Debug.Log(velocity);
-            Debug.Log(Direction);
             auxiliaryVector.Set(velocity * Direction, CurrentVelocity.y);
             SetFinalVelocity();
         }

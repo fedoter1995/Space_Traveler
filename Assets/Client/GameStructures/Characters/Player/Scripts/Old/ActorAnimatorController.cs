@@ -38,7 +38,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             controller.GroundCheckHandler.OnGroundStateChangeEvent += ChangeOnGroundState;
             controller.GroundCheckHandler.LandingEvent += TriggerLandingAnimation;
 
-            _triggerHandler.EndAttackTriggerEvent += controller.CombatController.OnEndAttackTrigger;
+            _triggerHandler.EndAttackEvent += controller.CombatController.OnEndAttackTrigger;
 
             controller.JumpEvent += Jump;
             controller.ChangeStanceEvent += ChangeStance;
@@ -46,7 +46,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             controller.Attack2Event += OnAttack2;
             controller.BlockStateChangeEvent += BlockStateChange;
             controller.OnMoveStateChangeEvent += WalkAnimation;
-            _triggerHandler.BeginAttackTriggerEvent += SlashSound;
+            _triggerHandler.BeginAttackEvent += SlashSound;
             _triggerHandler.StepEvent += _characterAudioController.OnStep;
         }
         public void TakeDamageAnimation(DamageAttributes stats)

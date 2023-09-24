@@ -21,8 +21,9 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
         private Pool<PoolsParticles> bloodSplashes;
 
 
-        public void Initialize()
+        public override void Initialize()
         {
+            base.Initialize();
             bloodSplashes = new Pool<PoolsParticles>(_bloodParticles,5,transform, true);
         }
 

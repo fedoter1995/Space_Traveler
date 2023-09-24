@@ -1,14 +1,8 @@
-﻿using System.Collections;
-using Unity.VisualScripting;
-using UnityEngine;
-
-namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
+﻿namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
 {
-    public class PlayerArmedUnarmedState : PlayerState
+    public abstract class PlayerArmedUnarmedState : PlayerBaseState
     {
-        public PlayerArmedUnarmedState(Player player) : base(player)
-        {
-        }
+        public PlayerArmedUnarmedState(Player player) : base(player) { }
 
     }
 }

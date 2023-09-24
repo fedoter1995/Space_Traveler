@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Assets.Client.Characters.Player
+namespace SpaceTraveler.Characters.Player
 {
     [RequireComponent(typeof(CharacterAnimationEventsHandler))]
     public class PlayerAnimatorController : AnimatorController

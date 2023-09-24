@@ -93,7 +93,7 @@ namespace SpaceTraveler.GameStructures.Characters
                 }
             }
 
-            if (hitLeft != onGround && hitRight != onGround)
+            if (hitLeft != onGround || hitRight != onGround)
             {
                 OnGround = hitRight;
             }

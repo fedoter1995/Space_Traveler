@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
+﻿namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
 {
     public class PlayerStateMachine
     {
@@ -27,7 +24,8 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
             CurrentArmamentState.Exit();
             CurrentArmamentState = newState;
             CurrentArmamentState.Enter();
-            CurrentState.Enter();
+
+            ChangeState(CurrentState);
         }
         public void SetSuperState(SuperState newState)
         {
@@ -43,10 +41,8 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
             if (SuperState != null)
             {
                 SuperState.Exit();
-
                 SuperState = null;
             }
-
         }
         public string GetMainStateName()
         {

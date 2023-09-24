@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
+namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
 {
     public class PlayerIdleState : PlayerGroundedState
     {
@@ -16,7 +16,6 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         {
             base.Enter();
             player.Controller.SetVelocityZero();
-            player.AnimatorController.Play(currentStateHash);
         }
 
         public override void UpdateLogick()

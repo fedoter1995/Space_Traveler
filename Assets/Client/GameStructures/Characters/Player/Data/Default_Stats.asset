@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8363947f21aad9f4ea38ca927003fff3, type: 3}
+  m_Name: Default_Stats
+  m_EditorClassIdentifier: 
+  _handlerType: 0
+  _environment: {fileID: 11400000, guid: 284c6f17c6895de4a941dd494ce9b202, type: 2}
+  _damages:
+  - _name: Physical
+    _baseValue: 10
+    _damagePreset: {fileID: 11400000, guid: 4b80589b9b9123c4791247993da4618b, type: 2}
+  - _name: Energy
+    _baseValue: 10
+    _damagePreset: {fileID: 11400000, guid: 2f7f554d65420f74794b67f889368d39, type: 2}
+  _dotChances:
+  - _name: Bleed Chance
+    _baseValue: 0
+    _dotChancePreset: {fileID: 11400000, guid: bf106b774ff93534ab6ab915e7e8ee1d, type: 2}
+  _dotDamages:
+  - _name: Bleed Damage
+    _baseValue: 10
+    _dotPreset: {fileID: 11400000, guid: 3e735eb36d922954a821dfc1d65176ef, type: 2}
+  _durations: []
+  _frequencies:
+  - _name: Bleed Frequency
+    _baseValue: 1
+    _preset: {fileID: 11400000, guid: fdbcee744abbe5d41b204537f573c34f, type: 2}
+  _multipliers:
+  - _name: Physical crit multi
+    _baseValue: 1.5
+    _multiplierPreset: {fileID: 11400000, guid: 39d0ae6a1c9cd124585fbc801da97162, type: 2}
+  _multiplieChances:
+  - _name: Physical crit chance
+    _baseValue: 10
+    _multiplierChancePreset: {fileID: 11400000, guid: 44e63b8c83634fb419ae6cad05e7dfeb, type: 2}
+  _stats:
+  - _name: Max_Health_Points
+    _baseValue: 50
+    _statPreset: {fileID: 11400000, guid: ccb74381b994ea94094e00f9e3a25e55, type: 2}
+  - _name: Movement_Speed
+    _baseValue: 5
+    _statPreset: {fileID: 11400000, guid: c8ebd83aeb288844f8e5d790f4586ea3, type: 2}
+  - _name: Jump Power
+    _baseValue: 7
+    _statPreset: {fileID: 11400000, guid: ffc2e50745bd41d48bdae260780ddfa2, type: 2}
+  _resistances: []
+  shotPoints: []

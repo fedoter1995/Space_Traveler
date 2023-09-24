@@ -1,45 +1,35 @@
-﻿using Assets.Client.Characters.Player;
+﻿using SpaceTraveler.Audio;
 using SpaceTraveler.GameStructures.Characters;
 using SpaceTraveler.GameStructures.Characters.Player;
 using UnityEngine;
 
-namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
+namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
 {
-    public abstract class PlayerState
+    public abstract class PlayerState : PlayerBaseState
     {
-        protected string stateName;
-        public string Name => stateName;
-
-        protected Player player;
-
-        protected bool isActive = false;
-        protected float startTime;
-        protected int currentStateHash;
-
         protected bool onGround => player.Controller.OnGround;
-        protected PlayerStateMachine stateMachine => player.StateMachine;
-        protected ActorStatsHandler actorStatsHandler => player.StatsHandler;
-        protected PlayerAnimatorController animatorController => player.AnimatorController;
-        protected PlayerController playerController => player.Controller;
-        protected CharacterSurfaceCheckHandler surfaceCheckHandler => playerController.SurfaceCheckHandler;
-        public PlayerState(Player player)
+        protected int currentStateHash;
+        public PlayerState(Player player) : base(player)
         {
             this.player = player;
         }
 
-        public virtual void Enter()
+        public override void Enter()
         {
-            Debug.Log($"Enter in {this}");
-            isActive = true;
-            currentStateHash = SetStateNameHansh();
-            startTime = Time.time;
-        }
+            base.Enter();
+            player.Controller.SurfaceCheckHandler.OnGroundStateChangeEvent += OnGroundStateChange;
+            player.Controller.SurfaceCheckHandler.GroundTypeChangeEvent += OnGroundTypeChange;
+            currentStateHash = SetStateNameHash();
 
-        public virtual void Exit()
+            if(currentStateHash != 0) 
+                player.AnimatorController.Play(currentStateHash);
+        }
+        public override void Exit()
         {
-            isActive = false;
+            player.Controller.SurfaceCheckHandler.OnGroundStateChangeEvent -= OnGroundStateChange;
+            player.Controller.SurfaceCheckHandler.GroundTypeChangeEvent -= OnGroundTypeChange;
+            base.Exit();
         }
-
         public virtual void UpdateLogick()
         {
 
@@ -47,9 +37,27 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         public virtual void UpdatePhysics()
         {
         }
-        private int SetStateNameHansh()
+
+        protected virtual int SetStateNameHash()
         {
+            if (string.IsNullOrEmpty(stateName))
+            {
+                return 0;
+            }
+
             return Animator.StringToHash(stateMachine.GetMainStateName() + "." + stateName);
+        }
+        private void OnGroundTypeChange(GroundSettings settings)
+        {
+            if (isActive)
+                player.AudioController.ChangeGroundSettings(settings.AudioSettings);
+        }
+        private void OnGroundStateChange(bool onGround)
+        {
+                if (!onGround)
+                {
+                    stateMachine.ChangeState(player.InAirState);
+                }            
         }
     }
 }

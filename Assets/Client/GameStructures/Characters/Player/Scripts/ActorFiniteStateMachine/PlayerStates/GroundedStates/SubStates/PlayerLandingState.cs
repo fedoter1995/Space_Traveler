@@ -1,8 +1,4 @@
-using SpaceTraveler.Characters.Actor.ActorFiniteStateMachine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
+namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
 {
     public class PlayerLandingState : PlayerGroundedState
     {
@@ -17,7 +13,8 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
             
             if (playerController.CurrentVelocityY < -10)
             {
-                animatorController.Play(currentStateHash);
+                playerAnimatorController.Play(currentStateHash);
+                player.AudioController.OnLanding();
             }
             else
             {

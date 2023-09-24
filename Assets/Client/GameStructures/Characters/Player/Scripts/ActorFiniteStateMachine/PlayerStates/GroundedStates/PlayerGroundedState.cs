@@ -1,22 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+using SpaceTraveler.Audio;
+using System;
 using UnityEngine;
 
-namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
+namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
 {
     public abstract class PlayerGroundedState : PlayerState
     {
         protected int moveX => player.Controller.MoveX;
-
-        protected PlayerGroundedState(Player player) : base(player)
-        {
-            player.Controller.InputHandler.JumpEvent += Jump;
-            player.Controller.InputHandler.ChangeStanceEvent += ChangeStance;
-            player.Controller.SurfaceCheckHandler.OnGroundStateChangeEvent += OnGroundStateChange;
-        }
+        protected PlayerGroundedState(Player player) : base(player) { }
         public override void Enter()
         {
             base.Enter();
+            player.InputHandler.JumpEvent += Jump;
+            player.InputHandler.ChangeStanceEvent += ChangeStance;
+            player.InputHandler.FirstAttackEvent += OnFirstAttackTriggered;
+            player.OnLedgeState.CanGrab = true;
+        }
+
+        public override void Exit()
+        {
+            player.InputHandler.JumpEvent -= Jump;
+            player.InputHandler.ChangeStanceEvent -= ChangeStance;
+            player.Controller.InputHandler.FirstAttackEvent -= OnFirstAttackTriggered;
+            base.Exit();
+        }
+        public override void UpdateLogick()
+        {
+            base.UpdateLogick();
         }
         private void Jump()
         {
@@ -36,18 +46,14 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
             }
 
         }
-        private void OnGroundStateChange(bool onGround)
+        private void OnFirstAttackTriggered()
         {
-            if (isActive)
-            {
-                if (!onGround)
-                {
-                    stateMachine.ChangeState(player.InAirState);
-                }
-            }
+            if (stateMachine.CurrentArmamentState != player.ArmedState)
+                stateMachine.ChangeArmamentState(player.ArmedState);
+
+            stateMachine.ChangeState(player.FirstAttackState);
         }
 
-        
     }
 }
 

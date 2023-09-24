@@ -53,6 +53,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""First_Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d506da3-0625-4a90-a209-086f966e9c19"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""ChangeStance"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d09e9efc-8457-4091-85e3-fd351d778d61"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""First_Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -171,6 +191,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_ChangeStance = m_Gameplay.FindAction("ChangeStance", throwIfNotFound: true);
+        m_Gameplay_First_Attack = m_Gameplay.FindAction("First_Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -233,6 +254,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_ChangeStance;
+    private readonly InputAction m_Gameplay_First_Attack;
     public struct GameplayActions
     {
         private @PlayerActions m_Wrapper;
@@ -240,6 +262,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @ChangeStance => m_Wrapper.m_Gameplay_ChangeStance;
+        public InputAction @First_Attack => m_Wrapper.m_Gameplay_First_Attack;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +281,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @ChangeStance.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChangeStance;
                 @ChangeStance.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChangeStance;
                 @ChangeStance.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnChangeStance;
+                @First_Attack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFirst_Attack;
+                @First_Attack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFirst_Attack;
+                @First_Attack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFirst_Attack;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -271,6 +297,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @ChangeStance.started += instance.OnChangeStance;
                 @ChangeStance.performed += instance.OnChangeStance;
                 @ChangeStance.canceled += instance.OnChangeStance;
+                @First_Attack.started += instance.OnFirst_Attack;
+                @First_Attack.performed += instance.OnFirst_Attack;
+                @First_Attack.canceled += instance.OnFirst_Attack;
             }
         }
     }
@@ -298,5 +327,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnChangeStance(InputAction.CallbackContext context);
+        void OnFirst_Attack(InputAction.CallbackContext context);
     }
 }

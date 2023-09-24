@@ -10,7 +10,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
     public class PlayerInputHandler : MonoBehaviour
     {
 
-        private PlayerActions _palyerActions;
+        private PlayerActions _playerActions;
 
         private Vector2 moveInput;
 
@@ -20,10 +20,10 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
         public event Action ChangeStanceEvent;
         public event Action JumpEvent;
-
+        public event Action FirstAttackEvent;
         private void Awake()
         {
-            _palyerActions = new PlayerActions();
+            _playerActions = new PlayerActions();
         }
         private void OnEnable()
         {
@@ -31,9 +31,10 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         }
         private void OnDisable()
         {
-            _palyerActions.Gameplay.Movement.Disable();
-            _palyerActions.Gameplay.Jump.Disable();
-            _palyerActions.Gameplay.ChangeStance.Disable();
+            _playerActions.Gameplay.Movement.Disable();
+            _playerActions.Gameplay.Jump.Disable();
+            _playerActions.Gameplay.ChangeStance.Disable();
+            _playerActions.Gameplay.First_Attack.Disable();
         }
         private void OnMoveInput(InputAction.CallbackContext context)
         {            
@@ -46,20 +47,23 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         public void EndJump() => JumpInput = false;
         private void OnJump(InputAction.CallbackContext context) => JumpEvent?.Invoke();
         private void OnChangeStance(InputAction.CallbackContext context) => ChangeStanceEvent?.Invoke();
+        private void OnFirstAttackInput(InputAction.CallbackContext context) => FirstAttackEvent?.Invoke();
         private void Initialize()
         {
-            _palyerActions.Gameplay.Movement.started += OnMoveInput;
-            _palyerActions.Gameplay.Movement.performed += OnMoveInput;
-            _palyerActions.Gameplay.Movement.canceled += OnMoveInput;
+            _playerActions.Gameplay.Movement.started += OnMoveInput;
+            _playerActions.Gameplay.Movement.performed += OnMoveInput;
+            _playerActions.Gameplay.Movement.canceled += OnMoveInput;
 
 
-            _palyerActions.Gameplay.Jump.started += OnJump;
-            _palyerActions.Gameplay.ChangeStance.started += OnChangeStance;
+            _playerActions.Gameplay.Jump.started += OnJump;
+            _playerActions.Gameplay.ChangeStance.started += OnChangeStance;
 
+            _playerActions.Gameplay.First_Attack.started += OnFirstAttackInput;
 
-            _palyerActions.Gameplay.Movement.Enable();
-            _palyerActions.Gameplay.Jump.Enable();
-            _palyerActions.Gameplay.ChangeStance.Enable();
+            _playerActions.Gameplay.Movement.Enable();
+            _playerActions.Gameplay.Jump.Enable();
+            _playerActions.Gameplay.ChangeStance.Enable();
+            _playerActions.Gameplay.First_Attack.Enable();
         }
 
     }

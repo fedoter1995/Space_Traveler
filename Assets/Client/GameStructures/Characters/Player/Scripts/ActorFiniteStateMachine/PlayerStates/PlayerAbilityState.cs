@@ -1,11 +1,11 @@
-﻿using UnityEditor;
+﻿using SpaceTraveler.Audio;
+using UnityEditor;
 using UnityEngine;
 
-namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
+namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
 {
     public abstract class PlayerAbilityState : PlayerState
     {
-        protected bool isAbilityDone;
         protected PlayerAbilityState(Player player) : base(player)
         {
         }
@@ -13,16 +13,11 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         public override void Enter()
         {
             base.Enter();
-            isAbilityDone = false;
         }
-        public override void UpdateLogick()
+        public override void Exit()
         {
-            base.UpdateLogick();
-            if (!onGround)
-            {
-                stateMachine.ChangeState(player.InAirState);
-            }
-
+            base.Exit();
         }
+
     }
 }

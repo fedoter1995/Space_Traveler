@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
+
+namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
 {
     public class PlayerMoveState : PlayerGroundedState
     {
@@ -13,12 +12,13 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         public override void Enter()
         {
             base.Enter();
-            player.AnimatorController.Play(currentStateHash);
+            playerAnimatorController.EventsHandler.StepEvent += OnStep;          
         }
 
         public override void Exit()
         {
             base.Exit();
+            playerAnimatorController.EventsHandler.StepEvent -= OnStep;
         }
 
         public override void UpdateLogick()
@@ -37,7 +37,10 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
             }   
 
         }
-
+        private void OnStep()
+        {
+            player.AudioController.OnStep();
+        }
         public override void UpdatePhysics()
         {
             base.UpdatePhysics();

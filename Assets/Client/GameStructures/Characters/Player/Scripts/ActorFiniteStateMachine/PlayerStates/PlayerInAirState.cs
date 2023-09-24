@@ -1,8 +1,9 @@
+using SpaceTraveler.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
+namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
 {
     public class PlayerInAirState : PlayerState
     {
@@ -18,7 +19,13 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
         public override void Enter()
         {
             base.Enter();
-            animatorController.Play(currentStateHash);
+
+            playerAnimatorController.Play(currentStateHash);
+        }
+        public override void Exit()
+        {
+            base.Exit();
+
         }
         public override void UpdateLogick()
         {
@@ -29,13 +36,14 @@ namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
                 stateMachine.ChangeState(player.LandingState);
             }
 
-            animatorController.SetFloat(yVelocityHash, yVelocity);
+            playerAnimatorController.SetFloat(yVelocityHash, yVelocity);
 
-            if(surfaceCheckHandler.CheckLedge(dirrection))
+            if(surfaceCheckHandler.CheckLedge(dirrection) && player.OnLedgeState.CanGrab)
             {
-                stateMachine.ChangeState(player.LadgeClimbState);
+                stateMachine.SetSuperState(player.OnLedgeState);
             }
         }
+
     }
 }
 

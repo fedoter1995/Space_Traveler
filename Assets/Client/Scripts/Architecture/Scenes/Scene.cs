@@ -16,7 +16,6 @@ namespace Architecture
         public ComponentsBase<IUIController> uiControllers { get; }
         public ComponentsBase<IRepository> repositoriesBase { get; }
         public ComponentsBase<IInteractor> interactorsBase { get; }
-
         public EnvironmentSettings DefaultEnvironment => sceneConfig.environmentSettings;
 
         public Scene(SceneConfig config)

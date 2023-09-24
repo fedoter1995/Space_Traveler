@@ -1,8 +1,4 @@
-﻿using SpaceTraveler.Characters.Actor.ActorFiniteStateMachine;
-using System.Collections;
-using UnityEngine;
-
-namespace SpaceTraveler.Characters.Actor.ActorFiniteStateMachine
+﻿namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
 {
     public class PlayerUnarmedState : PlayerArmedUnarmedState
     {
