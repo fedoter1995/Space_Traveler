@@ -10,39 +10,47 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
     public class HumanoidEnemyAnimatorController : AnimatorController
     {
         [SerializeField]
-        private PoolsParticles _bloodParticles;
+        private PoolsParticles m_bloodParticles;
+        [SerializeField]
+        private CharacterAnimationEventsHandler m_eventsHandler;
+        [SerializeField]
+        private SpriteRenderer m_spriteRenderer;
         [SerializeField]
         private Transform _vfxParent;
-
+        
+        private int IntIdle = Animator.StringToHash("Idle");
         private int IntHurt = Animator.StringToHash("Hurt");
         private int IntDeath = Animator.StringToHash("Death");
 
 
         private Pool<PoolsParticles> bloodSplashes;
-
+        public CharacterAnimationEventsHandler EventsHandler => m_eventsHandler;
 
         public override void Initialize()
         {
             base.Initialize();
-            bloodSplashes = new Pool<PoolsParticles>(_bloodParticles,5,transform, true);
+            bloodSplashes = new Pool<PoolsParticles>(m_bloodParticles,5,transform, true);
+            m_eventsHandler.HurtEndEvent += OnHurtEnd;
         }
 
-        public void TakeHitAnimation()
+        public void TakeDamageAnimation()
         {
             BloodAnimation();
-            SetTrigger(IntHurt);
-
+            Play(IntHurt);
         }
         public void DeathAnimation()
         {
-            SetTrigger(IntDeath);
+            Play(IntDeath);
         }
         private void BloodAnimation()
         {
             var particles = bloodSplashes.GetFreeObject();
             particles.transform.position = _vfxParent.position;
         }
-
+        private void OnHurtEnd()
+        {
+            Play(IntIdle);
+        }
 
     }
 }

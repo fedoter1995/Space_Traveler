@@ -1,4 +1,5 @@
-﻿using SpaceTraveler.GameStructures.Stats.Presets;
+﻿using SpaceTraveler.GameStructures.Effects;
+using SpaceTraveler.GameStructures.Stats.Presets;
 using System;
 using System.Collections.Generic;
 using System.Linq;

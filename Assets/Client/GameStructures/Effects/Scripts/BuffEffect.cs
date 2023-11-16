@@ -1,5 +1,4 @@
-﻿using SpaceTraveler.GameStructures.Effects.Presets;
-using System;
+﻿using System;
 using System.Threading;
 using UnityEngine;
 

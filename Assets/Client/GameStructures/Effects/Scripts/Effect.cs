@@ -1,12 +1,9 @@
-﻿using Assets.Client.GameStructures.Stats.Scripts.Presets;
-using SpaceTraveler.GameStructures.Stats;
-using System;
-using UnityEngine;
+﻿using System;
 
 namespace SpaceTraveler.GameStructures.Effects
 {
     [Serializable]
-    public abstract class Effect 
+    public abstract class Effect
     {
         public abstract void OnEffectAplly();
     }

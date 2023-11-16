@@ -15,4 +15,7 @@ MonoBehaviour:
   _animationId: 1
   _slashAudio: {fileID: 8300000, guid: 180adffc79b38644babfd860ee5c927e, type: 3}
   _addedModifiers:
-    _modifiers: []
+    _modifiers:
+    - _preset: {fileID: 11400000, guid: 6ec912f2f070a094bb2600bdaf85d517, type: 2}
+      _value: 100
+      _affects: 00000000

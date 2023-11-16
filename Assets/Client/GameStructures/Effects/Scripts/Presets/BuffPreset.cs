@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceTraveler.GameStructures.Effects.Presets
+namespace SpaceTraveler.GameStructures.Effects
 {
     [CreateAssetMenu(menuName = "Buffs/New_BuffPreset")]
     public class BuffPreset : ScriptableObject

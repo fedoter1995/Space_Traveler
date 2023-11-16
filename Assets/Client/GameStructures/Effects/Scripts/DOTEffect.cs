@@ -1,5 +1,4 @@
 ﻿using SpaceTraveler.GameStructures.Stats;
-using SpaceTraveler.GameStructures.Stats.PackedStats;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

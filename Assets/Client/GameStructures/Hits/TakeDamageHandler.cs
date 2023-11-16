@@ -3,19 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Stats.Chances;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using Unity.VisualScripting;
 using Assets.Client.GameStructures.Stats.PackedStats;
-using SpaceTraveler.GameStructures.Effects;
-using SpaceTraveler.GameStructures.Stats.PackedStats;
 
 namespace SpaceTraveler.GameStructures.Hits
 {
-    public class TakeDamageHandler : TakeHitHandler
+    public class TakeDamageHandler : MonoBehaviour
     {
 
         public event Action<DamageAttributes> OnTakeDamageEvent;
-        public override event Action<HitStats> OnTakeHitEvent;
 
         private IHaveDefenciveStats handler;
 
@@ -27,7 +22,6 @@ namespace SpaceTraveler.GameStructures.Hits
             this.handler = handler;
         }
 
-
         public void TakeDamage(object sender, HitDamage damage)
         {
 
@@ -38,7 +32,7 @@ namespace SpaceTraveler.GameStructures.Hits
                 if(dmg.Value > 0)
                 {
 
-                    TakeDamageMessage damageMessage = new TakeDamageMessage(sender, gameObject, dmg);
+                    TakeDamageMessage damageMessage = new TakeDamageMessage(sender.ToString(), gameObject, dmg);
 
                     Debug.Log(damageMessage);
 
@@ -53,23 +47,11 @@ namespace SpaceTraveler.GameStructures.Hits
 
             if (currentDamage.Value > 0)
             {
-                TakeDamageMessage damageMessage = new TakeDamageMessage(sender, gameObject, currentDamage);
+                TakeDamageMessage damageMessage = new TakeDamageMessage(sender.ToString(), gameObject, currentDamage);
 
                 OnTakeDamageEvent?.Invoke(currentDamage);
 
                 Debug.Log(damageMessage);
-            }
-
-        }
-        public override void TakeHit(object sender, HitStats hitStats)
-        {
-            var takenDamage = CalculateDamage(hitStats);
-
-            OnTakeHitEvent?.Invoke(hitStats);
-
-            if(!takenDamage.IsZeroValue())
-            {
-                TakeDamage(sender, takenDamage);
             }
 
         }
@@ -117,7 +99,7 @@ namespace SpaceTraveler.GameStructures.Hits
 
             return currentDamage;
         }
-        private HitDamage CalculateDamage(HitStats stats)
+        public HitDamage CalculateDamage(HitStats stats)
         {
             var resultDamage = CalculateCritDamage(stats.HitDamage, stats.MultStats);
 

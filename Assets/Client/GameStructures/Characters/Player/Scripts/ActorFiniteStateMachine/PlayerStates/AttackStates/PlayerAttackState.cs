@@ -17,6 +17,7 @@ namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
             playerAnimatorController.EventsHandler.EndAttackEvent += OnAttackEnd;
             playerAnimatorController.EventsHandler.DamageTriggeredEvent += OnDamageTriggered;
             playerAnimatorController.Play(currentStateHash);
+            playerController.SetVelocityZero();
         }
 
         public override void Exit()

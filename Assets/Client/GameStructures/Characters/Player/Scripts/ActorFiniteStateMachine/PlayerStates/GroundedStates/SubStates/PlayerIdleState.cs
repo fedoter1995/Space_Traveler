@@ -27,10 +27,6 @@ namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
             }
         }
 
-        public override void UpdatePhysics()
-        {
-            base.UpdatePhysics();
-        }
     }
 }
 

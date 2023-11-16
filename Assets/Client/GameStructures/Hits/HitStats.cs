@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SpaceTraveler.GameStructures.Effects;
-using SpaceTraveler.GameStructures.Stats.Chances;
 using SpaceTraveler.GameStructures.Stats.PackedStats;
 using Assets.Client.GameStructures.Stats.PackedStats;
 

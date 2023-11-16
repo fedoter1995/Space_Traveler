@@ -1,7 +1,6 @@
 ﻿using SpaceTraveler.GameStructures.Characters;
 using SpaceTraveler.Audio;
 using SpaceTraveler.GameStructures.Stats;
-using SpaceTraveler.Scripts;
 using System;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
     public class ActorAnimatorController : AnimatorController
     {
         [SerializeField]
-        private CharactersAudioController _characterAudioController;
+        private CharacterAudioController _characterAudioController;
         [SerializeField]
         private CharacterAnimationEventsHandler _triggerHandler;
         

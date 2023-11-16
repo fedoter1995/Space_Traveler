@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 
-namespace Assets.Client.GameStructures.Effects.Scripts.Presets
+namespace SpaceTraveler.GameStructures.Effects
 {
-    internal class EffectPreset
+    public class EffectPreset : ScriptableObject
     {
     }
 }

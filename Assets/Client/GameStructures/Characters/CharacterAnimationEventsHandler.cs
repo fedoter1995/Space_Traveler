@@ -14,12 +14,19 @@ namespace SpaceTraveler.GameStructures.Characters
         public event Action EndLandingEvent;
         public event Action EndClimbEvent;
         public event Action StepEvent;
+        public event Action HurtEndEvent;
+        public event Action DeathEndEvent;
+        public event Action CrouchEndEvent;
         #endregion
-        
+
         public void OnEndAttack(int attackId) => EndAttackEvent?.Invoke(attackId);
         public void OnDamageTriggered(int attackId) => DamageTriggeredEvent?.Invoke(attackId);
         public void OnBeginAttack(int attackId) => BeginAttackEvent?.Invoke(attackId);
         public void OnEndTransition() => EndTransitionEvent?.Invoke();
+        public void OnHurtEnd() => HurtEndEvent?.Invoke();
+        public void OnDeathEnd() => DeathEndEvent?.Invoke();
+        public void OnCrouchEnd() => CrouchEndEvent?.Invoke();
+
 
 
         public void OnStep() => StepEvent?.Invoke();

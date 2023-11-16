@@ -9,7 +9,7 @@ public class HitObject : MonoBehaviour, ITakeHit
     private ITakeHit mainHitObject;
     public Vector3 Position => transform.position;
 
-    public IHaveTakeHitHandler Obj => throw new NotImplementedException();
+    public IHaveTakeDamageHandler Obj => throw new NotImplementedException();
 
     public TriggerObjectType Type => throw new NotImplementedException();
 

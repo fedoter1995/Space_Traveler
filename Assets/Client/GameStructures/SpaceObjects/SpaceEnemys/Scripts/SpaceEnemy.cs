@@ -1,12 +1,11 @@
 using CustomTools;
 using CustomTools.Observable;
 using GameStructures.Enemys;
-using SpaceTraveler.GameStructures.Effects;
+using SpaceTraveler.GameStructures.Characters;
 using SpaceTraveler.GameStructures.Gear.Weapons;
 using SpaceTraveler.GameStructures.Hits;
 using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Zones;
-using SpaceTraveler.Scripts;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -23,7 +22,7 @@ namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
         [SerializeField]
         private SpaceEnemyStatsHandler _stats;
         [SerializeField]
-        private ProtectiveComponentsHandler _protectiveComponents;
+        private TakeHitHandler _protectiveComponents;
         [SerializeField]
         private SpaceEnemyAnimatorController _enemyAnimatorController;
         [SerializeField]
@@ -61,7 +60,7 @@ namespace SpaceTraveler.GameStructures.Enemys.SpaceEnemys
             controller.Initialize(this);
 
             _protectiveComponents.Initialize(StatsHandler);
-            _protectiveComponents.OnTakeDamageEvent += TakeDamage;
+            _protectiveComponents.TakeDamageEvent += TakeDamage;
 
             if (CurrentHealthPoints == null)
                 CurrentHealthPoints = new Observable<int>((int)_stats.HealthPoints);

@@ -17,14 +17,14 @@ namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
         {
             base.Enter();
             playerAnimatorController.EventsHandler.EndTransitionEvent += OnTransitionEnd;
-            player.InputHandler.FirstAttackEvent += OnAttackButtonPressed;
+            player.InputHandler.FirstAttackButtonEvent += OnAttackButtonPressed;
             playerAnimatorController.Play(currentStateHash);
         }
         public override void Exit()
         {
             base.Exit();
             playerAnimatorController.EventsHandler.EndTransitionEvent -= OnTransitionEnd;
-            player.InputHandler.FirstAttackEvent -= OnAttackButtonPressed;
+            player.InputHandler.FirstAttackButtonEvent -= OnAttackButtonPressed;
 
         }
         public void SetNextAttackState(PlayerAttackState state)

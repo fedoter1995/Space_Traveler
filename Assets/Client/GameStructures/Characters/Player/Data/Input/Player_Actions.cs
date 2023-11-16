@@ -62,6 +62,24 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Block"",
+                    ""type"": ""Button"",
+                    ""id"": ""f754cdae-29be-4e6f-88c1-c5c985d198c4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""71b5126f-9c11-4516-b132-682d234ead95"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +170,28 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""First_Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a001c9dd-9fc4-4659-830b-d6e3aed5d06e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9835f11-0617-4235-8baa-ac7bc7268886"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -192,6 +232,8 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_ChangeStance = m_Gameplay.FindAction("ChangeStance", throwIfNotFound: true);
         m_Gameplay_First_Attack = m_Gameplay.FindAction("First_Attack", throwIfNotFound: true);
+        m_Gameplay_Block = m_Gameplay.FindAction("Block", throwIfNotFound: true);
+        m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -255,6 +297,8 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_ChangeStance;
     private readonly InputAction m_Gameplay_First_Attack;
+    private readonly InputAction m_Gameplay_Block;
+    private readonly InputAction m_Gameplay_Crouch;
     public struct GameplayActions
     {
         private @PlayerActions m_Wrapper;
@@ -263,6 +307,8 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @ChangeStance => m_Wrapper.m_Gameplay_ChangeStance;
         public InputAction @First_Attack => m_Wrapper.m_Gameplay_First_Attack;
+        public InputAction @Block => m_Wrapper.m_Gameplay_Block;
+        public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -284,6 +330,12 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @First_Attack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFirst_Attack;
                 @First_Attack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFirst_Attack;
                 @First_Attack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFirst_Attack;
+                @Block.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBlock;
+                @Block.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBlock;
+                @Block.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBlock;
+                @Crouch.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -300,6 +352,12 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @First_Attack.started += instance.OnFirst_Attack;
                 @First_Attack.performed += instance.OnFirst_Attack;
                 @First_Attack.canceled += instance.OnFirst_Attack;
+                @Block.started += instance.OnBlock;
+                @Block.performed += instance.OnBlock;
+                @Block.canceled += instance.OnBlock;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
             }
         }
     }
@@ -328,5 +386,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnChangeStance(InputAction.CallbackContext context);
         void OnFirst_Attack(InputAction.CallbackContext context);
+        void OnBlock(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
 }

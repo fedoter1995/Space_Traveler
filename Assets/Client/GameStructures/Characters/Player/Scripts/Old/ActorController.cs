@@ -1,6 +1,5 @@
 ﻿using SpaceTraveler.Audio;
 using SpaceTraveler.GameStructures.Hits;
-using SpaceTraveler.Scripts;
 using System;
 using System.Drawing.Text;
 using UnityEngine;

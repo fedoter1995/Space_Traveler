@@ -1,8 +1,8 @@
 ﻿
 using SpaceTraveler.GameStructures.Hits;
 
-public interface IHaveTakeHitHandler
+public interface IHaveTakeDamageHandler
 {
-     TakeHitHandler TakeHitHandler { get; }
+     TakeDamageHandler TakeHitHandler { get; }
 }
 

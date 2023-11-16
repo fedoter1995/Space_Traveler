@@ -11,22 +11,27 @@ namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
         public override void Enter()
         {
             base.Enter();
-            player.InputHandler.JumpEvent += Jump;
+            player.InputHandler.JumpButtonEvent += Jump;
             player.InputHandler.ChangeStanceEvent += ChangeStance;
-            player.InputHandler.FirstAttackEvent += OnFirstAttackTriggered;
+            player.InputHandler.FirstAttackButtonEvent += OnFirstAttackButtonTriggered;
+            player.InputHandler.BlockButtonEvent += ShieldBlock;
+            player.InputHandler.ChangePostureButtonEvent += ChangePosture;
             player.OnLedgeState.CanGrab = true;
         }
 
         public override void Exit()
         {
-            player.InputHandler.JumpEvent -= Jump;
+            player.InputHandler.JumpButtonEvent -= Jump;
             player.InputHandler.ChangeStanceEvent -= ChangeStance;
-            player.Controller.InputHandler.FirstAttackEvent -= OnFirstAttackTriggered;
+            player.Controller.InputHandler.FirstAttackButtonEvent -= OnFirstAttackButtonTriggered;
+            player.InputHandler.BlockButtonEvent -= ShieldBlock;
+            player.InputHandler.ChangePostureButtonEvent -= ChangePosture;
             base.Exit();
         }
         public override void UpdateLogick()
         {
             base.UpdateLogick();
+            
         }
         private void Jump()
         {
@@ -46,14 +51,33 @@ namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
             }
 
         }
-        private void OnFirstAttackTriggered()
+        private void OnFirstAttackButtonTriggered()
         {
+            if (stateMachine.PostureState != player.StandingState)
+                stateMachine.ChangePostureState(player.StandingState);
+
             if (stateMachine.CurrentArmamentState != player.ArmedState)
                 stateMachine.ChangeArmamentState(player.ArmedState);
 
             stateMachine.ChangeState(player.FirstAttackState);
         }
+        protected virtual void ShieldBlock(bool isBlock)
+        {
+            if(isBlock)
+            {
+                if (stateMachine.CurrentArmamentState != player.ArmedState)
+                    stateMachine.ChangeArmamentState(player.ArmedState);
 
+                stateMachine.ChangeState(player.BlockState);
+            }
+        }
+        protected virtual void ChangePosture()
+        {
+            if (stateMachine.PostureState == player.StandingState)
+                stateMachine.ChangePostureState(player.CrouchingState);
+            else
+                stateMachine.ChangePostureState(player.StandingState);
+        }
     }
 }
 

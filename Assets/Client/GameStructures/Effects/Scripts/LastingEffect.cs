@@ -1,5 +1,4 @@
-﻿using SpaceTraveler.GameStructures.Stats.Presets;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -18,10 +17,10 @@ namespace SpaceTraveler.GameStructures.Effects
         protected int duration = 0;
 
         protected CancellationToken sharedСancellationToken;
-
+        protected CancellationToken personalСancellationToken;
 
         private CancellationTokenSource cts;
-        protected CancellationToken personalСancellationToken;
+
 
         public event Action<int> EverySecondsEvent;
         public event Action<LastingEffect> OnEffectEndEvent;

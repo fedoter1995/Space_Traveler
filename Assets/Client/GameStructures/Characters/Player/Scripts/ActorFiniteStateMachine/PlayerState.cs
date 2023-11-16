@@ -11,7 +11,6 @@ namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
         protected int currentStateHash;
         public PlayerState(Player player) : base(player)
         {
-            this.player = player;
         }
 
         public override void Enter()
@@ -21,8 +20,11 @@ namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
             player.Controller.SurfaceCheckHandler.GroundTypeChangeEvent += OnGroundTypeChange;
             currentStateHash = SetStateNameHash();
 
-            if(currentStateHash != 0) 
+            if(currentStateHash != 0)
                 player.AnimatorController.Play(currentStateHash);
+
+            Debug.Log(stateMachine.GetMainStateName() + "." + stateName);
+
         }
         public override void Exit()
         {
@@ -45,7 +47,10 @@ namespace SpaceTraveler.Characters.Player.PlayerFiniteStateMachine
                 return 0;
             }
 
-            return Animator.StringToHash(stateMachine.GetMainStateName() + "." + stateName);
+            if(stateName != "")
+                return Animator.StringToHash(stateMachine.GetMainStateName() + "." + stateName);
+            else
+                return Animator.StringToHash(stateMachine.GetMainStateName());
         }
         private void OnGroundTypeChange(GroundSettings settings)
         {

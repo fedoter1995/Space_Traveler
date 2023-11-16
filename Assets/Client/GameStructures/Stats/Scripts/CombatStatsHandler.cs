@@ -101,7 +101,7 @@ namespace SpaceTraveler.GameStructures.Stats
                 }
                 try
                 {
-                    duration = durations.Find(dur => dur.DurationPreset == chance.ChancePreset.DotDurationRef);
+                    duration = durations.Find(dur => dur.DurationPreset == chance.ChancePreset.DamageOverTimeDurationRef);
                     durations.Remove(duration);
                 }
                 catch (NullReferenceException ex)

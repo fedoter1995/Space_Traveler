@@ -12,7 +12,7 @@ using SpaceTraveler.GameStructures.Gear;
 using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Items;
 using SpaceTraveler.GameStructures.Zones;
-using SpaceTraveler.Scripts;
+using SpaceTraveler.GameStructures.Characters;
 
 namespace SpaceTraveler.GameStructures.Spaceship
 {
@@ -28,7 +28,7 @@ namespace SpaceTraveler.GameStructures.Spaceship
         [SerializeField]
         private StarshipStatsHandler _stats;
         [SerializeField]
-        private ProtectiveComponentsHandler _protectiveComponentsHandler;
+        private TakeHitHandler _protectiveComponentsHandler;
         [SerializeField]
         private WorkshopSettings _workshopSettings;
         
@@ -70,7 +70,7 @@ namespace SpaceTraveler.GameStructures.Spaceship
 
             _protectiveComponentsHandler.Initialize(StatsHandler);
 
-            _protectiveComponentsHandler.OnTakeDamageEvent += TakeDamage;
+            _protectiveComponentsHandler.TakeDamageEvent += TakeDamage;
 
             HealthPoints = new Observable<int>((int)_stats.HealthPoints);
         }

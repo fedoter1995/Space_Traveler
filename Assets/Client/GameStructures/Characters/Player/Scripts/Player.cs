@@ -1,9 +1,11 @@
 using SpaceTraveler.Characters.Player.PlayerFiniteStateMachine;
+using SpaceTraveler.GameStructures.Characters;
 using SpaceTraveler.GameStructures.Characters.Player;
 using SpaceTraveler.GameStructures.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 namespace SpaceTraveler.Characters.Player
 {
@@ -17,9 +19,9 @@ namespace SpaceTraveler.Characters.Player
         [SerializeField]
         private PlayerController m_controller;
         [SerializeField]
-        private PlayerAudioController m_audioController;
+        private CharacterAudioController m_audioController;
 
-        public PlayerAudioController AudioController => m_audioController;
+        public CharacterAudioController AudioController => m_audioController;
         public PlayerAnimatorController AnimatorController => m_animatorController;
         public PlayerStateMachine StateMachine { get; private set; }
         public PlayerStatsHandler StatsHandler => m_statsHandler;
@@ -42,10 +44,16 @@ namespace SpaceTraveler.Characters.Player
         #region Super States
         public PlayerOnLedgeState OnLedgeState { get; private set; }
         #endregion
+        #region Posture States
+        public PlayerStandingState StandingState { get; private set; }
+        public PlayerCrouchingState CrouchingState { get; private set; }
+        public PlayerCrouchState CrouchState { get; private set; }
+        #endregion
         #region Attack States
         public PlayerAttackState FirstAttackState { get; private set; }
         public PlayerAttackState SecondAttackState { get; private set; }
         public PlayerAttackState ThirdAttackState { get; private set; }
+        public PlayerBlockState BlockState { get; private set; }
         #endregion
         #region Attack Transition States
         public PlayerAttackTransition FirstAttackTransition { get; private set; }
@@ -75,7 +83,7 @@ namespace SpaceTraveler.Characters.Player
             m_controller.Initialize(this);
             StateMachine = new PlayerStateMachine();
             InitStates();
-            StateMachine.Initialize(UnarmedState, IdleState);
+            StateMachine.Initialize(UnarmedState, StandingState, IdleState);
             InitCombatStates();
 
         }
@@ -98,6 +106,10 @@ namespace SpaceTraveler.Characters.Player
             //Super states
             OnLedgeState    = new PlayerOnLedgeState(this);
 
+            //Posture States
+            StandingState = new PlayerStandingState(this);
+            CrouchingState = new PlayerCrouchingState(this);
+            CrouchState = new PlayerCrouchState(this);
 
         }
         private void InitCombatStates()
@@ -115,7 +127,9 @@ namespace SpaceTraveler.Characters.Player
 
 
             FirstAttackState.SetTransition(FirstAttackTransition);
-            SecondAttackState.SetTransition(SecondAttackTransition);    
+            SecondAttackState.SetTransition(SecondAttackTransition);
+
+            BlockState = new PlayerBlockState(this);
 
         }
         #endregion

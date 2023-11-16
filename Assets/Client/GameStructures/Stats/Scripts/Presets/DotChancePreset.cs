@@ -20,7 +20,7 @@ namespace SpaceTraveler.GameStructures.Stats.Presets
         private FrequencyPreset _frequencyRef;
 
         public DamageOverTimePreset DamageOverTimeRef => _damageOverTimeRef;
-        public DurationPreset DotDurationRef => _dotDurationRef;
+        public DurationPreset DamageOverTimeDurationRef => _dotDurationRef;
         public FrequencyPreset FrequencyRef => _frequencyRef;
 
     }

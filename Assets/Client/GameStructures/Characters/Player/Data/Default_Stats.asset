@@ -29,7 +29,10 @@ MonoBehaviour:
   - _name: Bleed Damage
     _baseValue: 10
     _dotPreset: {fileID: 11400000, guid: 3e735eb36d922954a821dfc1d65176ef, type: 2}
-  _durations: []
+  _durations:
+  - _name: Bleed_Duration
+    _baseValue: 10
+    _dotPreset: {fileID: 11400000, guid: 6a8cd4fc91610a74ba4a05075a86458b, type: 2}
   _frequencies:
   - _name: Bleed Frequency
     _baseValue: 1

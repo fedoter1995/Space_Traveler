@@ -1,5 +1,4 @@
-﻿using SpaceTraveler.Scripts;
-using CustomTools.Observable;
+﻿using CustomTools.Observable;
 using SpaceTraveler.GameStructures.Gear;
 using SpaceTraveler.GameStructures.ItemCollections;
 using SpaceTraveler.GameStructures.Stats;
@@ -24,7 +23,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         [SerializeField]
         private ActorStatsHandler _stats;
         [SerializeField]
-        private ProtectiveComponentsHandler _protectiveComponentsHandler;
+        private TakeHitHandler _protectiveComponentsHandler;
         [SerializeField]
         private ActorAnimatorController _animatorController;
 
@@ -63,7 +62,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
 
 
             _protectiveComponentsHandler.Initialize(StatsHandler);
-            _protectiveComponentsHandler.OnTakeDamageEvent += OnTakeDamage;
+            _protectiveComponentsHandler.TakeDamageEvent += OnTakeDamage;
         }
         private void OnTakeDamage(object sender, DamageAttributes damageStats)
         {

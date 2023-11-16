@@ -34,7 +34,7 @@ namespace SpaceTraveler.GameStructures.Meteors
         public AsteroidType Type => _type;
         public Vector3 Position => transform.position;
 
-        public TakeHitHandler TakeHitHandler => _takeDamageHandler;
+        public TakeDamageHandler TakeHitHandler => _takeDamageHandler;
 
         public virtual void Initialize()
         {

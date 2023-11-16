@@ -1,40 +1,52 @@
 using CustomTools.Observable;
+using DG.Tweening;
+using SpaceTraveler.Characters.HumanoidEnemyes.HumanoidEnemyStateMachine;
+using SpaceTraveler.Characters.Player.PlayerFiniteStateMachine;
+using SpaceTraveler.GameStructures.Characters.Player;
 using SpaceTraveler.GameStructures.Enemys;
 using SpaceTraveler.GameStructures.Hits;
 using SpaceTraveler.GameStructures.Stats;
 using SpaceTraveler.GameStructures.Zones;
-using SpaceTraveler.Scripts;
 using System;
+using System.Collections;
 using UnityEngine;
 namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
 {
-    [RequireComponent(typeof(ProtectiveComponentsHandler), typeof(HumanoidEnemyAnimatorController), typeof(HumanoidEnemyAnimatorController))]
+    [RequireComponent(typeof(TakeHitHandler), typeof(HumanoidEnemyController))]
     public class HumanoidEnemy : MonoBehaviour, IEnemy
     {
-
         [SerializeField]
-        private ProtectiveComponentsHandler _protectiveComponentsHandler;
+        private TakeHitHandler _takeHitHandler;
         [SerializeField]
         private HumanoidEnemyAnimatorController _animatorController;
         [SerializeField]
-        private MeleHumanoidEnemyStatsHandler _statsHandler;
+        private ActorStatsHandler _statsHandler;
         [SerializeField]
         private HumanoidEnemyController _controller;
-
-
-        public Observable<int> CurrentHealthPoints { get; private set; }
-
-        public TriggerObjectType Type => TriggerObjectType.Enemy;
-        public Vector3 Position => transform.position;
-
+        [SerializeField]
+        private CharacterAudioController _charactersAudioController;
 
         public event Action<int> HeathPointsChangedEvent;
         public event Action OnTakeHitEvent;
         public event Action<object, DamageAttributes> OnTakeDamageEvent;
 
+        public Observable<int> CurrentHealthPoints { get; private set; }
+
+        public TriggerObjectType Type => TriggerObjectType.Enemy;
+        public Vector3 Position => transform.position;
+        public EnemyStateMachine StateMachine { get; private set; }
+        public ActorStatsHandler StatsHandler => _statsHandler;
+        public HumanoidEnemyController Controller => _controller;
+        public HumanoidEnemyAnimatorController AnimatorController => _animatorController;
+        public CharacterAudioController AudioController => _charactersAudioController;
+        public TakeHitHandler TakeHitHandler => _takeHitHandler;
+        #region Enemy States
+        public EnemyIdleState IdleState { get; private set; }
+        #endregion
+
         public void TakeHit(object sender, HitStats hitStats)
         {
-            _protectiveComponentsHandler.TakeHit(sender, hitStats);
+            _takeHitHandler.TakeHit(sender, hitStats);
         }
         public void TakeDamage(object sender, DamageAttributes damage)
         {
@@ -45,14 +57,46 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
 
             OnTakeDamageEvent?.Invoke(sender, damage);
 
+            _animatorController.TakeDamageAnimation();
+
             if (CurrentHealthPoints.Value <= 0 )
             {
                 OnDeath();
             }
-
-            Debug.Log(CurrentHealthPoints.Value);
         }
 
+
+        private void Awake()
+        {
+            _statsHandler.Initialize(this);
+            _takeHitHandler.Initialize(_statsHandler);
+            _animatorController.Initialize();
+            
+            InitializeStates();
+
+            StateMachine = new EnemyStateMachine();
+            StateMachine.Initialize(IdleState);
+
+
+            CurrentHealthPoints = new Observable<int>((int)_statsHandler.HealthPoints);
+
+            _takeHitHandler.TakeHitEvent += OnTakeHit;
+            _takeHitHandler.TakeDamageEvent += TakeDamage;
+            _animatorController.EventsHandler.DeathEndEvent += DestroyEnemy;
+        }
+
+        private void DestroyEnemy()
+        {
+            StartCoroutine(DestroyEnemyRoutine());
+        }
+
+        private IEnumerator DestroyEnemyRoutine()
+        {
+            yield return new WaitForSeconds(1);
+            var endPosition = transform.position - Vector3.up;
+            transform.DOMove(endPosition, 2f).OnComplete(() => Destroy(gameObject));
+        }
+        
         private void OnReceivingheal(object sender, HealAttributes heal)
         {
             if (heal.Value <= 0)
@@ -63,22 +107,18 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
         }
         private void OnDeath()
         {
-            _protectiveComponentsHandler.OnDeath();
+            _takeHitHandler.OnDeath();
             _animatorController.DeathAnimation();
         }
 
-        private void Awake()
-        {                     
-            _statsHandler.Initialize(this);
-            _protectiveComponentsHandler.Initialize(_statsHandler);
-            _animatorController.Initialize();
-
-            CurrentHealthPoints = new Observable<int>((int)_statsHandler.MaxHealthPoints);
-
-            _protectiveComponentsHandler.OnTakeHitEvent += _animatorController.TakeHitAnimation;
-            _protectiveComponentsHandler.OnTakeDamageEvent += TakeDamage;
+        private void OnTakeHit(HitStats stats)
+        {
+            
         }
-
+        private void InitializeStates()
+        {
+            IdleState = new EnemyIdleState(this);
+        }
     }
 }
 
