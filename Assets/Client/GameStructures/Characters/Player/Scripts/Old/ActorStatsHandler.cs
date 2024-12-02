@@ -31,9 +31,9 @@ namespace SpaceTraveler.GameStructures.Characters.Player
         private List<ShootPosition> shotPoints;
 
 
-        public float HealthPoints { get; private set; }
-        public float MoveSpeed { get; private set; } = 2f;
-        public float JumpPower { get; private set; }
+        public float HealthPoints { get; private set; } = 1f;
+        public float MoveSpeed { get; private set; } = 1f;
+        public float JumpPower { get; private set; } = 1f;
 
         public override event Action OnCalculateValuesEvent;
 
@@ -141,6 +141,7 @@ namespace SpaceTraveler.GameStructures.Characters.Player
             MoveSpeed = GetStat(MOVE_SPEED).Value;
             JumpPower = GetStat(JUMP_POWER).Value;
             OnCalculateValuesEvent?.Invoke();
+            Debug.Log("Values Calculated");
         }
         public List<Resistance> GetResistances()
         {

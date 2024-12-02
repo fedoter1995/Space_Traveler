@@ -26,6 +26,7 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
         [SerializeField]
         private CharacterAudioController _charactersAudioController;
 
+
         public event Action<int> HeathPointsChangedEvent;
         public event Action OnTakeHitEvent;
         public event Action<object, DamageAttributes> OnTakeDamageEvent;
@@ -118,6 +119,12 @@ namespace SpaceTraveler.GameStructures.Characters.HumanoidEnemyes
         private void InitializeStates()
         {
             IdleState = new EnemyIdleState(this);
+        }
+
+        public void UpdateStats()
+        {
+            StatsHandler.CalculateValues();
+            CurrentHealthPoints = new Observable<int>((int)_statsHandler.HealthPoints);
         }
     }
 }
