@@ -716,11 +716,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: c7ecd982-0475-40e1-a413-e857a35a043a
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Space_Traveler
+  organizationId: fedoter1995
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
